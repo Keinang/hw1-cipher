@@ -4,13 +4,20 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class DestKey {
 	
 	public DestKey() {
 		destKey_ = new HashMap<Character, Character>();
-		
+		for (char ch = 'a'; ch <= 'z' ; ch++){
+			destKey_.put(ch, '?');
+		}
+		for (char ch = 'A'; ch <= 'Z' ; ch++){
+			destKey_.put(ch, '?');
+		}
+		for (char ch = '0'; ch <= '9' ; ch++){
+			destKey_.put(ch, '?');
+		}
 		
 	}
 
@@ -20,12 +27,24 @@ public class DestKey {
 		 BufferedWriter out;
 		try {
 			out = new BufferedWriter(new FileWriter(filename));
-			out.write("{");
-			for (Iterator<Character> iterator = destKey_.keySet().iterator(); iterator.hasNext();) {
-				Character keyChar = (Character) iterator.next();
-				out.write(destKey_.get(keyChar)+",");
+			for (char ch = 'a'; ch <= 'z' ; ch++){
+				out.write(ch +"="+destKey_.get(ch)+" ");
+				out.write('\n');
 			}
-			out.write("}");
+			for (char ch = 'A'; ch <= 'Z' ; ch++){
+				out.write(ch +"="+destKey_.get(ch)+" ");
+				out.write('\n');
+			}
+			for (char ch = '0'; ch <= '9' ; ch++){
+				out.write(ch +"="+destKey_.get(ch)+" ");
+				out.write('\n');
+			}
+			
+//			for (Iterator<Character> iterator = destKey_.keySet().iterator(); iterator.hasNext();) {
+//				Character keyChar = (Character) iterator.next();
+//				out.write(destKey_.get(keyChar)+",");
+//			}
+			
 	        out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
