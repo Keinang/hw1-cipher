@@ -6,14 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class CiperText {
+public class CipherText {
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
-	private DestKey dk_ = new DestKey();
-	private static String ciperText_ = "";
+	private DestKey destKey_ = new DestKey();
 	
-	public CiperText(){
-		initLettersFreq();
-		cipher(ciperText_);
+	
+	public CipherText(){
 	}
 	/**
 	 * Initializing the Letters Map Frequency
@@ -35,12 +33,22 @@ public class CiperText {
 	 */
 	public static void main(String[] args) {
 		//The cipher text:
-		ciperText_ = args[0];
-		if (ciperText_ == null){
-			System.out.println("There is now Text file as input");
+		String cipherText = args[0];
+		if (cipherText == null){
+			System.out.println("There is no Text file as input");
 			return;
 		}
-		final CiperText ct = new CiperText();
+		CipherText ct = new CipherText();
+		ct.initLettersFreq();
+		
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		//make encrypt to work with
+		Encrypt encrypt = new Encrypt(cipherText, "encryptedTxt.txt");
+		encrypt.on();
+		cipherText = "encryptedTxt.txt";
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		
+		ct.cipher(cipherText);
 	}
 	
 	/**
@@ -48,13 +56,13 @@ public class CiperText {
 	 * @param ciperText
 	 * @return the destination key
 	 */
-	private void cipher(String ciperText) {
+	private void cipher(String cipherText) {
     	BufferedReader in;
 		try {
-			in = new BufferedReader(new FileReader(ciperText));
+			in = new BufferedReader(new FileReader(cipherText));
 			String str;
 		    while ((str = in.readLine()) != null) {
-		    //Doing Operations on File :
+		    	//Doing Operations on File :
 		    	//calculating Frequency
 		       calcFreq(str);
 		    }
@@ -62,13 +70,15 @@ public class CiperText {
 		    
 		    //Done Calculating with File
 		    printFreq();
-		    //
 		} catch (FileNotFoundException e) {
 			System.out.println("File is not found");
 			System.exit(0);
 		} catch (IOException e) {
 		}
-		dk_.tostring(ciperText_+"_key.txt");
+		//writing to file the Result key :
+		int tmpIndex = cipherText.indexOf('.');
+		String tmpFilename = cipherText.substring(0,tmpIndex);
+		destKey_.tostring(tmpFilename+"_key.txt");
 	}
 	
     /**
@@ -84,10 +94,11 @@ public class CiperText {
 				Integer.valueOf(ch) >=97 && Integer.valueOf(ch) <=122){
 				int tmpValue = lettersFreq_.get(ch);
 				lettersFreq_.put(ch, ++tmpValue);
-			}
+			} 
 		}
 	}
 	private void printFreq(){
+		System.out.println("Frequently of text :");
 		for (char ch = 'a'; ch <= 'z' ; ch++){
 			System.out.print(ch +"="+lettersFreq_.get(ch)+" ");
 		}

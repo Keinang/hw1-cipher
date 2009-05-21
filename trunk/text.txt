@@ -1,72 +1,12 @@
-Some readers may be writing their own programs of an “ASCII Modulated
-OTP” in Ada and other languages and the reader has a few experiences
-to share here that might help.
+In cryptography, a ciphertext-only attack (COA) or known ciphertext attack is an attack model for cryptanalysis where the attacker is assumed to have access only to a set of ciphertexts.
 
-The general algorithm is;
+The attack is completely successful if the corresponding plaintexts can be deduced, or even better, the key. The ability to obtain any information at all about the underlying plaintext is still considered a success. For example, if an adversary is sending ciphertext continuously to maintain traffic-flow security, it would be very useful to be able to distinguish real messages from nulls. Even making an informed guess of the existence of real messages would facilitate traffic analysis.
 
-(Key + text) Mod N = Cipher-text.
+In the history of cryptography, early ciphers, implemented using pen-and-paper, were routinely broken using ciphertexts alone. Cryptographers developed statistical techniques for attacking ciphertext, such as frequency analysis. Mechanical encryption devices such as Enigma made these attacks much more difficult (although, historically, Polish cryptographers were able to mount a successful ciphertext-only cryptanalysis of the Enigma by exploiting an insecure protocol for indicating the message settings).
 
-As somebody said earlier, any N up to 256 will do. Not all N’s have
-been tried yet (it is not an issue) and the writer can only say that N
-= 127 is ok up to now. After some thought the writer thinks that N =
-150 is a suitable one for experiment (trying that soon). This will
-give a symmetric spread (not an ussue either)of the cipher text about
-the 32 – 126 subset of so-called ’95 writable’ characters.
+Every modern cipher attempts to provide protection against ciphertext-only attacks. The vetting process for a new cipher design standard usually takes many years and includes exhaustive testing of large quantities of ciphertext for any statistical departure from random noise. See: Advanced Encryption Standard process. Also, the field of steganography evolved, in part, to develop methods like mimic functions that allow one piece of data to adopt the statistical profile of another. Nonetheless poor cipher usage or reliance on home-grown proprietary algorithms that have not been subject to thorough scrutiny has resulted in many computer-age encryption systems that are still subject to ciphertext-only attack. Examples include:
 
-Being writable is important only as far as entering keys and text via
-the key board by the user goes. To the computer everything is
-writable and it has symbols to display on screen and save in files as
-cipher text for all of the characters in ASCII including the full
-extended set of 256, beyond the ordinary set of 128.
-
-Using any N means that the ensuing cipher text will be in the range
-0 .. N-1 for any N (this is in ASCII numerical values). Clearly, a
-lot of the cipher text will be outside the writable range when N = 150
-say or indeed for any N..
-
-Please note: Experience on my old home computer is that when the
-cipher text is composed of non-writable and writable mixed characters
-there is no problem whatever in creating cipher text and saving it to
-an external file but when I want to read back from that file at
-decryption time a small problem arises because (I think) the cipher
-text includes characters that the Ada language uses to mark “End of
-line” and “End of File”. When the computer reads these at decryption
-time it acts on them during the read back as its cue to do something
-else rather than read it as cipher text and closes the cipher text
-file prematurely before it has all been read in for decryption.
-
-The solution is to save the cipher text to the external file at
-encryption time in its ASCII numerical value form as “dummy cipher
-text” – it reads back normally when this is done. It may be just my
-old computer acting up but I don’t think it is that – feed back from
-anyone in the know would be appreciated.
-
-The above ploy of using ‘dummy’ surrogate cipher text does not weaken
-the real cipher text in any way, the file of numbers is not random to
-an adversary but when it is ‘cracked’ it only reveals the normal
-cipher text string in its true non-numerical form which does not do
-anything to weaken it for the adversary.
-
-The 95 writable characters are still considered the best option for
-the key domain although the full set of 256 characters of ASCII could
-be used with some extra effort in programming. There is no visible
-benefit in doing that yet.
-
-Technical details.
-
-The keypad domain is a permutation space (95 x n) ! (factorial) in
-extent, ‘n’ being the integer multiple used to create a ‘sized’ key
-pad domain. The cipher text is now a different permutation space of
-greater extent than the key pad space (that’s just in passing),
-contrary to previous incorrect statements from me in this respect. A
-cipher-text string is always the same length as the keypad of course.
-
-A key space comprised of an Ada -95 “Case Statement” package
-containing 14250 random characters is to hand and on offer just for
-the asking to anybody as a download. It’s a huge task to make this up
-and your's won’t be any different to mine at the end of the day, just
-a different permutation doing it yourself. It’s up to you.
-
-The encryption algorithm adds the random key string to the non-
-random plaintext string and the result is random cipher text. –
-Cheers, Adacrypt
+Early versions of Microsoft's PPTP virtual private network software used the same RC4 key for the sender and the receiver (later versions had other problems). In any case where a stream cipher like RC4 is used twice with the same key it is open to ciphertext-only attack. See: stream cipher attack 
+Wired Equivalent Privacy (WEP), the first security protocol for Wi-Fi, proved vulnerable to several attacks, most of them ciphertext-only. 
+Some modern cipher designs have later been shown to be vulnerable to ciphertext-only attacks. For example, Akelarre. 
+A cipher whose key space is too small is subject to brute force attack with access to nothing but ciphertext by simply trying all possible keys. All that is needed is some way to distinguish valid plaintext from random noise, never a problem for natural languages. One example is DES, which only has 56-bit keys. All too common current examples are commercial security products that derive keys for otherwise impregnable ciphers like AES from a user-selected password. Since users rarely employ passwords with anything close to the entropy of the cipher's key space, such systems are often quite easy to break in practice using only ciphertext.
