@@ -23,8 +23,6 @@ public class CiperText {
 
 	private static DestKey cipher(String ciperText) {
 		DestKey dk = new DestKey();
-		dk.getDestKey_().put('B', '3');
-		dk.getDestKey_().put('A', '2');
 		readFromFile(ciperText);
 		return dk ;
 	}
