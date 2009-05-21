@@ -1,1 +1,72 @@
-hello whats up
+Some readers may be writing their own programs of an “ASCII Modulated
+OTP” in Ada and other languages and the reader has a few experiences
+to share here that might help.
+
+The general algorithm is;
+
+(Key + text) Mod N = Cipher-text.
+
+As somebody said earlier, any N up to 256 will do. Not all N’s have
+been tried yet (it is not an issue) and the writer can only say that N
+= 127 is ok up to now. After some thought the writer thinks that N =
+150 is a suitable one for experiment (trying that soon). This will
+give a symmetric spread (not an ussue either)of the cipher text about
+the 32 – 126 subset of so-called ’95 writable’ characters.
+
+Being writable is important only as far as entering keys and text via
+the key board by the user goes. To the computer everything is
+writable and it has symbols to display on screen and save in files as
+cipher text for all of the characters in ASCII including the full
+extended set of 256, beyond the ordinary set of 128.
+
+Using any N means that the ensuing cipher text will be in the range
+0 .. N-1 for any N (this is in ASCII numerical values). Clearly, a
+lot of the cipher text will be outside the writable range when N = 150
+say or indeed for any N..
+
+Please note: Experience on my old home computer is that when the
+cipher text is composed of non-writable and writable mixed characters
+there is no problem whatever in creating cipher text and saving it to
+an external file but when I want to read back from that file at
+decryption time a small problem arises because (I think) the cipher
+text includes characters that the Ada language uses to mark “End of
+line” and “End of File”. When the computer reads these at decryption
+time it acts on them during the read back as its cue to do something
+else rather than read it as cipher text and closes the cipher text
+file prematurely before it has all been read in for decryption.
+
+The solution is to save the cipher text to the external file at
+encryption time in its ASCII numerical value form as “dummy cipher
+text” – it reads back normally when this is done. It may be just my
+old computer acting up but I don’t think it is that – feed back from
+anyone in the know would be appreciated.
+
+The above ploy of using ‘dummy’ surrogate cipher text does not weaken
+the real cipher text in any way, the file of numbers is not random to
+an adversary but when it is ‘cracked’ it only reveals the normal
+cipher text string in its true non-numerical form which does not do
+anything to weaken it for the adversary.
+
+The 95 writable characters are still considered the best option for
+the key domain although the full set of 256 characters of ASCII could
+be used with some extra effort in programming. There is no visible
+benefit in doing that yet.
+
+Technical details.
+
+The keypad domain is a permutation space (95 x n) ! (factorial) in
+extent, ‘n’ being the integer multiple used to create a ‘sized’ key
+pad domain. The cipher text is now a different permutation space of
+greater extent than the key pad space (that’s just in passing),
+contrary to previous incorrect statements from me in this respect. A
+cipher-text string is always the same length as the keypad of course.
+
+A key space comprised of an Ada -95 “Case Statement” package
+containing 14250 random characters is to hand and on offer just for
+the asking to anybody as a download. It’s a huge task to make this up
+and your's won’t be any different to mine at the end of the day, just
+a different permutation doing it yourself. It’s up to you.
+
+The encryption algorithm adds the random key string to the non-
+random plaintext string and the result is random cipher text. –
+Cheers, Adacrypt

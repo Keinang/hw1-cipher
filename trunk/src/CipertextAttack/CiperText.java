@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.HashMap;
 
 public class CiperText {
 	/**
@@ -22,8 +22,11 @@ public class CiperText {
 	}
 
 	private static DestKey cipher(String ciperText) {
+		DestKey dk = new DestKey();
+		dk.getDestKey_().put('B', '3');
+		dk.getDestKey_().put('A', '2');
 		readFromFile(ciperText);
-		return new DestKey(new Vector<Character>());
+		return dk ;
 	}
 	
     private static void readFromFile(String ciperText) {
@@ -32,7 +35,7 @@ public class CiperText {
 			in = new BufferedReader(new FileReader(ciperText));
 			String str;
 		    while ((str = in.readLine()) != null) {
-		       //calcFreq(str);
+		       //System.out.println(str);
 		    }
 		    in.close();	
 		} catch (FileNotFoundException e) {
