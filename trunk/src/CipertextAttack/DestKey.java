@@ -18,7 +18,6 @@ public class DestKey {
 		for (char ch = '0'; ch <= '9' ; ch++){
 			destKey_.put(ch, '?');
 		}
-		
 	}
 
 	private HashMap<Character, Character> destKey_;
@@ -39,11 +38,6 @@ public class DestKey {
 				out.write(ch +"="+destKey_.get(ch)+" ");
 				out.write('\n');
 			}
-			
-//			for (Iterator<Character> iterator = destKey_.keySet().iterator(); iterator.hasNext();) {
-//				Character keyChar = (Character) iterator.next();
-//				out.write(destKey_.get(keyChar)+",");
-//			}
 			
 	        out.close();
 		} catch (IOException e) {
