@@ -28,15 +28,14 @@ public class DestKey {
 			out = new BufferedWriter(new FileWriter(filename));
 			for (char ch = 'a'; ch <= 'z' ; ch++){
 				out.write(ch +"="+destKey_.get(ch)+" ");
-				out.write('\n');
 			}
+			out.write('\n');
 			for (char ch = 'A'; ch <= 'Z' ; ch++){
 				out.write(ch +"="+destKey_.get(ch)+" ");
-				out.write('\n');
 			}
+			out.write('\n');
 			for (char ch = '0'; ch <= '9' ; ch++){
 				out.write(ch +"="+destKey_.get(ch)+" ");
-				out.write('\n');
 			}
 			
 	        out.close();
