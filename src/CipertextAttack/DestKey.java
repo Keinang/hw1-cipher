@@ -7,35 +7,35 @@ import java.util.HashMap;
 
 public class DestKey {
 	
+	private HashMap<Character, Character> key;
+	
 	public DestKey() {
-		destKey_ = new HashMap<Character, Character>();
+		key = new HashMap<Character, Character>();
 		for (char ch = 'a'; ch <= 'z' ; ch++){
-			destKey_.put(ch, '?');
+			key.put(ch, '?');
 		}
 		for (char ch = 'A'; ch <= 'Z' ; ch++){
-			destKey_.put(ch, '?');
+			key.put(ch, '?');
 		}
 		for (char ch = '0'; ch <= '9' ; ch++){
-			destKey_.put(ch, '?');
+			key.put(ch, '?');
 		}
 	}
 
-	private HashMap<Character, Character> destKey_;
-	
 	public void tostring(String filename){
 		 BufferedWriter out;
 		try {
 			out = new BufferedWriter(new FileWriter(filename));
 			for (char ch = 'a'; ch <= 'z' ; ch++){
-				out.write(ch +"="+destKey_.get(ch)+" ");
+				out.write(ch +"="+key.get(ch)+" ");
 			}
 			out.write('\n');
 			for (char ch = 'A'; ch <= 'Z' ; ch++){
-				out.write(ch +"="+destKey_.get(ch)+" ");
+				out.write(ch +"="+key.get(ch)+" ");
 			}
 			out.write('\n');
 			for (char ch = '0'; ch <= '9' ; ch++){
-				out.write(ch +"="+destKey_.get(ch)+" ");
+				out.write(ch +"="+key.get(ch)+" ");
 			}
 			
 	        out.close();
@@ -43,13 +43,9 @@ public class DestKey {
 			e.printStackTrace();
 		}
 	}
-	
-	public void setDestKey_(HashMap<Character,Character>  destKey_) {
-		this.destKey_ = destKey_;
-	}
 
-	public HashMap<Character,Character> getDestKey_() {
-		return destKey_;
+	public HashMap<Character, Character> getKey() {
+		return key;
 	}
 	
 }
