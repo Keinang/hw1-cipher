@@ -7,6 +7,27 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class CiperText {
+	HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
+	static DestKey dk = new DestKey();
+	public CiperText(){
+		initLettersFreq();
+
+	}
+	/**
+	 * Initializing the Letters Map Frequency
+	 */
+	private void initLettersFreq() {
+		for (char ch = 'a'; ch <= 'z' ; ch++){
+			lettersFreq_.put(ch, 0);
+		}
+		for (char ch = 'A'; ch <= 'Z' ; ch++){
+			lettersFreq_.put(ch, 0);
+		}
+		for (char ch = '0'; ch <= '9' ; ch++){
+			lettersFreq_.put(ch, 0);
+		}
+	}
+	
 	/**
 	 * @param args - cipher text
 	 */
@@ -20,28 +41,42 @@ public class CiperText {
 		DestKey key = cipher(ciperText);
 		key.tostring(ciperText+"_key.txt");
 	}
-
-	private static DestKey cipher(String ciperText) {
-		DestKey dk = new DestKey();
-		readFromFile(ciperText);
-		return dk ;
-	}
 	
-    private static void readFromFile(String ciperText) {
+	/**
+	 * Main program 
+	 * @param ciperText
+	 * @return the destination key
+	 */
+	private static DestKey cipher(String ciperText) {
     	BufferedReader in;
 		try {
 			in = new BufferedReader(new FileReader(ciperText));
 			String str;
 		    while ((str = in.readLine()) != null) {
-		       //System.out.println(str);
+		    //Doing Operations on File :
+		    	//calculating Frequency
+		       calcFreq(str);
 		    }
-		    in.close();	
+		    in.close();
+		    
+		    //Done Calculating with File
+		    
+		    //
 		} catch (FileNotFoundException e) {
 			System.out.println("File is not found");
 			System.exit(0);
 		} catch (IOException e) {
 		}
-       	
+       	return dk;
+	}
+	
+    /**
+     * calculating Frequency
+     * @param str - a String from the file.
+     */
+	private static void calcFreq(String str) {
+		
+		
 	}
 }
 
