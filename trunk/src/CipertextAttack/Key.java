@@ -4,12 +4,15 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-
-public class DestKey {
+/**
+ * The Class Key contain the Key structure.
+ * @author GK
+ */
+public class Key {
 	
 	private HashMap<Character, Character> key;
 	
-	public DestKey() {
+	public Key() {
 		key = new HashMap<Character, Character>();
 		for (char ch = 'a'; ch <= 'z' ; ch++){
 			key.put(ch, '?');
@@ -22,10 +25,10 @@ public class DestKey {
 		}
 	}
 
-	public void tostring(String filename){
+	public void tostring(String outputFile){
 		 BufferedWriter out;
 		try {
-			out = new BufferedWriter(new FileWriter(filename));
+			out = new BufferedWriter(new FileWriter(outputFile));
 			for (char ch = 'a'; ch <= 'z' ; ch++){
 				out.write(ch +"="+key.get(ch)+" ");
 			}
