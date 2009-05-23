@@ -8,25 +8,12 @@ import java.util.HashMap;
 
 public class CipherTextAttack {
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
-	private DestKey destKey_ = new DestKey();
+	private Key destKey_ = new Key();
 	
 	
 	public CipherTextAttack(){
 	}
-	/**
-	 * Initializing the Letters Map Frequency
-	 */
-	private void initLettersFreq() {
-		for (char ch = 'a'; ch <= 'z' ; ch++){
-			lettersFreq_.put(ch, 0);
-		}
-		for (char ch = 'A'; ch <= 'Z' ; ch++){
-			lettersFreq_.put(ch, 0);
-		}
-		for (char ch = '0'; ch <= '9' ; ch++){
-			lettersFreq_.put(ch, 0);
-		}
-	}
+	
 	
 	/**
 	 * @param args - cipher text
@@ -35,16 +22,16 @@ public class CipherTextAttack {
 		//The cipher text:
 		String cipherText = args[0];
 		if (cipherText == null){
-			System.out.println("There is no Text file as input");
+			System.out.println("Please Enter a cipher Text file as input");
 			return;
 		}
 		CipherTextAttack ct = new CipherTextAttack();
 		ct.initLettersFreq();
 		
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		//make encrypt to work with
+		//make encrypt file to work with
 		Encrypt encrypt = new Encrypt(cipherText, "encryptedTxt.txt");
-		encrypt.on();
+		encrypt.encryptWithKey();
 		cipherText = "encryptedTxt.txt";
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		
@@ -80,7 +67,20 @@ public class CipherTextAttack {
 		String tmpFilename = cipherText.substring(0,tmpIndex);
 		destKey_.tostring(tmpFilename+"_key.txt");
 	}
-	
+	/**
+	 * Initializing the Letters Map Frequency
+	 */
+	private void initLettersFreq() {
+		for (char ch = 'a'; ch <= 'z' ; ch++){
+			lettersFreq_.put(ch, 0);
+		}
+		for (char ch = 'A'; ch <= 'Z' ; ch++){
+			lettersFreq_.put(ch, 0);
+		}
+		for (char ch = '0'; ch <= '9' ; ch++){
+			lettersFreq_.put(ch, 0);
+		}
+	}
     /**
      * calculating Frequency
      * @param str - a String from the file.

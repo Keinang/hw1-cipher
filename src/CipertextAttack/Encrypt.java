@@ -7,12 +7,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
-
+/**
+ * Only to Encrypt a simple Plain Text.
+ * @author GK
+ *
+ */
 public class Encrypt {
 	
 	private String input;
 	private String output;
-	private DestKey randomKey ;
+	private Key randomKey ;
 	private Random rand = new Random();
 	HashSet<Integer> usedChars = new HashSet<Integer>();
 	Character[] usedLocations = {48,49,50,51,52,53,54,55,56,57,
@@ -23,9 +27,11 @@ public class Encrypt {
 	public Encrypt(String input, String output) {
 		this.input = input;
 		this.output = output;
-		this.randomKey = new DestKey();
+		this.randomKey = new Key();
 	}
-	
+	/**
+	 * Getting Random KEY to encrypt 
+	 */
 	private void randomizeKey() {
 		int counter = 0;
 		//randomize LowerCase
@@ -63,12 +69,10 @@ public class Encrypt {
 		}
 	}
 
-	public void on() {
+	
+	public void encryptWithKey() {
 		randomizeKey();
-		this.randomKey.tostring("randomKey.txt");	
-		this.encryptWithKey();
-	}
-	private void encryptWithKey() {
+		this.randomKey.tostring("randomKey.txt");
 		BufferedReader in;
 		BufferedWriter out;
 		try {
@@ -103,18 +107,4 @@ public class Encrypt {
 		} catch (IOException e) {
 		}
 	}
-
-	public String getInput() {
-		return input;
-	}
-	public void setInput(String input) {
-		this.input = input;
-	}
-	public String getOutput() {
-		return output;
-	}
-	public void setOutput(String output) {
-		this.output = output;
-	}
-	
 }
