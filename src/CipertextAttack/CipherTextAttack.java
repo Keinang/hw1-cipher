@@ -6,12 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class CipherText {
+public class CipherTextAttack {
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
 	private DestKey destKey_ = new DestKey();
 	
 	
-	public CipherText(){
+	public CipherTextAttack(){
 	}
 	/**
 	 * Initializing the Letters Map Frequency
@@ -38,7 +38,7 @@ public class CipherText {
 			System.out.println("There is no Text file as input");
 			return;
 		}
-		CipherText ct = new CipherText();
+		CipherTextAttack ct = new CipherTextAttack();
 		ct.initLettersFreq();
 		
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
