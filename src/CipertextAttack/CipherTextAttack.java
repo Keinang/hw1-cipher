@@ -4,7 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 import java.util.Vector;
 /**
  *  If there is a word with XXXX'z ==> z = S 
@@ -14,6 +19,7 @@ import java.util.Vector;
  */
 public class CipherTextAttack {
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
+	private HashMap<Character, Integer> sortedLettersFreq_ = new HashMap<Character, Integer>();
 	private Key key_ = new Key();
 	private Vector<String> wordsFromFile_ = new Vector<String>();
 	
@@ -47,11 +53,12 @@ public class CipherTextAttack {
 	public void decrypt(String cipherText) {
 		this.initLettersFreq();
 		this.getWordsFromFile(cipherText);
-		//Doing Statistics on words :
-		this.printWordsFromFile();
-//        calcFreq(str);
-	    //Done Calculating with File
-//	    printFreq();
+		//this.printWordsFromFile();
+		//System.out.println("Number of words : "+this.getWordsFromFile().size());
+		calcFreq();
+		sortFreq();//sorting the frequently table
+		printSortedFreqLetters();
+		//printFreq();
 		
     	this.printResult(cipherText);
 	}
@@ -115,7 +122,7 @@ public class CipherTextAttack {
 		wordsFromFile_.add(str);
 	}
 	/**
-	 * //check for XXX-YYY Separation to 2 words 
+	 * //check for SSS-YYY Separation to 2 words 
 	 * @return true if there was a '-' hyphen
 	 */
 	public boolean hyphen(String str) {
@@ -142,7 +149,35 @@ public class CipherTextAttack {
 		}
 		return str;
 	}
-	
+
+	private void sortFreq() {
+		List<Character> yourMapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.lettersFreq_).keySet());
+		List<Integer> yourMapValues = new ArrayList<Integer>(((Map<Character, Integer>) this.lettersFreq_).values());
+		
+		TreeSet<Integer> sortedSet = new TreeSet<Integer>(yourMapValues);
+		Object[] sortedArray = sortedSet.toArray();
+		int size = sortedArray.length;
+		System.out.println("size = "+size);
+		System.out.println("size Values = "+yourMapValues.size());
+		for (int i=0; i<size; i++){
+			this.sortedLettersFreq_.put(yourMapKeys.get(yourMapValues.indexOf(sortedArray[i])), (Integer) sortedArray[i]);
+		}
+	}
+	/**
+	 * Printing the sorted Frequency Letters :
+	 */
+	private void printSortedFreqLetters(){
+		Iterator<Character> it = this.sortedLettersFreq_.keySet().iterator();
+		while (it.hasNext()){
+			Character tmpChar = (Character) it.next();
+			Integer tmpCount = this.sortedLettersFreq_.get(tmpChar);
+			System.out.println(tmpChar+"="+tmpCount);
+		}
+		
+	}
+	/**
+	 * Printing the words from the file :
+	 */
 	private void printWordsFromFile() {
 		for (String tmpString : wordsFromFile_){
 			System.out.println(tmpString);
@@ -166,16 +201,18 @@ public class CipherTextAttack {
      * calculating Frequency
      * @param str - a String from the file.
      */
-	private void calcFreq(String str) {
-		char[] charsInString = new char[str.length()];
-		str.getChars(0, str.length(), charsInString, 0);
-		for (Character ch:charsInString){
-			if (Integer.valueOf(ch) >=48 && Integer.valueOf(ch) <=57 ||
-				Integer.valueOf(ch) >=65 && Integer.valueOf(ch) <=90 ||	
-				Integer.valueOf(ch) >=97 && Integer.valueOf(ch) <=122){
-				int tmpValue = lettersFreq_.get(ch);
-				lettersFreq_.put(ch, ++tmpValue);
-			} 
+	private void calcFreq() {
+		for (String str : this.wordsFromFile_){
+			char[] charsInString = new char[str.length()];
+			str.getChars(0, str.length(), charsInString, 0);
+			for (Character ch:charsInString){
+				if (Integer.valueOf(ch) >=48 && Integer.valueOf(ch) <=57 ||
+					Integer.valueOf(ch) >=65 && Integer.valueOf(ch) <=90 ||	
+					Integer.valueOf(ch) >=97 && Integer.valueOf(ch) <=122){
+					int tmpValue = lettersFreq_.get(ch);
+					lettersFreq_.put(ch, ++tmpValue);
+				} 
+			}
 		}
 	}
 	/**
