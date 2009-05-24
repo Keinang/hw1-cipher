@@ -5,11 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 import java.util.Vector;
 /**
  *  If there is a word with XXXX'z ==> z = S 
@@ -19,7 +19,7 @@ import java.util.Vector;
  */
 public class CipherTextAttack {
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
-	private HashMap<Character, Integer> sortedLettersFreq_ = new HashMap<Character, Integer>();
+	private Character[] sortedLettersFreq_ = new Character[62];
 	private Key key_ = new Key();
 	private Vector<String> wordsFromFile_ = new Vector<String>();
 	
@@ -51,18 +51,31 @@ public class CipherTextAttack {
 	 * @return the destination key
 	 */
 	public void decrypt(String cipherText) {
-		this.initLettersFreq();
 		this.getWordsFromFile(cipherText);
 		//this.printWordsFromFile();
 		//System.out.println("Number of words : "+this.getWordsFromFile().size());
 		calcFreq();
 		sortFreq();//sorting the frequently table
 		printSortedFreqLetters();
-		//printFreq();
+		printFreq();
+	
 		
+		//substitute(this.sortedLettersFreq_[61], 'e');
+		
+		//printing the Result key to the output file :
     	this.printResult(cipherText);
 	}
-	
+	/**
+	 * Substitute between the Chars 
+	 * @param oldChar - The encrypt char
+	 * @param newChar - The origin char
+	 */
+	private void substitute(Character oldChar,Character newChar){
+		for (String str : this.wordsFromFile_){
+			str.replaceAll(String.valueOf(oldChar), String.valueOf(newChar));
+		}
+		this.key_.getKey().put(newChar, oldChar);
+	}
 
 	/**
 	 * writing to file the Result key :
@@ -150,68 +163,88 @@ public class CipherTextAttack {
 		return str;
 	}
 
-	private void sortFreq() {
-		List<Character> yourMapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.lettersFreq_).keySet());
-		List<Integer> yourMapValues = new ArrayList<Integer>(((Map<Character, Integer>) this.lettersFreq_).values());
+	private void sortFreq(){
+		HashMap<Character, Integer> tmpLettersFreq_ = new HashMap<Character, Integer>();
+		copyHashMap(tmpLettersFreq_,lettersFreq_);
+		List<Character> mapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.lettersFreq_).keySet());
+		List<Integer> mapValues = new ArrayList<Integer>(((Map<Character, Integer>) this.lettersFreq_).values());
 		
-		TreeSet<Integer> sortedSet = new TreeSet<Integer>(yourMapValues);
-		Object[] sortedArray = sortedSet.toArray();
-		int size = sortedArray.length;
-		System.out.println("size = "+size);
-		System.out.println("size Values = "+yourMapValues.size());
-		for (int i=0; i<size; i++){
-			this.sortedLettersFreq_.put(yourMapKeys.get(yourMapValues.indexOf(sortedArray[i])), (Integer) sortedArray[i]);
+		Collections.sort(mapKeys);
+	    Collections.sort(mapValues);
+
+	    Iterator<Integer> valueIt = mapValues.iterator();
+	    int counter = 0;
+	    while (valueIt.hasNext()) {
+	        Integer val = valueIt.next();
+	        Iterator<Character> keyIt = mapKeys.iterator();
+	        
+	        while (keyIt.hasNext()) {
+	            Character key = keyIt.next();
+	            Integer comp1 =  this.lettersFreq_.get(key);
+	            
+	            if (comp1 == val ){
+	            	this.lettersFreq_.remove(key);
+	                mapKeys.remove(key);
+	                sortedLettersFreq_[counter]= key;
+	                counter++;
+	                break;
+	            }
+	        }
+	    }
+	    copyHashMap(lettersFreq_,tmpLettersFreq_);
+	}
+	private void copyHashMap(HashMap<Character, Integer> hashTo,
+			HashMap<Character, Integer> hashFrom) {
+		Iterator<Character> from = hashFrom.keySet().iterator();
+		while(from.hasNext()){
+			Character ch = (Character) from.next();
+			Integer value = hashFrom.get(ch);
+			hashTo.put(ch, value);
 		}
 	}
+
 	/**
 	 * Printing the sorted Frequency Letters :
 	 */
 	private void printSortedFreqLetters(){
-		Iterator<Character> it = this.sortedLettersFreq_.keySet().iterator();
-		while (it.hasNext()){
-			Character tmpChar = (Character) it.next();
-			Integer tmpCount = this.sortedLettersFreq_.get(tmpChar);
-			System.out.println(tmpChar+"="+tmpCount);
+		for (Character ch:this.sortedLettersFreq_){
+			System.out.print(ch);
 		}
-		
+		System.out.println();
 	}
-	/**
-	 * Printing the words from the file :
-	 */
-	private void printWordsFromFile() {
-		for (String tmpString : wordsFromFile_){
-			System.out.println(tmpString);
-		}
-	}
-	/**
-	 * Initializing the Letters Map Frequency
-	 */
-	private void initLettersFreq() {
-		for (char ch = 'a'; ch <= 'z' ; ch++){
-			lettersFreq_.put(ch, 0);
-		}
-		for (char ch = 'A'; ch <= 'Z' ; ch++){
-			lettersFreq_.put(ch, 0);
-		}
-		for (char ch = '0'; ch <= '9' ; ch++){
-			lettersFreq_.put(ch, 0);
-		}
-	}
+//	/**
+//	 * Printing the words from the file :
+//	 */
+//	private void printWordsFromFile() {
+//		for (String tmpString : wordsFromFile_){
+//			System.out.println(tmpString);
+//		}
+//	}
+	
     /**
      * calculating Frequency
      * @param str - a String from the file.
      */
 	private void calcFreq() {
+		int[] tmpFreq = new int[123];
 		for (String str : this.wordsFromFile_){
 			char[] charsInString = new char[str.length()];
 			str.getChars(0, str.length(), charsInString, 0);
 			for (Character ch:charsInString){
-				if (Integer.valueOf(ch) >=48 && Integer.valueOf(ch) <=57 ||
-					Integer.valueOf(ch) >=65 && Integer.valueOf(ch) <=90 ||	
-					Integer.valueOf(ch) >=97 && Integer.valueOf(ch) <=122){
-					int tmpValue = lettersFreq_.get(ch);
-					lettersFreq_.put(ch, ++tmpValue);
+				int tmpValue = Integer.valueOf(ch);
+				if (tmpValue>=48 && tmpValue <=57 ||tmpValue >=65 && tmpValue <=90 ||	
+						tmpValue >=97 && tmpValue <=122){
+					tmpFreq[tmpValue]++;
 				} 
+			}
+			for (char ch = 'a'; ch <= 'z' ; ch++){
+				lettersFreq_.put(ch, tmpFreq[ch]);
+			}
+			for (char ch = 'A'; ch <= 'Z' ; ch++){
+				lettersFreq_.put(ch, tmpFreq[ch]);
+			}
+			for (char ch = '0'; ch <= '9' ; ch++){
+				lettersFreq_.put(ch, tmpFreq[ch]);
 			}
 		}
 	}
