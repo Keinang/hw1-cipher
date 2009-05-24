@@ -19,6 +19,7 @@ import java.util.Vector;
  */
 public class CipherTextAttack {
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
+	private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
 	private Character[] sortedLettersFreq_ = new Character[62];
 	private Key key_ = new Key();
 	private Vector<String> wordsFromFile_ = new Vector<String>();
@@ -65,12 +66,21 @@ public class CipherTextAttack {
 		//while (correctWords < this.getWordsFromFile().size()/2){
 			substitute(sortedLettersFreq_[61],'e');
 			substitute(sortedLettersFreq_[60],'t');
+			//findZug();
+			//substitute();//search for LL
 			printWordsFromFile();
 		//}
 		
 		//printing the Result key to the output file :
     	this.printResult(cipherText);
 	}
+	/**
+	 * Calculate frequency of Zug Letters like 'LL' , 'OO'
+	 */
+	private void findZug() {
+		//for ()
+	}
+
 	/**
 	 * Substitute between the Chars 
 	 * @param oldChar - The encrypt char
