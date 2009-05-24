@@ -54,7 +54,7 @@ public class Encrypt {
 		}
 		//randomize Numbers
 		int counterNumbers = 0;
-		while (counterNumbers < 9){
+		while (counterNumbers < 10){
 			int tmpChar = rand_.nextInt(58); 
 			if (tmpChar >= 48 && !usedChars.contains(tmpChar)){
 				usedChars.add(tmpChar);

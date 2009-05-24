@@ -40,7 +40,6 @@ public class Key {
 			for (char ch = '0'; ch <= '9' ; ch++){
 				out.write(ch +"="+key.get(ch)+" ");
 			}
-			
 	        out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
