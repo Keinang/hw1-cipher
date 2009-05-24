@@ -80,7 +80,8 @@ public class CipherTextAttack {
 		lettersFound_++;
 		System.out.println();
 		System.out.println("sub :"+oldChar +" with = "+newChar);
-		for (int j = 0 ; j< this.wordsFromFile_.){
+		for (int j = 0 ; j< this.wordsFromFile_.size(); j++){
+			String str = this.wordsFromFile_.elementAt(j);
 			char [] word  = str.toCharArray();
 			for(int i =0 ;i<word.length;i++){
 				if (str.charAt(i) == oldChar){
@@ -90,7 +91,8 @@ public class CipherTextAttack {
 						word[i] = oldChar;
 					}
 				}
-		}
+				this.wordsFromFile_.add(j, word.toString());
+			}
 		}
 		this.key_.getKey().put(newChar, oldChar);
 	}
