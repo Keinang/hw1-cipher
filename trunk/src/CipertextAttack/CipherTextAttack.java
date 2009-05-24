@@ -49,7 +49,6 @@ public class CipherTextAttack {
 	 * @return the destination key
 	 */
 	public void decrypt(String cipherText) {
-		int correctWords = 0;
 		
 		util.getWordsFromFile(this.getWordsFromFile(),cipherText);
 		//this.printWordsFromFile();
@@ -61,23 +60,20 @@ public class CipherTextAttack {
 		calcZug();
 		sortZug();
 		
-		substitute(sortedLettersFreq_[61],'e'); //found e
-		substitute(sortedLettersFreq_[60],'t');// found t
-		searchH(); //found h
-		searchTo();//found o 
-		searchThat();//found a
+		Character[] mostFreq = {'e','t','a','o','i','n','s','h','r'}; 
+		
+		for (int i=0;i<mostFreq.length;i++){
+			substitute(sortedLettersFreq_[61-i],mostFreq[i]);
+		}
+		
+//		searchH(); //found h
+//		searchTo();//found o 
+//		searchThat();//found a
 		
 		util.printTempDecryptFile(CipherTextAttack.key_,"encryptedTxt.txt");
-		//we stop the program if we found at least 50% of the words 
-		//while (correctWords < this.getWordsFromFile().size()/2){
-			
-			
-			//substitute();//search for LL
-			
-		//}
 		
 		//printing the Result key to the output file :
-    	util.printResult(this.key_,cipherText);
+    	util.printResult(CipherTextAttack.key_,cipherText);
 	}
 	
 	private void searchThat() {
