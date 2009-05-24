@@ -1,12 +1,160 @@
-In cryptography, a ciphertext-only attack (COA) or known ciphertext attack is an attack model for cryptanalysis where the attacker is assumed to have access only to a set of ciphertexts.
+Computer security
+From Wikipedia, the free encyclopedia
+Jump to: navigation, search
+This article is about computer security through design and engineering. For computer security exploits and defenses, see computer insecurity.
+Computer security 
+Secure operating systems 
+Security architecture 
+Security by design 
+Secure coding 
+Computer insecurity 
+Vulnerability Social engineering
+Eavesdropping 
+Exploit Trojan
+viruses and worms
+Denial of service 
+Payload Backdoor
+Rootkit
+Keylogger 
+This box: view • talk 
+Computer security is a branch of technology known as information security as applied to computers. The objective of computer security includes protection of information and property from theft, corruption, or natural disaster, while allowing the information and property to remain accessible and productive to its intended users.
 
-The attack is completely successful if the corresponding plaintexts can be deduced, or even better, the key. The ability to obtain any information at all about the underlying plaintext is still considered a success. For example, if an adversary is sending ciphertext continuously to maintain traffic-flow security, it would be very useful to be able to distinguish real messages from nulls. Even making an informed guess of the existence of real messages would facilitate traffic analysis.
+Contents [hide]
+1 Security by design 
+1.1 Early history of security by design 
+2 Security architecture 
+3 Hardware mechanisms that protect computers and data 
+4 Secure operating systems 
+5 Secure coding 
+6 Capabilities vs. ACLs 
+7 Applications 
+7.1 In aviation 
+7.1.1 Notable system accidents 
+8 Terminology 
+9 Notes 
+10 References 
+11 See also 
+ 
 
-In the history of cryptography, early ciphers, implemented using pen-and-paper, were routinely broken using ciphertexts alone. Cryptographers developed statistical techniques for attacking ciphertext, such as frequency analysis. Mechanical encryption devices such as Enigma made these attacks much more difficult (although, historically, Polish cryptographers were able to mount a successful ciphertext-only cryptanalysis of the Enigma by exploiting an insecure protocol for indicating the message settings).
 
-Every modern cipher attempts to provide protection against ciphertext-only attacks. The vetting process for a new cipher design standard usually takes many years and includes exhaustive testing of large quantities of ciphertext for any statistical departure from random noise. See: Advanced Encryption Standard process. Also, the field of steganography evolved, in part, to develop methods like mimic functions that allow one piece of data to adopt the statistical profile of another. Nonetheless poor cipher usage or reliance on home-grown proprietary algorithms that have not been subject to thorough scrutiny has resulted in many computer-age encryption systems that are still subject to ciphertext-only attack. Examples include:
+[edit] Security by design
+Main article: Security by design
+The technologies of computer security are based on logic. As security is not necessarily the primary goal of most computer applications, designing a program with security in mind often imposes restrictions on that program's behavior.
 
-Early versions of Microsoft's PPTP virtual private network software used the same RC4 key for the sender and the receiver (later versions had other problems). In any case where a stream cipher like RC4 is used twice with the same key it is open to ciphertext-only attack. See: stream cipher attack 
-Wired Equivalent Privacy (WEP), the first security protocol for Wi-Fi, proved vulnerable to several attacks, most of them ciphertext-only. 
-Some modern cipher designs have later been shown to be vulnerable to ciphertext-only attacks. For example, Akelarre. 
-A cipher whose key space is too small is subject to brute force attack with access to nothing but ciphertext by simply trying all possible keys. All that is needed is some way to distinguish valid plaintext from random noise, never a problem for natural languages. One example is DES, which only has 56-bit keys. All too common current examples are commercial security products that derive keys for otherwise impregnable ciphers like AES from a user-selected password. Since users rarely employ passwords with anything close to the entropy of the cipher's key space, such systems are often quite easy to break in practice using only ciphertext.
+There are several approaches to security in computing, sometimes a combination of approaches is valid:
+
+Trust all the software to abide by a security policy but the software is not trustworthy (this is computer insecurity). 
+Trust all the software to abide by a security policy and the software is validated as trustworthy (by tedious branch and path analysis for example). 
+Trust no software but enforce a security policy with mechanisms that are not trustworthy (again this is computer insecurity). 
+Trust no software but enforce a security policy with trustworthy mechanisms. 
+Many systems have unintentionally resulted in the first possibility. Since approach two is expensive and non-deterministic, its use is very limited. Approaches one and three lead to failure. Because approach number four is often based on hardware mechanisms and avoids abstractions and a multiplicity of degrees of freedom, it is more practical. Combinations of approaches two and four are often used in a layered architecture with thin layers of two and thick layers of four.
+
+There are various strategies and techniques used to design security systems. However there are few, if any, effective strategies to enhance security after design. One technique enforces the principle of least privilege to great extent, where an entity has only the privileges that are needed for its function. That way even if an attacker gains access to one part of the system, fine-grained security ensures that it is just as difficult for them to access the rest.
+
+Furthermore, by breaking the system up into smaller components, the complexity of individual components is reduced, opening up the possibility of using techniques such as automated theorem proving to prove the correctness of crucial software subsystems. This enables a closed form solution to security that works well when only a single well-characterized property can be isolated as critical, and that property is also assessable to math. Not surprisingly, it is impractical for generalized correctness, which probably cannot even be defined, much less proven. Where formal correctness proofs are not possible, rigorous use of code review and unit testing represent a best-effort approach to make modules secure.
+
+The design should use "defense in depth", where more than one subsystem needs to be violated to compromise the integrity of the system and the information it holds. Defense in depth works when the breaching of one security measure does not provide a platform to facilitate subverting another. Also, the cascading principle acknowledges that several low hurdles does not make a high hurdle. So cascading several weak mechanisms does not provide the safety of a single stronger mechanism.
+
+Subsystems should default to secure settings, and wherever possible should be designed to "fail secure" rather than "fail insecure" (see fail safe for the equivalent in safety engineering). Ideally, a secure system should require a deliberate, conscious, knowledgeable and free decision on the part of legitimate authorities in order to make it insecure.
+
+In addition, security should not be an all or nothing issue. The designers and operators of systems should assume that security breaches are inevitable. Full audit trails should be kept of system activity, so that when a security breach occurs, the mechanism and extent of the breach can be determined. Storing audit trails remotely, where they can only be appended to, can keep intruders from covering their tracks. Finally, full disclosure helps to ensure that when bugs are found the "window of vulnerability" is kept as short as possible.
+
+
+[edit] Early history of security by design
+The early Multics operating system was notable for its early emphasis on computer security by design, and Multics was possibly the very first operating system to be designed as a secure system from the ground up. In spite of this, Multics' security was broken, not once, but repeatedly. The strategy was known as 'penetrate and test' and has become widely known as a non-terminating process that fails to produce computer security. This led to further work on computer security that prefigured modern security engineering techniques producing closed form processes that terminate.
+
+
+[edit] Security architecture
+Main article: Security architecture
+Security Architecture can be defined as the design artifacts that describe how the security controls (security countermeasures) are positioned, and how theythey relate to the overall information technology architecture. These controls serve the purpose to maintain the system's quality attributes, among them confidentiality, integrity, availability, accountability and assurance."[1]. A security architecture is the plan that shows where security measures need to be placed. If the plan describes a specific solution then, prior to building such a plan, one would make a risk analysis. If the plan describes a generic high level design (reference architecture) then the plan should be based on a threat analysis.[citation needed]
+
+
+[edit] Hardware mechanisms that protect computers and data
+Hardware based or assisted computer security offers an alternative to software-only computer security. Devices such as dongles may be considered more secure due to the physical access required in order to be compromised.
+
+While many software based security solutions encrypt the data to prevent data from being stolen, a malicious program may corrupt the data in order to make it unrecoverable or unusable. Hardware-based security solutions can prevent read and write access to data and hence offers very strong protection against tampering.[citation needed]
+
+
+[edit] Secure operating systems
+Main article: Secure operating systems
+One use of the term computer security refers to technology to implement a secure operating system. Much of this technology is based on science developed in the 1980s and used to produce what may be some of the most impenetrable operating systems ever. Though still valid, the technology is in limited use today, primarily because it imposes some changes to system management and also because it is not widely understood. Such ultra-strong secure operating systems are based on operating system kernel technology that can guarantee that certain security policies are absolutely enforced in an operating environment. An example of such a Computer security policy is the Bell-La Padula model. The strategy is based on a coupling of special microprocessor hardware features, often involving the memory management unit, to a special correctly implemented operating system kernel. This forms the foundation for a secure operating system which, if certain critical parts are designed and implemented correctly, can ensure the absolute impossibility of penetration by hostile elements. This capability is enabled because the configuration not only imposes a security policy, but in theory completely protects itself from corruption. Ordinary operating systems, on the other hand, lack the features that assure this maximal level of security. The design methodology to produce such secure systems is precise, deterministic and logical.
+
+Systems designed with such methodology represent the state of the art[clarification needed] of computer security although products using such security are not widely known. In sharp contrast to most kinds of software, they meet specifications with verifiable certainty comparable to specifications for size, weight and power. Secure operating systems designed this way are used primarily to protect national security information, military secrets, and the data of international financial institutions. These are very powerful security tools and very few secure operating systems have been certified at the highest level (Orange Book A-1) to operate over the range of "Top Secret" to "unclassified" (including Honeywell SCOMP, USAF SACDIN, NSA Blacker and Boeing MLS LAN.) The assurance of security depends not only on the soundness of the design strategy, but also on the assurance of correctness of the implementation, and therefore there are degrees of security strength defined for COMPUSEC. The Common Criteria quantifies security strength of products in terms of two components, security functionality and assurance level (such as EAL levels), and these are specified in a Protection Profile for requirements and a Security Target for product descriptions. None of these ultra-high assurance secure general purpose operating systems have been produced for decades or certified under the Common Criteria.
+
+In USA parlance, the term High Assurance usually suggests the system has the right security functions that are implemented robustly enough to protect DoD and DoE classified information. Medium assurance suggests it can protect less valuable information, such as income tax information. Secure operating systems designed to meet medium robustness levels of security functionality and assurance have seen wider use within both government and commercial markets. Medium robust systems may provide the same security functions as high assurance secure operating systems but do so at a lower assurance level (such as Common Criteria levels EAL4 or EAL5). Lower levels mean we can be less certain that the security functions are implemented flawlessly, and therefore less dependable. These systems are found in use on web servers, guards, database servers, and management hosts and are used not only to protect the data stored on these systems but also to provide a high level of protection for network connections and routing services.
+
+
+[edit] Secure coding
+Main article: Secure coding
+If the operating environment is not based on a secure operating system capable of maintaining a domain for its own execution, and capable of protecting application code from malicious subversion, and capable of protecting the system from subverted code, then high degrees of security are understandably not possible. While such secure operating systems are possible and have been implemented, most commercial systems fall in a 'low security' category because they rely on features not supported by secure operating systems (like portability, et al.). In low security operating environments, applications must be relied on to participate in their own protection. There are 'best effort' secure coding practices that can be followed to make an application more resistant to malicious subversion.
+
+In commercial environments, the majority of software subversion vulnerabilities result from a few known kinds of coding defects. Common software defects include buffer overflows, format string vulnerabilities, integer overflow, and code/command injection.
+
+Some common languages such as C and C++ are vulnerable to all of these defects (see Seacord, "Secure Coding in C and C++"). Other languages, such as Java, are more resistant to some of these defects, but are still prone to code/command injection and other software defects which facilitate subversion.
+
+Recently another bad coding practice has come under scrutiny; dangling pointers. The first known exploit for this particular problem was presented in July 2007. Before this publication the problem was known but considered to be academic and not practically exploitable. [2]
+
+In summary, 'secure coding' can provide significant payback in low security operating environments, and therefore worth the effort. Still there is no known way to provide a reliable degree of subversion resistance with any degree or combination of 'secure coding.'
+
+
+[edit] Capabilities vs. ACLs
+Main articles: Access control list and Capability (computers)
+Within computer systems, the two fundamental means of enforcing privilege separation are access control lists (ACLs) and capabilities. The semantics of ACLs have been proven to be insecure in many situations (e.g., Confused deputy problem). It has also been shown that ACL's promise of giving access to an object to only one person can never be guaranteed in practice. Both of these problems are resolved by capabilities. This does not mean practical flaws exist in all ACL-based systems, but only that the designers of certain utilities must take responsibility to ensure that they do not introduce flaws.
+
+Capabilities have been mostly restricted to research operating systems and commercial OSs still use ACLs. Capabilities can, however, also be implemented at the language level, leading to a style of programming that is essentially a refinement of standard object-oriented design. An open source project in the area is the E language.
+
+First the Plessey System 250 and then Cambridge CAP computer demonstrated the use of capabilities, both in hardware and software, in the 1970s. A reason for the lack of adoption of capabilities may be that ACLs appeared to offer a 'quick fix' for security without pervasive redesign of the operating system and hardware.[citation needed]
+
+The most secure computers are those not connected to the Internet and shielded from any interference. In the real world, the most security comes from operating systems where security is not an add-on, such as OS/400 from IBM. This almost never shows up in lists of vulnerabilities for good reason. Years may elapse between one problem needing remediation and the next.
+
+See the article secure operating systems.
+
+
+[edit] Applications
+Computer security is critical in almost any technology-driven industry which operates on computer systems. The issues of computer based systems and addressing their countless vulnerabilities are an integral part of maintaining an operational industry. [3]
+
+
+[edit] In aviation
+The aviation industry is especially important when analyzing computer security because the involved risks include human life, expensive equipment, cargo, and transportation infrastructure. Security can be compromised by hardware and software malpractice, human error, and faulty operating environments. Threats that exploit computer vulnerabilities can stem from sabotage, espionage, industrial competition, terrorist attack, mechanical malfunction, and human error. [4]
+
+The consequences of a successful deliberate or inadvertent misuse of a computer system in the aviation industry range from loss of confidentiality to loss of system integrity, which may lead to more serious concerns such as data theft or loss, network and air traffic control outages, which in turn can lead to airport closures, loss of aircraft, loss of passenger life. Military systems that control munitions can pose an even greater risk.
+
+A proper attack does not need to be very high tech or well funded for a power outage at an airport alone can cause repercussions worldwide. [5]. One of the easiest and, arguably, the most difficult to trace security vulnerabilities is achievable by transmitting unauthorized communications over specific radio frequencies. These transmissions may spoof air traffic controllers or simply disrupt communications altogether. These incidents are very common, having altered flight courses of commercial aircraft and caused panic and confusion in the past.[citation needed] Controlling aircraft over oceans is especially dangerous because radar surveillance only extends 175 to 225 miles offshore. Beyond the radar's sight controllers must rely on periodic radio communications with a third party.
+
+Lightning, power fluctuations, surges, brown-outs, blown fuses, and various other power outages instantly disable all computer systems, since they are dependent on an electrical source. Other accidental and intentional faults have caused significant disruption of safety critical systems throughout the last few decades and dependence on reliable communication and electrical power only jeopardizes computer safety.[citation needed]
+
+
+[edit] Notable system accidents
+In 1994, over a hundred intrusions were made by unidentified hackers into the Rome Laboratory, the US Air Force's main command and research facility. Using trojan horse viruses, hackers were able to obtain unrestricted access to Rome's networking systems and remove traces of their activities. The intruders were able to obtain classified files, such as air tasking order systems data and furthermore able to penetrate connected networks of National Aeronautics and Space Administration's Goddard Space Flight Center, Wright-Patterson Air Force Base, some Defense contractors, and other private sector organizations, by posing as a trusted Rome center user. [6] Now, a technique called Ethical hack testing is used to remediate these issues.[citation needed]
+
+Electromagnetic interference is another threat to computer safety and in 1989, a United States Air Force F-16 jet accidentally dropped a 230 kg bomb in West Georgia after unspecified interference caused the jet's computers to release it. [7]
+
+A similar telecommunications accident also happened in 1994, when two UH-60 Blackhawk helicopters were destroyed by F-15 aircraft in Iraq because the IFF system's encryption system malfunctioned.[citation needed]
+
+
+[edit] Terminology
+The following terms used in engineering secure systems are explained below.
+
+Authentication techniques can be used to ensure that communication end-points are who they say they are. 
+Automated theorem proving and other verification tools can enable critical algorithms and code used in secure systems to be mathematically proven to meet their specifications. 
+Capability and access control list techniques can be used to ensure privilege separation and mandatory access control. The next sections discuss their use. 
+Chain of trust techniques can be used to attempt to ensure that all software loaded has been certified as authentic by the system's designers. 
+Cryptographic techniques can be used to defend data in transit between systems, reducing the probability that data exchanged between systems can be intercepted or modified. 
+Firewalls can provide some protection from online intrusion. 
+Mandatory access control can be used to ensure that privileged access is withdrawn when privileges are revoked. For example, deleting a user account should also stop any processes that are running with that user's privileges. 
+Secure cryptoprocessors can be used to leverage physical security techniques into protecting the security of the computer system. 
+microkernels can be reliable against errors: eg EROS and Coyotos. 
+Some of the following items may belong to the computer insecurity article:
+
+Access authorization restricts access to a computer to group of users through the use of authentication systems. These systems can protect either the whole computer - such as through an interactive logon screen - or individual services, such as an FTP server. There are many methods for identifying and authenticating users, such as passwords, identification cards, and, more recently, smart cards and biometric systems. 
+Anti-virus software consists of computer programs that attempt to identify, thwart and eliminate computer viruses and other malicious software (malware). 
+application with known security flaws should not be run. Either leave it turned off until it can be patched or otherwise fixed, or delete it and replace it with some other application. Publicly known flaws are the main entry used by worms to automatically break into a system and then spread to other systems connected to it. The security website Secunia provides a search tool for unpatched known flaws in popular products. 
+ 
+Cryptographic techniques involve transforming information, scrambling it so it becomes unreadable during transmission. The intended recipient can unscramble the message, but eavesdroppers cannot.Backups are a way of securing information; they are another copy of all the important computer files kept in another location. These files are kept on hard disks, CD-Rs, CD-RWs, and tapes. Suggested locations for backups are a fireproof, waterproof, and heat proof safe, or in a separate, offsite location than that in which the original files are contained. Some individuals and companies also keep their backups in safe deposit boxes inside bank vaults. There is also a fourth option, which involves using one of the file hosting services that backs up files over the Internet for both business and individuals. 
+Backups are also important for reasons other than security. Natural disasters, such as earthquakes, hurricanes, or tornadoes, may strike the building where the computer is located. The building can be on fire, or an explosion may occur. There needs to be a recent backup at an alternate secure location, in case of such kind of disaster. Further, it is recommended that the alternate location be placed where the same disaster would not affect both locations. Examples of alternate disaster recovery sites being compromised by the same disaster that affected the primary site include having had a primary site in World Trade Center I and the recovery site in 7 World Trade Center, both of which were destroyed in the 9/11 attack, and having one's primary site and recovery site in the same coastal region, which leads to both being vulnerable to hurricane damage (e.g. primary site in New Orleans and recovery site in Jefferson Parish, both of which were hit by Hurricane Katrina in 2005). The backup media should be moved between the geographic sites in a secure manner, in order to prevent them from being stolen. 
+Encryption is used to protect the message from the eyes of others. It can be done in several ways by switching the characters around, replacing characters with others, and even removing characters from the message. These have to be used in combination to make the encryption secure enough, that is to say, sufficiently difficult to crack. Public key encryption is a refined and practical way of doing encryption. It allows for example anyone to write a message for a list of recipients, and only those recipients will be able to read that message. 
+Firewalls are systems which help protect computers and computer networks from attack and subsequent intrusion by restricting the network traffic which can pass through them, based on a set of system administrator defined rules. 
+Honey pots are computers that are either intentionally or unintentionally left vulnerable to attack by crackers. They can be used to catch crackers or fix vulnerabilities. 
+Intrusion-detection systems can scan a network for people that are on the network but who should not be there or are doing things that they should not be doing, for example trying a lot of passwords to gain access to the network. 
+Pinging The ping application can be used by potential crackers to find if an IP address is reachable. If a cracker finds a computer they can try a port scan to detect and attack services on that computer. 
+Social engineering awareness keeps employees aware of the dangers of social engineering and/or having a policy in place to prevent social engineering can reduce successful breaches of the network and servers. 

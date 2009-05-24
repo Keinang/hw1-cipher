@@ -22,7 +22,7 @@ public class CipherTextAttack {
 	private Character[] sortedLettersFreq_ = new Character[62];
 	private Key key_ = new Key();
 	private Vector<String> wordsFromFile_ = new Vector<String>();
-	
+	private int lettersFound_ = 0;
 	/**
 	 * @param args - cipher text
 	 */
@@ -51,6 +51,8 @@ public class CipherTextAttack {
 	 * @return the destination key
 	 */
 	public void decrypt(String cipherText) {
+		int correctWords = 0;
+		
 		this.getWordsFromFile(cipherText);
 		//this.printWordsFromFile();
 		//System.out.println("Number of words : "+this.getWordsFromFile().size());
@@ -58,9 +60,14 @@ public class CipherTextAttack {
 		sortFreq();//sorting the frequently table
 		printSortedFreqLetters();
 		printFreq();
-	
 		
-		//substitute(this.sortedLettersFreq_[61], 'e');
+		//we stop the program if we found at least 50% of the words 
+		while (correctWords < this.getWordsFromFile().size()/2){
+			
+			
+			
+			
+		}
 		
 		//printing the Result key to the output file :
     	this.printResult(cipherText);
@@ -71,6 +78,8 @@ public class CipherTextAttack {
 	 * @param newChar - The origin char
 	 */
 	private void substitute(Character oldChar,Character newChar){
+		lettersFound_++;
+		System.out.println("sub :"+oldChar +"with = "+newChar);
 		for (String str : this.wordsFromFile_){
 			str.replaceAll(String.valueOf(oldChar), String.valueOf(newChar));
 		}
