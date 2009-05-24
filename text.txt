@@ -1,160 +1,651 @@
-Computer security
-From Wikipedia, the free encyclopedia
-Jump to: navigation, search
-This article is about computer security through design and engineering. For computer security exploits and defenses, see computer insecurity.
-Computer security 
-Secure operating systems 
-Security architecture 
-Security by design 
-Secure coding 
-Computer insecurity 
-Vulnerability Social engineering
-Eavesdropping 
-Exploit Trojan
-viruses and worms
-Denial of service 
-Payload Backdoor
-Rootkit
-Keylogger 
-This box: view • talk 
-Computer security is a branch of technology known as information security as applied to computers. The objective of computer security includes protection of information and property from theft, corruption, or natural disaster, while allowing the information and property to remain accessible and productive to its intended users.
+Sun Microsystems, Inc.
+901 San Antonio Road
+Palo Alto, CA 94303 USA
+650 960-1300 fax 650 969-9131
+http://www.sun.com/blueprints
+Data Security
+Policy - Structure and
+Guidelines
+By JoelWeise - SunPSSM Global Security Practice
+and Charles R. Martin - SunPS Java™Centers
+Sun BluePrints™OnLine - December 2001
+Part No.: 816-4175-01
+Revision 01, 12/18/01
+Edition: December 2001
+Please
+Recycle
+Copyright 2001 Sun Microsystems, Inc. 901 San Antonio Road, Palo Alto, California 94303 U.S.A. All rights reserved.
+This product or document is protected by copyright and distributed under licenses restricting its use, copying, distribution, and decompilation.
+No part of this product or document may be reproduced in any form by any means without prior written authorization of Sun and its licensors,
+if any. Third-party software, including font technology, is copyrighted and licensed from Sun suppliers.
+Parts of the product may be derived from Berkeley BSD systems, licensed from the University of California. UNIX is a registered trademark in
+the U.S. and other countries, exclusively licensed through X/Open Company, Ltd.
+Sun, Sun Microsystems, the Sun logo, Sun BluePrints, and Solaris are trademarks or registered trademarks of Sun Microsystems, Inc. in the
+United States and other countries.
+The OPEN LOOK and Sun™ Graphical User Interface was developed by Sun Microsystems, Inc. for its users and licensees. Sun acknowledges
+the pioneering efforts of Xerox in researching and developing the concept of visual or graphical user interfaces for the computer industry. Sun
+holds a non-exclusive license from Xerox to the Xerox Graphical User Interface, which license also covers Sun’s licensees who implement OPEN
+LOOK GUIs and otherwise comply with Sun’s written license agreements.
+RESTRICTED RIGHTS: Use, duplication, or disclosure by the U.S. Government is subject to restrictions of FAR 52.227-14(g)(2)(6/87) and
+FAR 52.227-19(6/87), or DFAR 252.227-7015(b)(6/95) and DFAR 227.7202-3(a).
+DOCUMENTATION IS PROVIDED “AS IS” AND ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS ANDWARRANTIES,
+INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NONINFRINGEMENT,
+ARE DISCLAIMED, EXCEPT TO THE EXTENT THAT SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID.
+Copyright 2001 Sun Microsystems, Inc., 901 San Antonio Road, Palo Alto, Californie 94303 Etats-Unis. Tous droits r?serv?s.
+Ce produit ou document est prot?g? par un copyright et distribu? avec des licences qui en restreignent l’utilisation, la copie, la distribution, et la
+d?compilation. Aucune partie de ce produit ou document ne peut ?tre reproduite sous aucune forme, par quelque moyen que ce soit, sans
+l’autorisation pr?alable et ?crite de Sun et de ses bailleurs de licence, s’il y en a. Le logiciel d?tenu par des tiers, et qui comprend la technologie
+relative aux polices de caract?res, est prot?g? par un copyright et licenci? par des fournisseurs de Sun.
+Des parties de ce produit pourront ?tre d?riv?es des syst?mes Berkeley BSD licenci?s par l’Universit? de Californie. UNIX est une marque
+d?pos?e aux Etats-Unis et dans d’autres pays et licenci?e exclusivement par X/Open Company, Ltd.
+Sun, Sun Microsystems, le logo Sun, Sun BluePrints, et Solaris sont des marques de fabrique ou des marques d?pos?es, ou marques de service,
+de Sun Microsystems, Inc. aux Etats-Unis et dans d’autres pays. Toutes les marques SPARC sont utilis?es sous licence et sont des marques de
+fabrique ou des marques d?pos?es de SPARC International, Inc. aux Etats-Unis et dans d’autres pays. Les produits portant les marques SPARC
+sont bas?s sur une architecture d?velopp?e par Sun Microsystems, Inc.
+L’interface d’utilisation graphique OPEN LOOK et Sun™ a ?t? d?velopp?e par Sun Microsystems, Inc. pour ses utilisateurs et licenci?s. Sun
+reconna?t les efforts de pionniers de Xerox pour la recherche et le d?veloppement du concept des interfaces d’utilisation visuelle ou graphique
+pour l’industrie de l’informatique. Sun d?tient une licence non exclusive de Xerox sur l’interface d’utilisation graphique Xerox, cette licence
+couvrant ?galement les licenci?s de Sun qui mettent en place l’interface d’utilisation graphique OPEN LOOK et qui en outre se conforment aux
+licences ?crites de Sun.
+CETTE PUBLICATION EST FOURNIE "EN L’ETAT" ET AUCUNE GARANTIE, EXPRESSE OU IMPLICITE, N’EST ACCORDEE, Y COMPRIS
+DES GARANTIES CONCERNANT LA VALEUR MARCHANDE, L’APTITUDE DE LA PUBLICATION A REPONDRE A UNE UTILISATION
+PARTICULIERE, OU LE FAIT QU’ELLE NE SOIT PAS CONTREFAISANTE DE PRODUIT DE TIERS. CE DENI DE GARANTIE NE
+S’APPLIQUERAIT PAS, DANS LA MESURE OU IL SERAIT TENU JURIDIQUEMENT NUL ET NON AVENU.
+1
+Data Security Policy - Structure and
+Guidelines
+This template provides a brief description of recommended security policy topics
+and an overview of core security policies. In addition, this template provides a
+sample Data Security Policy and Statement with commentary explaining the details
+of each security topic and why it was chosen. Finally, this template provides a
+detailed list of Security Policy principles. The purpose of this template is to help
+guide the development and implementation of an industry best practice Data
+Security Policy.
+This template is built on the recommendations made in the Sun BluePrints article,
+Developing a Security Policy (12/01), by Joel Weise and Charles R. Martin. The article
+is available from:
+http://sun.com/blueprints/1201/secpolicy.pdf
+Security Policy Topics
+This section provides a brief description of recommended topics for a data security
+policy.
+Statement of Purpose
+Why the policy is needed.
+Scope
+What is the policy’s applicability, who and what is covered by it?
+2 Data Security Policy - Structure and Guidelines • December 2001
+Policy Statement
+What are the specifics of the policy?
+Responsibilities
+Who must do what?
+Audience
+To whom is the policy oriented?
+Enforcement
+Who is charged with enforcement of the policy?
+What are the penalties for non-compliance?
+Exception
+Describe these and the conditions under which they apply.
+Other Considerations
+Are there other ancillary considerations that should be stated?
+Communicating Policy
+Who is responsible for this effort?
+What is the process for disseminating the policy?
+Review and Update Process
+Who is responsible for the update effort?
+What is the process?
+Under what conditions is the policy reviewed? (for example, annually or only if a
+problem occurs)
+Overview of Security Policies 3
+Implementing the Policy
+Who is responsible for the implementation effort?
+How is it accomplished?
+Monitoring compliance
+How is monitoring accomplished?
+Overview of Security Policies
+The following is a list of standard common core security policies.
+1. Data ownership, classification, and security
+2. Trans-border data flow
+3. Data and resource access
+4. Password usage
+5. Utilization of cryptography and key management
+6. Data content
+7. Network security
+8. Physical security
+9. Electronic mail ownership
+10. Security incident reporting process
+11. Security incident response process
+12. Periodic monitoring and audit for policy compliance
+13. Firewall implementation and management
+14. Virus prevention and protection
+15. System and network ownership and management
+16. End user accountability and acceptable use
+a. Identification and authentication
+4 Data Security Policy - Structure and Guidelines • December 2001
+17. Records retention and backup
+18. Security Awareness and education
+19. Partner and 3rd party connectivity
+20. System development and deployment
+21. System, application, and configuration management
+a. Assurance
+b. Patch management
+22. Infrastructure security
+a. Intrusion detection
+b. System hardening
+Sample Data Security Policy
+The best way to illustrate how to develop and write a security policy is to dissect a
+sample of one. The following section offers a sample Data Security Policy.
+Commentary has been added so that one can see why specific topics are included,
+their content, verbiage, and context.
+Introduction
+A purpose should be stated in the introduction section. This should provide the reader with
+an overview of what this policy will state and why it is needed.
+The purpose of this document is to define the <COMPANY> Data Security Policy.
+Data is considered a primary asset and as such must be protected in a manner
+commensurate to its value. Data security is necessary in today's environment
+because data processing represents a concentration of valuable assets in the form of
+information, equipment, and personnel. Dependence on information systems creates
+a unique vulnerability for our organization.
+Security and privacy must focus on controlling unauthorized access to data. Security
+compromises or privacy violations could jeopardize our ability to provide service;
+lose revenue through fraud or destruction of proprietary or confidential data; violate
+Sample Data Security Policy 5
+business contracts, trade secrets, and customer privacy; or reduce credibility and
+reputation with its customers, shareholders and partners. This policy therefore
+discusses:
+n Data content
+n Data classification
+n Data ownership
+n Data security
+The introduction also includes an objective statement. For data security, a life cycle
+methodology is used.
+The main objective of this policy is to ensure that data is protected in all of its forms,
+on all media, during all phases of its life cycle, from unauthorized or inappropriate
+access, use, modification, disclosure, or destruction. This policy applies to all of our
+and all customer data assets that exist, in any of our processing environments. The
+processing environment is considered to be, collectively, all applications, systems,
+and networks that we own or operate or that are operated by our agents.
+A condensation of the overall policy is provided here. The security stance for your
+organization should be clearly defined here.
+This policy defines the <COMPANY> overall security and risk control objectives that
+we endorse. The premise for the policy can be stated as:
+“Other than data defined as public, which is accessible to all identified
+and authenticated users, all data and processing resources are only
+accessible on a need to know basis to specifically identified,
+authenticated, and authorized entities.”
+This embodies the principle of least privilege.
+This document forms part of your conditions of employment for employees, a part
+of the contractual agreement for vendors, suppliers, and third party processor or
+agents, hereafter referred to as vendors. All parties must read the policy completely,
+and confirm that they understand the contents of the policy and agree to abide by it.
+Breach of Policy and Enforcement
+What is considered a breach and the consequences of a breach occurring are stated in this
+section. The breach of a policy usually implies an adverse action. If there are no adverse
+ramifications of a breach, then you should review the necessity of the policy.
+A breach of this policy could have severe consequences to <COMPANY>, its ability
+to provide services, or maintain the integrity, confidentiality, or availability of
+services.
+6 Data Security Policy - Structure and Guidelines • December 2001
+Intentional misuse resulting in a breach of any part of this policy will result in
+disciplinary action at the discretion of <COMPANY> senior management. Severe,
+deliberate or repeated breaches of the policy may be considered grounds for instant
+dismissal; or in the case of a <COMPANY> vendor, termination of their contracted
+services. All employees and vendors are bound by these policies and are responsible
+for their strict enforcement.
+Scope of the Policy
+The scope should explain the policy's applicability—that is, who and what are covered by it.
+The applicability of the policy should be defined by management. The level of definition is
+dependent upon the intentions of management.
+This policy applies to all <COMPANY> and customer data assets that exist in any
+<COMPANY> processing environment, on any media during any part if its life
+cycle. The following entities or users are covered by this policy:
+n Full or part-time employees of <COMPANY> who have access to <COMPANY>
+or customer data.
+n <COMPANY> vendors or processors who have access to <COMPANY> or
+customer data.
+n Other persons, entities, or organizations that have access to <COMPANY> or
+customer data.
+Data Life Cycle
+It is recommended that a data security policy utilize a data lifecycle methodology. This allows
+for an easier implementation of the policy for different data under different circumstances.
+The security of data can be understood through the use of a data life cycle. The
+typical life cycle of data is: generation, use, storage and disposal. The following
+sections provide guidance as to the application of this policy through the different
+life cycle phases of data.
+Users of data assets are personally responsible for complying with this policy. All
+users will be held accountable for the accuracy, integrity, and confidentiality of the
+information to which they have access. Data must only be used in a manner
+consistent with this policy.
+Sample Data Security Policy 7
+Data Usage
+Data usage describes how data is utilized. This section should not be overly detailed but
+rather ensure the consistency of the application of the policy.
+All users that access <COMPANY> or customer data for use must do so only in
+conformance to this policy. Uniquely identified, authenticated and authorized users
+must only access data.
+Each user must ensure that <COMPANY> data assets under their direction or
+control are properly labeled and safeguarded according to their sensitivity,
+proprietary nature, and criticality.
+Access control mechanisms must also be utilized to ensure that only authorized
+users can access data to which they have been granted explicit access rights.
+Data Transmission
+Data transmission describes how data is conveyed through a network. As with usage, this
+should not be overly detailed. Data transmission policy may include the need for the use of
+cryptography if applicable.
+All users that access <COMPANY> or customer data to enable its transmission must
+do so only in conformance to this policy.
+Where necessary, data transmitted must be secured via cryptographic mechanisms.
+This may include the use of confidentiality and/or integrity mechanisms. Specific
+cryptographic mechanisms are noted in the <COMPANY> policy on the use of
+cryptography.
+Data Storage
+Data storage describes how data is stored or filed. As with usage, this should not be overly
+detailed. Data storage policy may also include the need for the use of cryptography if
+applicable.
+All users that are responsible for the secure storage of <COMPANY> or customer
+data must do so only in conformance to this policy.
+Where necessary, data stored must be secured via cryptographic mechanisms. This
+may include the use of confidentiality and/or integrity mechanisms. Specific
+cryptographic mechanisms are noted in the <COMPANY> policy on the use of
+cryptography.
+8 Data Security Policy - Structure and Guidelines • December 2001
+Access control mechanisms must also be utilized to ensure that only authorized
+users can access data to which they have been granted explicit access rights.
+Data Disposal
+Data disposal describes how data is destroyed. This policy statement is dependent upon the
+type of media used for data storage.
+Access control mechanisms must also be utilized to ensure that only authorized
+users can access data to which they have been granted explicit access rights during
+the disposal process.
+The Data Security organization must develop and implement procedures to ensure
+the proper disposal of various types of data. These procedures must be made
+available to all users with access to data that requires special disposal techniques.
+Data Security Policy Statement
+This section describes the particulars of the data security policy. This section should
+provide sufficient information to guide the development and implementation of
+guidelines and specific data security procedures.
+Goals
+Goals describe the managerial objectives of the policy, and why it is necessary.
+This policy has been written with the following goals in mind:
+n To educate <COMPANY> users and vendors about their obligation for protection
+all data assets.
+n To ensure the security, integrity, and availability of all <COMPANY> and
+customer data.
+n To establish the <COMPANY> baseline data security stance and classification
+schema.
+Data Security Policy Statement 9
+Processing Environment
+It is often useful to specify the actual environment where the policy applies. This could place
+limits on the policy as are appropriate to the organization.
+The <COMPANY> processing environment that this policy applies to is comprised
+of:
+n Applications – Application software is system or network-level routines and
+programs designed by (and for) system users and customers. It supports specific
+business-oriented processes, jobs, or functions. It can be general in nature or
+specifically tailored to a single or limited number of functions.
+n Systems – A system is an assembly of computer hardware (e.g., sub-networks,
+application servers, file servers, workstations, data, etc.) and application software
+configured for the purpose of processing, handling, storing, transmitting, and
+receiving data, that is used in a production or support environment to sustain
+specific applications and business organizations in their performance of tasks and
+business processes.
+n Networks – A network is defined as two or more systems connected by a
+communication medium. It includes all elements (e.g., routers, switches, bridges,
+hubs, servers, firewalls, controllers, and other devices) that are used to transport
+information between systems.
+Data Security Responsibilities
+It is important that the policy detail the specific responsibilities of each organization and/or
+identifiable user population. Data security is called out first as it is the primary organization
+responsible for supporting this policy.
+The Data Security organization is responsible for:
+n Defining the security requirements, controls and mechanisms applicable to all
+data assets.
+n Defining the methods and guidelines used to identify and classify all data assets.
+n Defining the procedures for identifying data owners for all data assets.
+n Defining the labeling requirements for all data assets.
+n Defining all other data security usage, processing, transmission, storage and
+disposal processes and procedures.
+n Defining the procedures necessary to ensure compliance to this policy by all
+<COMPANY> users and vendors.
+n Facilitating the evaluation of new regulatory, legal, and also best practice
+requirements as they are mandated or become recognized in industry.
+10 Data Security Policy - Structure and Guidelines • December 2001
+The Data Security, Network Operations and Systems Administration organizations must
+ensure the activation of all security mechanisms.
+Management Responsibilities
+It is important that the policy detail the specific responsibilities of each organization and/or
+identifiable user population. A section particular to management is always a good idea.
+Other organizations within <COMPANY> also have various responsibilities for
+ensuring compliance with this policy, such as:
+n All individual organizations must ensure that staff complies with this policy.
+n The Network Operations and Systems Administration organizations must ensure that
+adequate logs and audit trails are kept of all data access.
+n The Data Security, Network Operations and Systems Administration organizations
+must ensure the activation of all security mechanisms.
+n The Risk Management organization is responsible for communicating business
+requirement and issues for business processes and the data those include, to
+ensure their correct data classification.
+n The internal audit organization is responsible for regularly evaluating the data
+classification schema for consistent application and use.
+Other Responsibilities
+It is important that the policy detail the specific responsibilities of each organization and/or
+identifiable user population. Residual responsibilities can be explained last.
+Other organizations have responsibilities to comply with this policy, such as:
+n All <COMPANY> agents, vendors, content providers, and third party providers
+that process customer data must have a documented security policy that clearly
+identifies those data and other resources and the controls that are being imposed
+upon them.
+n All <COMPANY> agents, vendors, content providers, and third party providers
+that access the <COMPANY> processing environment and its data or provide
+content to it must have a security policy that complies with and does not
+contradict the <COMPANY> security policy.
+n All agents, vendors, content providers, and third party providers must agree not
+to bypass any of our security requirements.
+Data Security Policy Statement 11
+Documentation
+Documentation is required to enable the day to day efforts necessary to enforce the data
+security policy. Documentation also ensures that the policy is implemented consistently on
+all platforms.
+This policy requires procedures be developed, managed and performed. As such,
+written documentation must be developed for all procedures necessary to fulfill this
+policy including:
+n The management of all userids on all platforms.
+n The management of all access control lists on all platforms.
+n The execution and review of all audit trails.
+n All incident response and reporting.
+n All other tasks necessary to support this policy.
+Policy Review
+A policy review should be performed at least on an annual basis to ensure that the policy is
+current.
+It is the responsibility of the Data Security organization to facilitate the review of
+this policy on a regular basis. Because of the dynamic nature of the Internet, this
+policy should be reviewed annually. Senior management, Systems administration,
+and Legal should, at a minimum, be included in the annual review of this policy.
+Data Content
+Data content is a subject particular to data security. If necessary, limits on the type of data
+and how they might be used are discussed here.
+The nature of specific data content that exists in the processing environment, and the
+controls that should apply to these, is dependent upon various factors. This policy
+does not mandate or endorse particular data content. Rather, the business decision
+process used to evaluate the inclusion or exclusion of particular data content should
+consider those items listed below. Regardless as to the specific data content that
+exists in the environment, all aspects of this policy must be enforced. Considerations
+for evaluating data content include:
+n Legal and regulatory obligations in the locales in which we operate.
+n Can privacy, confidentiality, security, and integrity of the data be ensured to the
+satisfaction of customers and legal authorities?
+n Is it in line with our business goals and objectives?
+12 Data Security Policy - Structure and Guidelines • December 2001
+n Do customers require or demand access to specific data content.
+n What is common local practice? (e.g., pornography is legal in some communities
+but strongly frowned upon in others.)
+n What rules govern the movement across international boundaries of different
+data content, and do we have in place controls to enforce these rules?
+Data Classification
+Data classification is a core feature of a data security policy. A well defined data classification
+schema is essential for a data security policy. This must represent all of the types of data that
+exist or can exist in your environment. Examples may be a useful component of this section.
+Data classification is necessary to enable the allocation of resources to the protection
+of data assets, as well as determining the potential loss or damage from the
+corruption, loss or disclosure of data.
+To ensure the security and integrity of all data the default data classification for any
+data asset is either Confidential Customer Data or Proprietary Company Data.
+The Data Security organization is responsible for evaluating the data classification
+schema and reconciling it with new data types as they enter usage. It may be
+necessary, as we enter new business endeavors, to develop additional data
+classifications.
+All data found in the processing environment must fall into one of the following
+categories:
+n Public Company Data – Public company data is defined as data that any entity
+either internal or external to <COMPANY> can access. The disclosure, use or
+destruction of Public company data will have limited or no adverse affects on
+<COMPANY> nor carry any significant liability. (Examples of Public company
+data include readily available news, stock quotes, or sporting information.)
+n Proprietary Company Data – Proprietary company data is any information that
+derives its economic value from not being publicly disclosed. It includes
+information that <COMPANY> is under legal or contractual obligation to protect.
+The value of proprietary company information to <COMPANY> would be
+destroyed or diminished if such information were disclosed to others. Most
+<COMPANY> sensitive information should fall into this category. Proprietary
+company information may be copied and distributed within <COMPANY> only
+to authorized users. Proprietary company information disclosed to authorized
+external users must be done so under a non-disclosure agreement. (Examples of
+Proprietary company data include company policies, sales plans, and application
+source code.)
+Data Security Policy Statement 13
+n Confidential Company Data – Confidential Company Data is information that is
+not to be publicly disclosed, regardless of its economic value. The disclosure, use,
+or destruction of Confidential Company Data can have adverse affects on
+<COMPANY> and possibly carry significant civil, fiscal, or criminal liability. This
+designation is used much less frequently. It is used for highly sensitive
+information whose access is restricted to selected, authorized employees. The
+recipients of confidential information have an obligation not to reveal the contents
+to another individual unless that person has a valid need to know for the
+information. Company confidential information must not be copied without
+authorization from the identified owner. (Examples of Confidential Company
+Data include company strategic plans or cryptographic keys.)
+n Confidential Customer Data – Confidential customer data is defined as data that
+only authorized internal <COMPANY> entities or specific authorized external
+entities can access. The disclosure, use, or destruction of confidential customer
+data can have adverse affects on <COMPANY> and their relationship with their
+customers, and possibly carry significant liability for both. Confidential customer
+data is entrusted to and may transit or is stored by <COMPANY> (and others)
+over which they have custodial responsibility but do not have ownership.
+(Examples of Confidential customer data including customer bank or brokerage
+account information, cryptographic keys, or other data considered private.)
+n Public Customer Data – Public customer data is defined as data that any entity
+either internal or external to <COMPANY> can access. The disclosure, use, or
+destruction of Public customer data will have limited or no adverse affects on
+<COMPANY> or the customer, and carry no significant liability. Public customer
+data is entrusted to, and may transit or be stored by <COMPANY> (and others)
+over which they have custodial responsibility but do not have ownership.
+(Examples of Public customer data include emails, public key certificates or other
+customer data that is readily available through other public channels or records.)
+Data Ownership
+The concept of data ownership allows for an entity to be declared responsible for the
+classification of data. This is an essential element of a data classification schema. You should
+have management direct the determination of data owner, so that the policy reflects data
+ownership accurately.
+In order to classify data it is necessary that an owner be identified for all data assets.
+The owner of data is responsible for classifying their data according to the
+classification schema noted in this policy. If an owner cannot be determined for a
+<COMPANY> data asset, the Data Security organization must act as its custodian.
+The default classification for all data not classified by its owner must be either
+confidential customer data or Proprietary company data.
+The Data Security organization is responsible for developing, implementing, and
+maintaining procedures for identifying all data assets and associated owners.
+14 Data Security Policy - Structure and Guidelines • December 2001
+The owner of all customer data is the individual owner who generates or is assigned
+ownership of that data. (Data such as public key certificates generated by an external
+Certificate Authority but assigned to a specific customer are considered owned by
+that customer.
+Non-disclosure Agreements
+The use of a non-disclosure agreement is a useful tool if data is used outside of the
+organization. Its use depends upon local custom and legal environment.
+On occasion, data assets may need to be released to entities outside of
+<COMPANY>. When a legitimate business reason exists for releasing sensitive
+information, a written Non-Disclosure Agreement (NDA), requiring the data
+recipient's agreement to maintain that data in confidence and restrict its use and
+dissemination, must be obtained before disclosing the data.
+Data Security Principles
+The declaration of data security principles allows for a consistent approach to its
+implementation across various platforms. These are industry standard concepts and lay the
+foundation for security requirements and detailed procedures. The specific data security
+principles are dependent upon your organizations business requirements for security
+services.
+<COMPANY>'s business goals, objectives, and needs for security can be derived
+from three principles: accountability, authorization, and availability. These three
+principles emphasize the need for security to function properly in <COMPANY>'s
+processing environment, which is comprised of applications, network, and system
+resources. Non-compliance with these principles can have serious, adverse, and
+deleterious affects on <COMPANY>.
+In the context of this policy, the following provides the overall concepts or security
+principles for which all users and vendors are responsible. It is the responsibility of
+the Data Security organization to define the specific mechanisms necessary to
+support these principles.
+Accountability
+Accountability is the concept that every user must be responsible for their actions, so that in
+the event of any questionable activity or breach of policy, a specific user can be identified. The
+specific security services that support accountability are identification, authentication, and
+auditing. For this policy statement, identification refers to a security service that recognizes
+Data Security Policy Statement 15
+a claim of identity by comparing a userid offered with stored security information.
+Authentication refers to a security service that verifies the claimed identity of the user, for
+example a password. Auditability refers to a security service that records information of
+potential security significance.
+All network, system, and application events should be attributable to a specific and
+unique individual. It should be possible to attribute a responsible individual to
+every event through an identification service and to verify that the individual so
+assigned has been properly identified through an authentication service. It must also
+be possible to trace any event so as to reconstruct the time, place, and circumstances
+surrounding it through an audit service.
+In this context identification refers to a security service that recognizes a claim of
+identity by comparing a userid offered with stored security information.
+Authentication refers to a security service that verifies the claimed identity of the
+user, for example a password. Auditability refers to a security service that records
+information of potential security significance.
+Authorization
+Authorization is a concept that access to data and system resources should be limited to a
+need to know basis, and that specific users must be specifically allowed such access. For this
+policy statement access control refers to a security service that allows or denies a user request
+based on privilege, group information, or context. The specific security services that support
+authorization are access control and confidentiality. Confidentiality refers to a security
+service that prevents disclosure of information to unauthorized parties while the information
+is in use or in transit, or while the information is being stored or destroyed.
+All network, system, and application events must only result from allowable actions
+through access control mechanisms. Permission may be derived directly from an
+individual's identity, or from a job classification or administrative privilege based on
+that individual's identity. The principle of “least privilege” specifies that individuals
+only be granted permission for actions needed to perform their jobs.
+Limiting actions to those properly authorized protects the confidentiality and
+integrity of data within the <COMPANY> processing environment.
+In this context access control refers to a security service that allows or denies a user
+request based on privilege, group information, or context. Confidentiality refers to a
+security service that prevents disclosure of information to unauthorized parties
+while the information is in use or transit, or being storage or destroyed.
+16 Data Security Policy - Structure and Guidelines • December 2001
+Availability
+Availability is the concept that system and data resources must be accessible whenever they
+are needed. The necessity for availability is dependent upon your particular business
+proposition. The specific security service that supports availability is integrity. For this
+policy statement, integrity refers to a security service that guarantees data has not been
+altered, deleted, repeated, or rearranged during transmission, storage, processing, or recovery
+All permitted activity should operate with reliability. The data necessary to carry out
+such events must be readily retrieved and correct with high confidence. All results of
+an event must be completed, unless the event is aborted in its entirety. The results of
+an event should not depend in unexpected ways on other concurrent events. The
+security services themselves must be documented and easily administered.
+In this context integrity refers to a security service that guarantees data has not been
+altered, deleted, repeated, or rearranged during transmission, storage, processing, or
+recovery.
+Core Security Principles
+Your information systems security architecture, policies, procedures, practices, and
+guidelines should be developed in concert with the principles stated below. The
+following are the common core security principles recommended by industry best
+practices.
+n Accountability Principle – The accountability and responsibility of information
+systems security should be explicit.
+n Awareness Principle – Owners, providers, and users of information systems, and
+other parties should be informed about (or readily able to gain appropriate
+knowledge of) the existence and general extent of policies, responsibilities,
+practices, procedures, and organization for security of information systems.
+n Ethics Principle – Information systems and the security of information systems
+should be provided and used in accordance with the ethical standards applicable
+to your operating environment.
+n Multidisciplinary Principle – Policies, responsibilities, practices, and procedures
+for the security of information systems should consider all relevant aspects of this
+effort, including technical (e.g. software and hardware engineering),
+administrative, organizational, operational, commercial, educational, and legal.
+n Proportionality Principle – Security levels, costs, practices, and procedures
+should be appropriate and proportionate to the values of and degree of reliance
+on the information systems and to the severity, probability, and extent of potential
+for direct and indirect, tangible and intangible harm.
+Core Security Principles 17
+n Integration Principle – Policies, practices, and procedures for the security of
+information systems should be coordinated and integrated with each other and
+with other measures, practices, and procedures of the organization to ensure a
+coherent system of security.
+n Timeliness Principle – All personnel, assigned agents, and third party providers,
+should act in a timely, coordinated manner to prevent and to respond to breaches
+of the security of information systems.
+n Reassessment Principle – The security of information systems should be
+reassessed periodically.
+n Democracy Principle – The security of an information system should be weighted
+against the rights of customers, users, data owners, data custodians and other
+individuals affected by the system, and against your rights as the owners and
+operators of these systems.
+n Certification and Accreditation Principle – Information systems and information
+security professionals should be certified to be technically competent and
+management should approve them for operation.
+n Internal Control Principle – Information security forms the core of an
+organization’s information internal control system.
+n Adversary Principle – Controls, security strategies, architectures, policies,
+standards, procedures, and guidelines should be developed and implemented in
+anticipation of attack from intelligent, rational, and irrational adversaries with
+harmful intent or harm from negligent or accidental actions.
+n Least Privilege Principle – An individual should be granted only enough
+privilege to accomplish assigned tasks, but no more.
+n Separation of Duty Principle – Responsibilities and privileges should be allocated
+in such a way that prevents an individual or a small group of collaborating
+individuals from inappropriately controlling multiple key aspects of a process
+and causing unacceptable harm or loss.
+n Continuity Principle – Information security professionals should identify their
+organization’s needs for disaster recovery and continuity of operations and
+should prepare the organization and its information systems accordingly.
+n Simplicity Principle – Information professionals should favor small and simple
+safeguards over large and complex safeguards.
+n Policy-Centered Security Principle – Policies, standards, and procedures should
+be established as a basis for managing the planning, control, and evaluation of
+information security activities.
+18 Data Security Policy - Structure and Guidelines • December 2001
+Summary
+This template provided a brief description of recommended security policy topics
+and an overview of core security policies. In addition, this template outlined a
+sample Data Security Policy and Statement and provided commentary explaining
+the details of each security topic and why it was chosen for the particular policy.
+Finally, a detailed list of security policy principles was described.
+This template was built from the Sun BluePrints article, Developing a Security Policy
+(12/01), by Joel Weise and Charles R. Martin. The article is available from:
+http://sun.com/blueprints/1201/secpolicy.pdf
+Author’s Bio: JoelWeise
+Joel Weise has worked in the field of data security for over 20 years. As a Senior Security
+Architect for Sun Professional Services, he designs system and application security solutions
+for a range of different enterprises from financial institutions to government agencies. He
+specializes in cryptography and public key infrastructures. Prior to joining Sun, Joel was a
+Senior Project Manager for Visa International. There he was responsible for developing
+cryptographic standards, designing key management and cryptographic systems and
+architecting security solutions for chipcard, Internet, and other new products.
+Author’s Bio: Charles R. Martin
+Charles R. Martin has been in the computer business for more than 30 years, and involved
+with computer security since 1983. He was the original architect for a DARPA B3/A1 X
+server, developed methods for covert channel analysis in full-scale UNIX kernels, and has coauthored
+several chapters in the NRL handbook on trusted system evaluation. He is
+currently a Senior Java Architect with Sun Microsystems in the Sun Java Center developing
+methods for quantitative analysis of distributed system architectures, and a member of the
+graduate faculty at the University of Colorado in Boulder.
+There are two kinds of security: data and break-in. Data security is addressed by having a good backup system (see next section on computer security). Break-in security is often a matter of using passwords to files or systems where possible, locking systems in offices and managing modem dial-in. Have the modem on only when sending or receiving. 
 
-Contents [hide]
-1 Security by design 
-1.1 Early history of security by design 
-2 Security architecture 
-3 Hardware mechanisms that protect computers and data 
-4 Secure operating systems 
-5 Secure coding 
-6 Capabilities vs. ACLs 
-7 Applications 
-7.1 In aviation 
-7.1.1 Notable system accidents 
-8 Terminology 
-9 Notes 
-10 References 
-11 See also 
- 
+1. To avoid losing information stored on your computers when, e.g., a disk breaks (or "crashes"), ensure that computer files are regularly backed up to another media, e.g., backed up onto magnetic tapes, "zip" disk, CD-ROM, etc. Store the media offsite, that is, in a facility other than at your organization. If a disk crashes, you can repair the disk or get a new one and then restore the information from the backup media onto the new disk.Or, if backup media cannot be afforded (most are only a few hundred dollars), ensure files are stored on at least two different media devices, e.g., stored on an internal hard disk and then also on a diskette. Using a diskette as backup simply requires the computer user to occasionally save away his or her file to the diskette in addition to the hard disk. The same diskette can be used to backup files. Label the diskette with the time period during which files were backed up to it. Note that the major software applications themselves (Word, Excel, etc.) do not have to be backed up because the organization usually has the software application's master diskettes. The most important items to backup are usually database files, spreadsheet files and large documents written by users. Conducting regular backups is more a matter of managerial policy than technical limitations. 
 
+2. Use electrical surge protectors to ensure your computers will not experience sudden surges of electricity, e.g., during storms, if the quality of your electricity in your building is poor, or is the computer is turned off and on.
 
-[edit] Security by design
-Main article: Security by design
-The technologies of computer security are based on logic. As security is not necessarily the primary goal of most computer applications, designing a program with security in mind often imposes restrictions on that program's behavior.
+3. Protect unauthorized access to computer files by using passwords to log-on to your system, if possible. Critical files can be copied onto two different diskettes (with one as a backup for the other) and both stored in locked drawers. Be sure to label the diskettes such that you'll recognize them later by the name on the diskette label.
 
-There are several approaches to security in computing, sometimes a combination of approaches is valid:
+4. Ensure that computers remain working as much as possible (that is, maximum their uptime) by recording and testing detailed procedures for all routine, but critical, tasks performed by staff on the computers and associated peripherals, e.g., for computer backups and restores, fixing recurring problems, etc. Locate and label the procedures in a central location of which all staff are aware.
 
-Trust all the software to abide by a security policy but the software is not trustworthy (this is computer insecurity). 
-Trust all the software to abide by a security policy and the software is validated as trustworthy (by tedious branch and path analysis for example). 
-Trust no software but enforce a security policy with mechanisms that are not trustworthy (again this is computer insecurity). 
-Trust no software but enforce a security policy with trustworthy mechanisms. 
-Many systems have unintentionally resulted in the first possibility. Since approach two is expensive and non-deterministic, its use is very limited. Approaches one and three lead to failure. Because approach number four is often based on hardware mechanisms and avoids abstractions and a multiplicity of degrees of freedom, it is more practical. Combinations of approaches two and four are often used in a layered architecture with thin layers of two and thick layers of four.
+5. Develop competent internal technical support personnel who can help others to conduct basic activities on the computers and who can call outside consultants for troubleshooting when needed. Have one or two internal people who are designated as technical support contacts for other staff members.
 
-There are various strategies and techniques used to design security systems. However there are few, if any, effective strategies to enhance security after design. One technique enforces the principle of least privilege to great extent, where an entity has only the privileges that are needed for its function. That way even if an attacker gains access to one part of the system, fine-grained security ensures that it is just as difficult for them to access the rest.
+6. Instruct staff to report all problems to the internal technical support people. That way, the internal people are aware of all problems and are more likely to detect oncoming problems as early as possible. They also become better trained at detecting and diagnosing problems.
 
-Furthermore, by breaking the system up into smaller components, the complexity of individual components is reduced, opening up the possibility of using techniques such as automated theorem proving to prove the correctness of crucial software subsystems. This enables a closed form solution to security that works well when only a single well-characterized property can be isolated as critical, and that property is also assessable to math. Not surprisingly, it is impractical for generalized correctness, which probably cannot even be defined, much less proven. Where formal correctness proofs are not possible, rigorous use of code review and unit testing represent a best-effort approach to make modules secure.
+7. Record all important phone numbers for technical support consultants or contacts, and ensure staff can find these numbers when needed.
 
-The design should use "defense in depth", where more than one subsystem needs to be violated to compromise the integrity of the system and the information it holds. Defense in depth works when the breaching of one security measure does not provide a platform to facilitate subverting another. Also, the cascading principle acknowledges that several low hurdles does not make a high hurdle. So cascading several weak mechanisms does not provide the safety of a single stronger mechanism.
+8. Keep all software documentation, such as manuals and guides, stored in a central location where staff can find them. Post a sheet on the wall so they can check documents out and for control to ensure they are returned.
 
-Subsystems should default to secure settings, and wherever possible should be designed to "fail secure" rather than "fail insecure" (see fail safe for the equivalent in safety engineering). Ideally, a secure system should require a deliberate, conscious, knowledgeable and free decision on the part of legitimate authorities in order to make it insecure.
+9. Promptly register all new software with the vendor to ensure you receive notification of regular software version updates and your eligibility to call the vendors for technical support if needed.
 
-In addition, security should not be an all or nothing issue. The designers and operators of systems should assume that security breaches are inevitable. Full audit trails should be kept of system activity, so that when a security breach occurs, the mechanism and extent of the breach can be determined. Storing audit trails remotely, where they can only be appended to, can keep intruders from covering their tracks. Finally, full disclosure helps to ensure that when bugs are found the "window of vulnerability" is kept as short as possible.
+10. Keep the serial numbers of all software packages in a clearly visible place for ease of reference when calling the software vendor's technical support. (The vendor usually will ask you for the serial number to verify that you indeed purchased the software.)
 
+11. Note that if you dissemble your computer hardware, you risk losing coverage of your warranty. During your warranty period (which often covers labor during the first 90 days and hardware during the first one or two years), always call the vendor as soon as you suspect any problems. Problems usually occur during the first several weeks if they occur at all.
 
-[edit] Early history of security by design
-The early Multics operating system was notable for its early emphasis on computer security by design, and Multics was possibly the very first operating system to be designed as a secure system from the ground up. In spite of this, Multics' security was broken, not once, but repeatedly. The strategy was known as 'penetrate and test' and has become widely known as a non-terminating process that fails to produce computer security. This led to further work on computer security that prefigured modern security engineering techniques producing closed form processes that terminate.
+12. Be sure to install a virus detector on your system. The detector should automatically check any new data brought into your system, for example, from diskettes, downloaded from the Internet, etc.
 
+13. Develop a disaster recovery plan. The plan should address contingencies. It should include procedures to respond to, e.g., if a disk crashes, if the computer quits working, if the network is down, if the building is somehow destroyed, etc.
 
-[edit] Security architecture
-Main article: Security architecture
-Security Architecture can be defined as the design artifacts that describe how the security controls (security countermeasures) are positioned, and how theythey relate to the overall information technology architecture. These controls serve the purpose to maintain the system's quality attributes, among them confidentiality, integrity, availability, accountability and assurance."[1]. A security architecture is the plan that shows where security measures need to be placed. If the plan describes a specific solution then, prior to building such a plan, one would make a risk analysis. If the plan describes a generic high level design (reference architecture) then the plan should be based on a threat analysis.[citation needed]
-
-
-[edit] Hardware mechanisms that protect computers and data
-Hardware based or assisted computer security offers an alternative to software-only computer security. Devices such as dongles may be considered more secure due to the physical access required in order to be compromised.
-
-While many software based security solutions encrypt the data to prevent data from being stolen, a malicious program may corrupt the data in order to make it unrecoverable or unusable. Hardware-based security solutions can prevent read and write access to data and hence offers very strong protection against tampering.[citation needed]
-
-
-[edit] Secure operating systems
-Main article: Secure operating systems
-One use of the term computer security refers to technology to implement a secure operating system. Much of this technology is based on science developed in the 1980s and used to produce what may be some of the most impenetrable operating systems ever. Though still valid, the technology is in limited use today, primarily because it imposes some changes to system management and also because it is not widely understood. Such ultra-strong secure operating systems are based on operating system kernel technology that can guarantee that certain security policies are absolutely enforced in an operating environment. An example of such a Computer security policy is the Bell-La Padula model. The strategy is based on a coupling of special microprocessor hardware features, often involving the memory management unit, to a special correctly implemented operating system kernel. This forms the foundation for a secure operating system which, if certain critical parts are designed and implemented correctly, can ensure the absolute impossibility of penetration by hostile elements. This capability is enabled because the configuration not only imposes a security policy, but in theory completely protects itself from corruption. Ordinary operating systems, on the other hand, lack the features that assure this maximal level of security. The design methodology to produce such secure systems is precise, deterministic and logical.
-
-Systems designed with such methodology represent the state of the art[clarification needed] of computer security although products using such security are not widely known. In sharp contrast to most kinds of software, they meet specifications with verifiable certainty comparable to specifications for size, weight and power. Secure operating systems designed this way are used primarily to protect national security information, military secrets, and the data of international financial institutions. These are very powerful security tools and very few secure operating systems have been certified at the highest level (Orange Book A-1) to operate over the range of "Top Secret" to "unclassified" (including Honeywell SCOMP, USAF SACDIN, NSA Blacker and Boeing MLS LAN.) The assurance of security depends not only on the soundness of the design strategy, but also on the assurance of correctness of the implementation, and therefore there are degrees of security strength defined for COMPUSEC. The Common Criteria quantifies security strength of products in terms of two components, security functionality and assurance level (such as EAL levels), and these are specified in a Protection Profile for requirements and a Security Target for product descriptions. None of these ultra-high assurance secure general purpose operating systems have been produced for decades or certified under the Common Criteria.
-
-In USA parlance, the term High Assurance usually suggests the system has the right security functions that are implemented robustly enough to protect DoD and DoE classified information. Medium assurance suggests it can protect less valuable information, such as income tax information. Secure operating systems designed to meet medium robustness levels of security functionality and assurance have seen wider use within both government and commercial markets. Medium robust systems may provide the same security functions as high assurance secure operating systems but do so at a lower assurance level (such as Common Criteria levels EAL4 or EAL5). Lower levels mean we can be less certain that the security functions are implemented flawlessly, and therefore less dependable. These systems are found in use on web servers, guards, database servers, and management hosts and are used not only to protect the data stored on these systems but also to provide a high level of protection for network connections and routing services.
-
-
-[edit] Secure coding
-Main article: Secure coding
-If the operating environment is not based on a secure operating system capable of maintaining a domain for its own execution, and capable of protecting application code from malicious subversion, and capable of protecting the system from subverted code, then high degrees of security are understandably not possible. While such secure operating systems are possible and have been implemented, most commercial systems fall in a 'low security' category because they rely on features not supported by secure operating systems (like portability, et al.). In low security operating environments, applications must be relied on to participate in their own protection. There are 'best effort' secure coding practices that can be followed to make an application more resistant to malicious subversion.
-
-In commercial environments, the majority of software subversion vulnerabilities result from a few known kinds of coding defects. Common software defects include buffer overflows, format string vulnerabilities, integer overflow, and code/command injection.
-
-Some common languages such as C and C++ are vulnerable to all of these defects (see Seacord, "Secure Coding in C and C++"). Other languages, such as Java, are more resistant to some of these defects, but are still prone to code/command injection and other software defects which facilitate subversion.
-
-Recently another bad coding practice has come under scrutiny; dangling pointers. The first known exploit for this particular problem was presented in July 2007. Before this publication the problem was known but considered to be academic and not practically exploitable. [2]
-
-In summary, 'secure coding' can provide significant payback in low security operating environments, and therefore worth the effort. Still there is no known way to provide a reliable degree of subversion resistance with any degree or combination of 'secure coding.'
-
-
-[edit] Capabilities vs. ACLs
-Main articles: Access control list and Capability (computers)
-Within computer systems, the two fundamental means of enforcing privilege separation are access control lists (ACLs) and capabilities. The semantics of ACLs have been proven to be insecure in many situations (e.g., Confused deputy problem). It has also been shown that ACL's promise of giving access to an object to only one person can never be guaranteed in practice. Both of these problems are resolved by capabilities. This does not mean practical flaws exist in all ACL-based systems, but only that the designers of certain utilities must take responsibility to ensure that they do not introduce flaws.
-
-Capabilities have been mostly restricted to research operating systems and commercial OSs still use ACLs. Capabilities can, however, also be implemented at the language level, leading to a style of programming that is essentially a refinement of standard object-oriented design. An open source project in the area is the E language.
-
-First the Plessey System 250 and then Cambridge CAP computer demonstrated the use of capabilities, both in hardware and software, in the 1970s. A reason for the lack of adoption of capabilities may be that ACLs appeared to offer a 'quick fix' for security without pervasive redesign of the operating system and hardware.[citation needed]
-
-The most secure computers are those not connected to the Internet and shielded from any interference. In the real world, the most security comes from operating systems where security is not an add-on, such as OS/400 from IBM. This almost never shows up in lists of vulnerabilities for good reason. Years may elapse between one problem needing remediation and the next.
-
-See the article secure operating systems.
-
-
-[edit] Applications
-Computer security is critical in almost any technology-driven industry which operates on computer systems. The issues of computer based systems and addressing their countless vulnerabilities are an integral part of maintaining an operational industry. [3]
-
-
-[edit] In aviation
-The aviation industry is especially important when analyzing computer security because the involved risks include human life, expensive equipment, cargo, and transportation infrastructure. Security can be compromised by hardware and software malpractice, human error, and faulty operating environments. Threats that exploit computer vulnerabilities can stem from sabotage, espionage, industrial competition, terrorist attack, mechanical malfunction, and human error. [4]
-
-The consequences of a successful deliberate or inadvertent misuse of a computer system in the aviation industry range from loss of confidentiality to loss of system integrity, which may lead to more serious concerns such as data theft or loss, network and air traffic control outages, which in turn can lead to airport closures, loss of aircraft, loss of passenger life. Military systems that control munitions can pose an even greater risk.
-
-A proper attack does not need to be very high tech or well funded for a power outage at an airport alone can cause repercussions worldwide. [5]. One of the easiest and, arguably, the most difficult to trace security vulnerabilities is achievable by transmitting unauthorized communications over specific radio frequencies. These transmissions may spoof air traffic controllers or simply disrupt communications altogether. These incidents are very common, having altered flight courses of commercial aircraft and caused panic and confusion in the past.[citation needed] Controlling aircraft over oceans is especially dangerous because radar surveillance only extends 175 to 225 miles offshore. Beyond the radar's sight controllers must rely on periodic radio communications with a third party.
-
-Lightning, power fluctuations, surges, brown-outs, blown fuses, and various other power outages instantly disable all computer systems, since they are dependent on an electrical source. Other accidental and intentional faults have caused significant disruption of safety critical systems throughout the last few decades and dependence on reliable communication and electrical power only jeopardizes computer safety.[citation needed]
-
-
-[edit] Notable system accidents
-In 1994, over a hundred intrusions were made by unidentified hackers into the Rome Laboratory, the US Air Force's main command and research facility. Using trojan horse viruses, hackers were able to obtain unrestricted access to Rome's networking systems and remove traces of their activities. The intruders were able to obtain classified files, such as air tasking order systems data and furthermore able to penetrate connected networks of National Aeronautics and Space Administration's Goddard Space Flight Center, Wright-Patterson Air Force Base, some Defense contractors, and other private sector organizations, by posing as a trusted Rome center user. [6] Now, a technique called Ethical hack testing is used to remediate these issues.[citation needed]
-
-Electromagnetic interference is another threat to computer safety and in 1989, a United States Air Force F-16 jet accidentally dropped a 230 kg bomb in West Georgia after unspecified interference caused the jet's computers to release it. [7]
-
-A similar telecommunications accident also happened in 1994, when two UH-60 Blackhawk helicopters were destroyed by F-15 aircraft in Iraq because the IFF system's encryption system malfunctioned.[citation needed]
-
-
-[edit] Terminology
-The following terms used in engineering secure systems are explained below.
-
-Authentication techniques can be used to ensure that communication end-points are who they say they are. 
-Automated theorem proving and other verification tools can enable critical algorithms and code used in secure systems to be mathematically proven to meet their specifications. 
-Capability and access control list techniques can be used to ensure privilege separation and mandatory access control. The next sections discuss their use. 
-Chain of trust techniques can be used to attempt to ensure that all software loaded has been certified as authentic by the system's designers. 
-Cryptographic techniques can be used to defend data in transit between systems, reducing the probability that data exchanged between systems can be intercepted or modified. 
-Firewalls can provide some protection from online intrusion. 
-Mandatory access control can be used to ensure that privileged access is withdrawn when privileges are revoked. For example, deleting a user account should also stop any processes that are running with that user's privileges. 
-Secure cryptoprocessors can be used to leverage physical security techniques into protecting the security of the computer system. 
-microkernels can be reliable against errors: eg EROS and Coyotos. 
-Some of the following items may belong to the computer insecurity article:
-
-Access authorization restricts access to a computer to group of users through the use of authentication systems. These systems can protect either the whole computer - such as through an interactive logon screen - or individual services, such as an FTP server. There are many methods for identifying and authenticating users, such as passwords, identification cards, and, more recently, smart cards and biometric systems. 
-Anti-virus software consists of computer programs that attempt to identify, thwart and eliminate computer viruses and other malicious software (malware). 
-application with known security flaws should not be run. Either leave it turned off until it can be patched or otherwise fixed, or delete it and replace it with some other application. Publicly known flaws are the main entry used by worms to automatically break into a system and then spread to other systems connected to it. The security website Secunia provides a search tool for unpatched known flaws in popular products. 
- 
-Cryptographic techniques involve transforming information, scrambling it so it becomes unreadable during transmission. The intended recipient can unscramble the message, but eavesdroppers cannot.Backups are a way of securing information; they are another copy of all the important computer files kept in another location. These files are kept on hard disks, CD-Rs, CD-RWs, and tapes. Suggested locations for backups are a fireproof, waterproof, and heat proof safe, or in a separate, offsite location than that in which the original files are contained. Some individuals and companies also keep their backups in safe deposit boxes inside bank vaults. There is also a fourth option, which involves using one of the file hosting services that backs up files over the Internet for both business and individuals. 
-Backups are also important for reasons other than security. Natural disasters, such as earthquakes, hurricanes, or tornadoes, may strike the building where the computer is located. The building can be on fire, or an explosion may occur. There needs to be a recent backup at an alternate secure location, in case of such kind of disaster. Further, it is recommended that the alternate location be placed where the same disaster would not affect both locations. Examples of alternate disaster recovery sites being compromised by the same disaster that affected the primary site include having had a primary site in World Trade Center I and the recovery site in 7 World Trade Center, both of which were destroyed in the 9/11 attack, and having one's primary site and recovery site in the same coastal region, which leads to both being vulnerable to hurricane damage (e.g. primary site in New Orleans and recovery site in Jefferson Parish, both of which were hit by Hurricane Katrina in 2005). The backup media should be moved between the geographic sites in a secure manner, in order to prevent them from being stolen. 
-Encryption is used to protect the message from the eyes of others. It can be done in several ways by switching the characters around, replacing characters with others, and even removing characters from the message. These have to be used in combination to make the encryption secure enough, that is to say, sufficiently difficult to crack. Public key encryption is a refined and practical way of doing encryption. It allows for example anyone to write a message for a list of recipients, and only those recipients will be able to read that message. 
-Firewalls are systems which help protect computers and computer networks from attack and subsequent intrusion by restricting the network traffic which can pass through them, based on a set of system administrator defined rules. 
-Honey pots are computers that are either intentionally or unintentionally left vulnerable to attack by crackers. They can be used to catch crackers or fix vulnerabilities. 
-Intrusion-detection systems can scan a network for people that are on the network but who should not be there or are doing things that they should not be doing, for example trying a lot of passwords to gain access to the network. 
-Pinging The ping application can be used by potential crackers to find if an IP address is reachable. If a cracker finds a computer they can try a port scan to detect and attack services on that computer. 
-Social engineering awareness keeps employees aware of the dangers of social engineering and/or having a policy in place to prevent social engineering can reduce successful breaches of the network and servers. 
