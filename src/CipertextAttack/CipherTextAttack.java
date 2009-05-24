@@ -62,12 +62,11 @@ public class CipherTextAttack {
 		printFreq();
 		
 		//we stop the program if we found at least 50% of the words 
-		while (correctWords < this.getWordsFromFile().size()/2){
-			
-			
-			
-			
-		}
+		//while (correctWords < this.getWordsFromFile().size()/2){
+			substitute(sortedLettersFreq_[61],'e');
+			substitute(sortedLettersFreq_[60],'t');
+			printWordsFromFile();
+		//}
 		
 		//printing the Result key to the output file :
     	this.printResult(cipherText);
@@ -79,9 +78,19 @@ public class CipherTextAttack {
 	 */
 	private void substitute(Character oldChar,Character newChar){
 		lettersFound_++;
-		System.out.println("sub :"+oldChar +"with = "+newChar);
-		for (String str : this.wordsFromFile_){
-			str.replaceAll(String.valueOf(oldChar), String.valueOf(newChar));
+		System.out.println();
+		System.out.println("sub :"+oldChar +" with = "+newChar);
+		for (int j = 0 ; j< this.wordsFromFile_.){
+			char [] word  = str.toCharArray();
+			for(int i =0 ;i<word.length;i++){
+				if (str.charAt(i) == oldChar){
+					word[i] = newChar;
+				}else {
+					if (str.charAt(i) == newChar){
+						word[i] = oldChar;
+					}
+				}
+		}
 		}
 		this.key_.getKey().put(newChar, oldChar);
 	}
@@ -221,14 +230,14 @@ public class CipherTextAttack {
 		}
 		System.out.println();
 	}
-//	/**
-//	 * Printing the words from the file :
-//	 */
-//	private void printWordsFromFile() {
-//		for (String tmpString : wordsFromFile_){
-//			System.out.println(tmpString);
-//		}
-//	}
+	/**
+	 * Printing the words from the file :
+	 */
+	private void printWordsFromFile() {
+		for (String tmpString : wordsFromFile_){
+			System.out.println(tmpString);
+		}
+	}
 	
     /**
      * calculating Frequency
