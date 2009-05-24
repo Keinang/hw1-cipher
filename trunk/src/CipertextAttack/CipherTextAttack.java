@@ -91,7 +91,7 @@ public class CipherTextAttack {
 						word[i] = oldChar;
 					}
 				}
-				this.wordsFromFile_.add(j, word.toString());
+				this.wordsFromFile_.set(j, word.toString());
 			}
 		}
 		this.key_.getKey().put(newChar, oldChar);
