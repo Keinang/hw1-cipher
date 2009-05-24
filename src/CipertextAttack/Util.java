@@ -132,7 +132,11 @@ public class Util {
 		str = removeSignsFromEndOfWord('.',str);
 		str = removeSignsFromEndOfWord(')',str);
 		str = removeSignsFromEndOfWord(':',str);
+		str = removeSignsFromEndOfWord(';',str);
+		str = removeSignsFromEndOfWord('"',str);
+		str = removeSignsFromEndOfWord('?',str);
 		str = removeSignsFromBeginingOfWord('(',str);
+		str = removeSignsFromBeginingOfWord('"',str);
 		str = removeSignsFromEndOfWord(',',str);
 		if (hyphen(words,str)){ 
 			return;

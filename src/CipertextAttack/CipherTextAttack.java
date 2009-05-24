@@ -14,6 +14,7 @@ import java.util.Vector;
  *
  */
 public class CipherTextAttack {
+	Vector<Character> freqLet  = new Vector<Character> ();
 	private Util util = new Util();
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
 	private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
@@ -21,6 +22,7 @@ public class CipherTextAttack {
 	private Character[] sortedZugLettersFreq_ = new Character[62];
 	static Key key_ = new Key();
 	private Vector<String> wordsFromFile_ = new Vector<String>();
+	private Dict dict = new Dict();
 	/**
 	 * @param args - cipher text
 	 */
@@ -61,10 +63,18 @@ public class CipherTextAttack {
 		sortZug();
 		
 		Character[] mostFreq = {'e','t','a','o','i','n','s','h','r'}; 
-		
+		Vector<Character> freqLet  =new  Vector<Character> ();
+		for (int i = 0; i < mostFreq.length; i++) {
+			freqLet.add(mostFreq[i]);
+		}
+		int numOfPerms = 0;
 		for (int i=0;i<mostFreq.length;i++){
 			substitute(sortedLettersFreq_[61-i],mostFreq[i]);
 		}
+		numOfPerms++;
+		Vector<String> mostFreqLettersWords = wordsWithMostFreqLetters();
+		//System.out.println(checkCorrectWords());
+		
 		
 //		searchH(); //found h
 //		searchTo();//found o 
@@ -75,7 +85,38 @@ public class CipherTextAttack {
 		//printing the Result key to the output file :
     	util.printResult(CipherTextAttack.key_,cipherText);
 	}
-	
+	private Vector<String> wordsWithMostFreqLetters(){
+		Vector<String> tmpVec = new Vector<String>();
+		boolean flag = true;
+		for(String str:this.getWordsFromFile()){
+			flag = true;
+			System.out.println(str);
+			String tmp = new String(str);
+			for (Character ch:tmp.toCharArray()){
+				if (!freqLet.contains(ch)){
+					flag=false;
+					break;
+				}
+			}
+			if (flag){
+				System.out.println("the string is = "+str);
+				tmpVec.add(str);
+			}
+		}
+		System.out.println(tmpVec.size());
+		return tmpVec;
+	}
+	private double checkCorrectWords() {
+		double totalWords = 0;
+		double counter = 0;
+		for (String str:this.getWordsFromFile()){
+			if (dict.getSpecialWords().contains(str)){
+				counter++;
+			}
+		}
+		return (counter / totalWords ) * 100; 
+	}
+
 	private void searchThat() {
 		for (String str : this.wordsFromFile_){
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(3) =='t' 
