@@ -1,3 +1,3 @@
-a=H b=B c=R d=S e=P f=F g=G h=C i=X j=A k=J l=L m=U n=K o=D p=V q=2 r=9 s=6 t=5 u=3 v=0 w=8 x=7 y=4 z=1 
-A=e B=p C=n D=t E=k F=h G=b H=a I=c J=o K=i L=s M=f N=z O=m P=d Q=Y R=Q S=N T=W U=M V=O W=Z X=T Y=E Z=I 
-0=w 1=j 2=q 3=y 4=u 5=v 6=x 7=g 8=l 9=r 
+a=I b=V c=A d=G e=H f=D g=C h=J i=N j=B k=X l=Y m=L n=O o=M p=E q=4 r=5 s=6 t=1 u=3 v=7 w=8 x=9 y=0 z=2 
+A=m B=b C=l D=d E=r F=z G=i H=e I=s J=w K=x L=h M=v N=y O=g P=q Q=R R=P S=Q T=K U=S V=F W=W X=T Y=Z Z=U 
+0=u 1=k 2=j 3=o 4=n 5=p 6=c 7=a 8=f 9=t 
