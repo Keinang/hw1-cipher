@@ -155,7 +155,7 @@ public class Util {
 			String str;
 			boolean found = false;
 			//Getting String and substitute it with the key
-		    while ((str = in.readLine()) != null) {
+			while ((str = in.readLine()) != null) {
 		    	char[] charsInString = new char[str.length()];
 				str.getChars(0, str.length(), charsInString, 0);
 				
