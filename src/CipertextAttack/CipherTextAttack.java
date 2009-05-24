@@ -14,15 +14,17 @@ import java.util.Vector;
  *
  */
 public class CipherTextAttack {
-	Vector<Character> freqLet  = new Vector<Character> ();
+	Vector<Character> mostFreqLet  = new Vector<Character>();
 	private Util util = new Util();
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
 	private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
 	private Character[] sortedLettersFreq_ = new Character[62];
 	private Character[] sortedZugLettersFreq_ = new Character[62];
-	static Key key_ = new Key();
+	private Key key_ = new Key();
+	private Key keyOpposite_ = new Key();
 	private Vector<String> wordsFromFile_ = new Vector<String>();
 	private Dict dict = new Dict();
+	
 	/**
 	 * @param args - cipher text
 	 */
@@ -53,91 +55,154 @@ public class CipherTextAttack {
 	public void decrypt(String cipherText) {
 		
 		util.getWordsFromFile(this.getWordsFromFile(),cipherText);
-		//this.printWordsFromFile();
-		//System.out.println("Number of words : "+this.getWordsFromFile().size());
 		calcFreq();
-		sortFreq();//sorting the frequently table
-		util.printSortedFreqLetters(sortedLettersFreq_);
-		util.printFreq(this.lettersFreq_);
+		sortFreq();
 		calcZug();
 		sortZug();
 		
-		Character[] mostFreq = {'e','t','a','o','i','n','s','h','r'}; 
-		Vector<Character> freqLet  =new  Vector<Character> ();
+		search_the();
+		search_to();
+		search_that();
+		search_s();
+		//Start of Checking permutation
+		//findNine();
+		
+		//print for testing
+		util.printTempDecryptFile(this.key_,"encryptedTxt.txt");
+		
+		//printing the Result key to the output file :
+    	util.printResult(this.key_,cipherText);
+	}
+	
+	private void findNine() {
+		Character[] mostFreq = {'a','o','n','i','s','r'}; 
 		for (int i = 0; i < mostFreq.length; i++) {
-			freqLet.add(mostFreq[i]);
+			mostFreqLet.add(mostFreq[i]);
 		}
+		Vector<String> mostFreqLettersWords = wordsWithMostFreqLetters();
+		double percent = 0.0;
 		int numOfPerms = 0;
+		
 		for (int i=0;i<mostFreq.length;i++){
 			substitute(sortedLettersFreq_[61-i],mostFreq[i]);
 		}
 		numOfPerms++;
-		Vector<String> mostFreqLettersWords = wordsWithMostFreqLetters();
-		//System.out.println(checkCorrectWords());
+		percent = checkCorrectWords(mostFreqLettersWords);
+		System.out.println(percent);
 		
-		
-//		searchH(); //found h
-//		searchTo();//found o 
-//		searchThat();//found a
-		
-		util.printTempDecryptFile(CipherTextAttack.key_,"encryptedTxt.txt");
-		
-		//printing the Result key to the output file :
-    	util.printResult(CipherTextAttack.key_,cipherText);
+		while (percent < 80){
+			for (int i=0;i<mostFreq.length;i++){
+				substitute(sortedLettersFreq_[61-i],mostFreq[i]);
+			}
+			numOfPerms++;
+			percent = checkCorrectWords(mostFreqLettersWords);
+			System.out.println(percent);
+		}
+		System.out.println("Found 9");
 	}
+
 	private Vector<String> wordsWithMostFreqLetters(){
 		Vector<String> tmpVec = new Vector<String>();
 		boolean flag = true;
+		
 		for(String str:this.getWordsFromFile()){
 			flag = true;
-			System.out.println(str);
-			String tmp = new String(str);
-			for (Character ch:tmp.toCharArray()){
-				if (!freqLet.contains(ch)){
+			char[] tmpCharArray = str.toCharArray();
+			for (Character ch:tmpCharArray){
+				if (!mostFreqLet.contains(ch)){
 					flag=false;
 					break;
 				}
 			}
 			if (flag){
-				System.out.println("the string is = "+str);
 				tmpVec.add(str);
 			}
 		}
-		System.out.println(tmpVec.size());
 		return tmpVec;
 	}
-	private double checkCorrectWords() {
-		double totalWords = 0;
+	private double checkCorrectWords(Vector<String> correctWords) {
+		double totalCorrectWords = correctWords.size();
 		double counter = 0;
-		for (String str:this.getWordsFromFile()){
+		for (String str:correctWords){
 			if (dict.getSpecialWords().contains(str)){
 				counter++;
 			}
 		}
-		return (counter / totalWords ) * 100; 
+		return (counter / totalCorrectWords ) * 100; 
 	}
-
-	private void searchThat() {
-		for (String str : this.wordsFromFile_){
-			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(3) =='t' 
-				&& str.charAt(1) == 'h'  ){
-				substitute(str.charAt(2), 'a');
-			}
-			break;
-		}
-	}
-
-	private void searchTo() {
-
-	}
-
-	private void searchH() {
-		for (String str : this.wordsFromFile_){
-			if (str.length()==3 && str.charAt(0) =='t' && str.charAt(2) =='e'){
-				substitute(str.charAt(1), 'h');
+	private void search_s() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()> 1 && str.charAt(str.length()-2) == '\'' ){
+				substitute(str.charAt(str.length()-1), 's');
 				break;
 			}
 		}
+	}
+	private void search_that() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(3) =='t' 
+				&& str.charAt(1) == 'h'  ){
+				substitute(str.charAt(2), 'a');
+				break;
+			}
+		}
+	}
+	private void search_to() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==2 && str.charAt(0) =='t'){
+				substitute(str.charAt(1), 'o');
+				break;
+			}
+		}
+	}
+	private void search_the() {
+		substitute(this.sortedLettersFreq_[61],'t');
+		substitute(this.sortedLettersFreq_[60],'e');
+		int[] appear = new int[123];
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==3 && str.charAt(0) =='t' && str.charAt(2) =='e'){
+				appear[str.charAt(1)]++;
+			}
+		}
+		int maxIndex = findMaxInArray(appear);
+		int maxChar = appear[maxIndex];
+		
+		int[] appear2 = new int[123];
+		substitute('e',this.sortedLettersFreq_[60]);
+		substitute('t',this.sortedLettersFreq_[61]);
+		substitute(this.sortedLettersFreq_[61],'e');
+		substitute(this.sortedLettersFreq_[60],'t');
+		
+		for (int i=0;i<this.getWordsFromFile().size();i++){
+			String str =this.getWordsFromFile().get(i);
+			if (str.length() == 3 && str.charAt(0) =='t' && str.charAt(2) =='e'){
+				appear2[str.charAt(1)]++;
+			}
+		}
+		int maxIndex2 = findMaxInArray(appear2);
+		int maxChar2 = appear2[maxIndex2];
+		if (maxChar > maxChar2){
+			substitute('t',this.sortedLettersFreq_[60]);
+			substitute('e',this.sortedLettersFreq_[61]);
+			substitute(this.sortedLettersFreq_[61],'t');
+			substitute(this.sortedLettersFreq_[60],'e');
+			substitute((char) maxIndex , 'h');
+		}
+		else{
+			substitute((char) maxIndex2 , 'h');
+		}
+	}
+
+	private int findMaxInArray(int[] appear) {
+		int max = 0;
+		int maxIndex=0;
+		for(int i=0; i < appear.length;i++){
+			if(appear[i] > max ){
+				max = appear[i];
+				maxIndex= i;
+			}
+		}
+		return maxIndex;
 	}
 
 	/**
@@ -146,23 +211,27 @@ public class CipherTextAttack {
 	 * @param newChar - The origin char
 	 */
 	private void substitute(Character oldChar,Character newChar){
-		System.out.println();
-		System.out.println("sub :"+oldChar +" with = "+newChar);
-		for (int j = 0 ; j< this.wordsFromFile_.size(); j++){
-			String str = this.wordsFromFile_.elementAt(j);
-			char [] word  = str.toCharArray();
-			for(int i =0 ;i<word.length;i++){
-				if (str.charAt(i) == oldChar){
-					word[i] = newChar;
-				}else {
-					if (str.charAt(i) == newChar){
-						word[i] = oldChar;
-					}
+		//System.out.println("sub :"+oldChar +" with = "+newChar);
+		Character pointToNewChar = this.keyOpposite_.getKey().get(newChar);
+		Character pointFromOldChar = this.key_.getKey().get(oldChar);
+
+		for (int i=0;i<this.getWordsFromFile().size();i++){
+			String str = this.getWordsFromFile().elementAt(i);
+			char[] chars = str.toCharArray();
+			for(int j=0;j<chars.length;j++){
+				if (chars[j] == oldChar){
+					chars[j] = newChar;
 				}
-				this.wordsFromFile_.set(j, String.valueOf(word));
+				else if (chars[j] == pointToNewChar){
+					chars[j] = pointFromOldChar;
+				}
 			}
+			this.getWordsFromFile().set(i,String.valueOf(chars) );
 		}
 		this.key_.getKey().put(newChar, oldChar);
+		this.keyOpposite_.getKey().put(oldChar, newChar);
+		this.key_.getKey().put(pointFromOldChar, pointToNewChar);
+		this.keyOpposite_.getKey().put(pointToNewChar, pointFromOldChar);
 	}
 
 	private void sortFreq(){

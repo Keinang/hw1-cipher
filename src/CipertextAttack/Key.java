@@ -15,13 +15,13 @@ public class Key {
 	public Key() {
 		key = new HashMap<Character, Character>();
 		for (char ch = 'a'; ch <= 'z' ; ch++){
-			key.put(ch, '?');
+			key.put(ch, ch);
 		}
 		for (char ch = 'A'; ch <= 'Z' ; ch++){
-			key.put(ch, '?');
+			key.put(ch, ch);
 		}
 		for (char ch = '0'; ch <= '9' ; ch++){
-			key.put(ch, '?');
+			key.put(ch, ch);
 		}
 	}
 

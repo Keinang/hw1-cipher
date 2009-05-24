@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
@@ -96,32 +97,40 @@ public class Util {
 	 * @param str - a String from a file to insert the HashMap<String,Integer>
 	 */
 	private void addStrToVector(Vector<String> words,String str) {
-		while (str.length() > 0){
-			int indexOfSpace = str.indexOf(" ");
-			
-			if (indexOfSpace == -1){ //Checking if it's the last word:
-				addWord(words,str);
-				return;
+		StringBuilder sb = new StringBuilder(30);
+		char[] tmpChars = str.toCharArray();
+		int tmpLength = 0;
+		for (char cha:tmpChars){
+			if (Integer.valueOf(cha) >=48 && Integer.valueOf(cha) <=57 ||
+				Integer.valueOf(cha) >=65 && Integer.valueOf(cha) <=90 ||	
+				Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				sb.append(cha);
+				tmpLength++;
 			}
-			addWord(words,str.substring(0, indexOfSpace));
-			str = str.substring(indexOfSpace+1,str.length());
+		}
+		if (tmpLength > 0){
+			sb.setLength(tmpLength);
+			addWord(words,sb.toString());
 		}
 	}
+			
 	void getWordsFromFile(Vector<String> words,String cipherText) {
-		BufferedReader in;
+		RandomAccessFile rac;
 		try {
-			in = new BufferedReader(new FileReader(cipherText));
-			String str;
-		    while ((str = in.readLine()) != null) {
-		    	//Getting Words into HashMap
-		    	addStrToVector(words,str);
-		    }
-		    in.close();
-		    
+			rac = new RandomAccessFile(cipherText, "r");
+			int length = (int)rac.length();
+			byte[] data = new byte[length];
+			rac.read(data, 0, length);
+			String str = new String(data);
+			rac.close();
+			String[] allWords = str.split(" ");
+			for (String tmpStr :allWords){
+				addStrToVector(words, tmpStr.trim());
+			}
 		} catch (FileNotFoundException e) {
-			System.out.println("File is not found");
-			System.exit(0);
+			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -135,6 +144,7 @@ public class Util {
 		str = removeSignsFromEndOfWord(';',str);
 		str = removeSignsFromEndOfWord('"',str);
 		str = removeSignsFromEndOfWord('?',str);
+		str = removeSignsFromEndOfWord('!',str);
 		str = removeSignsFromBeginingOfWord('(',str);
 		str = removeSignsFromBeginingOfWord('"',str);
 		str = removeSignsFromEndOfWord(',',str);
@@ -143,9 +153,7 @@ public class Util {
 		}
 		words.add(str);
 	}
-	public void printToText(Key key_, String string) {
-		
-	}
+
 	public void printTempDecryptFile(Key key_, String file) {
 		BufferedReader in;
 		BufferedWriter out;
@@ -161,10 +169,10 @@ public class Util {
 				
 				for (Character cha:charsInString){
 					found = false;
-					Iterator<Character> it = CipherTextAttack.key_.getKey().keySet().iterator();
+					Iterator<Character> it = key_.getKey().keySet().iterator();
 					while (it.hasNext()){
 						Character chKey = (Character) it.next();
-						Character chValue = CipherTextAttack.key_.getKey().get(chKey);
+						Character chValue = key_.getKey().get(chKey);
 						if (chValue != '?'){
 							if (chValue == cha){
 								out.write(chKey);
