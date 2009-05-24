@@ -19,9 +19,8 @@ public class CipherTextAttack {
 	private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
 	private Character[] sortedLettersFreq_ = new Character[62];
 	private Character[] sortedZugLettersFreq_ = new Character[62];
-	private Key key_ = new Key();
+	static Key key_ = new Key();
 	private Vector<String> wordsFromFile_ = new Vector<String>();
-	private int lettersFound_ = 0;
 	/**
 	 * @param args - cipher text
 	 */
@@ -61,32 +60,55 @@ public class CipherTextAttack {
 		util.printFreq(this.lettersFreq_);
 		calcZug();
 		sortZug();
-		System.out.println();
-		System.out.println(sortedZugLettersFreq_[61]);
-		System.out.println(sortedZugLettersFreq_[60]);
-		System.out.println(sortedZugLettersFreq_[59]);
 		
+		substitute(sortedLettersFreq_[61],'e'); //found e
+		substitute(sortedLettersFreq_[60],'t');// found t
+		searchH(); //found h
+		searchTo();//found o 
+		searchThat();//found a
 		
+		util.printTempDecryptFile(CipherTextAttack.key_,"encryptedTxt.txt");
 		//we stop the program if we found at least 50% of the words 
 		//while (correctWords < this.getWordsFromFile().size()/2){
-			substitute(sortedLettersFreq_[61],'e');
-			substitute(sortedLettersFreq_[60],'t');
+			
 			
 			//substitute();//search for LL
-			//printWordsFromFile();
+			
 		//}
 		
 		//printing the Result key to the output file :
     	util.printResult(this.key_,cipherText);
 	}
 	
+	private void searchThat() {
+		for (String str : this.wordsFromFile_){
+			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(3) =='t' 
+				&& str.charAt(1) == 'h'  ){
+				substitute(str.charAt(2), 'a');
+			}
+			break;
+		}
+	}
+
+	private void searchTo() {
+
+	}
+
+	private void searchH() {
+		for (String str : this.wordsFromFile_){
+			if (str.length()==3 && str.charAt(0) =='t' && str.charAt(2) =='e'){
+				substitute(str.charAt(1), 'h');
+				break;
+			}
+		}
+	}
+
 	/**
 	 * Substitute between the Chars 
 	 * @param oldChar - The encrypt char
 	 * @param newChar - The origin char
 	 */
 	private void substitute(Character oldChar,Character newChar){
-		lettersFound_++;
 		System.out.println();
 		System.out.println("sub :"+oldChar +" with = "+newChar);
 		for (int j = 0 ; j< this.wordsFromFile_.size(); j++){

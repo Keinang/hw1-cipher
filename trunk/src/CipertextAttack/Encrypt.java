@@ -85,7 +85,7 @@ public class Encrypt {
 						Integer.valueOf(cha) >=65 && Integer.valueOf(cha) <=90 ||	
 						Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
 						
-						Character newChar = randomKey_.getKey().get(cha);
+						Character newChar = this.randomKey_.getKey().get(cha);
 						out.write(newChar);
 					}
 					else{

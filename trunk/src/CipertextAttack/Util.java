@@ -1,8 +1,10 @@
 package CipertextAttack;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -136,5 +138,49 @@ public class Util {
 			return;
 		}
 		words.add(str);
+	}
+	public void printToText(Key key_, String string) {
+		
+	}
+	public void printTempDecryptFile(Key key_, String file) {
+		BufferedReader in;
+		BufferedWriter out;
+		try {
+			in = new BufferedReader(new FileReader(file));
+			out = new BufferedWriter(new FileWriter("de"+file));
+			String str;
+			boolean found = false;
+			//Getting String and substitute it with the key
+		    while ((str = in.readLine()) != null) {
+		    	char[] charsInString = new char[str.length()];
+				str.getChars(0, str.length(), charsInString, 0);
+				
+				for (Character cha:charsInString){
+					found = false;
+					Iterator<Character> it = CipherTextAttack.key_.getKey().keySet().iterator();
+					while (it.hasNext()){
+						Character chKey = (Character) it.next();
+						Character chValue = CipherTextAttack.key_.getKey().get(chKey);
+						if (chValue != '?'){
+							if (chValue == cha){
+								out.write(chKey);
+								found = true;
+								break;
+							}
+						}
+					}
+					if (!found){
+						out.write(cha);
+					}
+				}
+			out.write("\n");
+	    }
+	    out.close();
+	    in.close();
+	    } catch (FileNotFoundException e) {
+			System.out.println("File is not found");
+			System.exit(0);
+		} catch (IOException e) {
+		}
 	}
 }
