@@ -25,15 +25,19 @@ public class Util {
 	private HashMap<String,Integer> freqWordsSize2 = new HashMap<String,Integer>();
 	private HashMap<String,Integer> freqWordsSize3 = new HashMap<String,Integer>();
 	private HashMap<String,Integer> freqWordsSize4 = new HashMap<String,Integer>();
-	private String[] sortedfreqWordsSize1 = new String[62];
-	private String[] sortedfreqWordsSize2 = new String[62];
-	private String[] sortedfreqWordsSize3 = new String[62];
-	private String[] sortedfreqWordsSize4 = new String[62];
+	private String[] sortedfreqWordsSize1 = new String[2000];
+	private String[] sortedfreqWordsSize2 = new String[2000];
+	private String[] sortedfreqWordsSize3 = new String[2000];
+	private String[] sortedfreqWordsSize4 = new String[2000];
+	private int sort1Size = 0;
+	private int sort2Size = 0;
+	private int sort3Size = 0;
+	private int sort4Size = 0;
 	
-	private Vector<String> sortedVecSize1;
-	private Vector<String> sortedVecSize2;
-	private Vector<String> sortedVecSize3;
-	private Vector<String> sortedVecSize4;
+	private Vector<String> sortedVecSize1 = new Vector<String>();
+	private Vector<String> sortedVecSize2 = new Vector<String>();
+	private Vector<String> sortedVecSize3 = new Vector<String>();
+	private Vector<String> sortedVecSize4 = new Vector<String>();
 	
 	public void initAllHashes(){
 		getFreqOfAllWords();
@@ -45,16 +49,16 @@ public class Util {
 	}
 	
 	private void copyArrayToVec(){
-		for (int i=0;i<sortedfreqWordsSize1.length;i++){
+		for (int i=0;i<sort1Size;i++){
 			sortedVecSize1.add(sortedfreqWordsSize1[i]);
 		}
-		for (int i=0;i<sortedfreqWordsSize2.length;i++){
+		for (int i=0;i<sort2Size;i++){
 			sortedVecSize2.add(sortedfreqWordsSize2[i]);
 		}
-		for (int i=0;i<sortedfreqWordsSize3.length;i++){
+		for (int i=0;i<sort3Size;i++){
 			sortedVecSize3.add(sortedfreqWordsSize3[i]);
 		}
-		for (int i=0;i<sortedfreqWordsSize4.length;i++){
+		for (int i=0;i<sort4Size;i++){
 			sortedVecSize4.add(sortedfreqWordsSize4[i]);
 		}
 	}
@@ -94,29 +98,37 @@ public class Util {
 			Integer tmp = freqWordsSize1.get(word);
 			if (tmp == null){
 				freqWordsSize1.put(word, 1);
+				sort1Size=1;
 			}else{
 				freqWordsSize1.put(word, tmp++);
+				sort1Size++;
 			}
 		}else if (typeOfHash == 2){
 			Integer tmp = freqWordsSize2.get(word);
 			if (tmp == null){
 				freqWordsSize2.put(word, 1);
+				sort2Size=1;
 			}else{
 				freqWordsSize2.put(word, tmp++);
+				sort2Size++;
 			}
 		}else if (typeOfHash == 3){
 			Integer tmp = freqWordsSize3.get(word);
 			if (tmp == null){
 				freqWordsSize3.put(word, 1);
+				sort3Size = 1;
 			}else{
 				freqWordsSize3.put(word, tmp++);
+				sort3Size++;
 			}
 		}else if (typeOfHash == 4){
 			Integer tmp = freqWordsSize4.get(word);
 			if (tmp == null){
 				freqWordsSize4.put(word, 1);
+				sort4Size = 1;
 			}else{
 				freqWordsSize4.put(word, tmp++);
+				sort4Size++;
 			}
 		}
 	}
