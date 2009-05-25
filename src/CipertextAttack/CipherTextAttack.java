@@ -56,28 +56,29 @@ public class CipherTextAttack {
 		util.getWordsFromFile(this.getWordsFromFile(),cipherText);
 		calcFreq();
 		sortFreq();
-		//calcZug();
-		//sortZug();
 		
-		search_the();  //getting e,t,h
-		search_to();   //getting o
-		search_that(); //getting a
-		search_s();    //getting s  //to add boolean if we found ,else try another s word
-		search_are();  //getting r
-		search_this(); //getting i
-		search_into(); //getting n ; try "one"
-		search_for();  //getting f
+		search_the();     //getting e,t,h
+		search_to();      //getting o
+		search_that();    //getting a
+		search_s();       //getting s  //to add boolean if we found ,else try another s word
+		search_are();     //getting r
+		search_this();    //getting i
+		search_into();    //getting n ; try "one"
+		search_for();     //getting f
 		search_anything();//getting y,g
-		search_use();  //getting u
-		search_about();//getting b
-		search_each(); //getting c ;try which
-		search_said();  //getting d
-		search_with(); //getting w
-		search_people(); //getting p,l; try part
-		search_look();//getting k ; try like
-		search_from();//getting m
-		
-		//left : j,q,z,x,v
+		search_use();     //getting u
+		search_about();	  //getting b
+		search_each();    //getting c ;try which
+		search_said();    //getting d
+		search_with();    //getting w
+		search_people();  //getting p,l; try part
+		search_look();    //getting k ; try like
+		search_from();    //getting m
+		search_question();//getting q //try quite
+		search_give();    //getting v
+		search_expect();  //getting x
+		search_subject(); //getting j
+		search_dozen();   //getting z ; try realize,organize;
 		
 		//print for testing
 		util.printTempDecryptFile(this.key_,"encryptedTxt.txt");
@@ -85,8 +86,56 @@ public class CipherTextAttack {
 		//printing the Result key to the output file :
     	util.printResult(this.key_,cipherText);
 	}
+	private void search_dozen() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==5 && str.charAt(0) =='d'&& str.charAt(1) =='o'
+				&& str.charAt(3) =='e'&& str.charAt(4) =='n'){
+				substitute(str.charAt(2), 'z');
+				break;
+			}
+		}
+	}
 
+	private void search_subject() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==7 && str.charAt(0) =='s'&& str.charAt(1) =='u'
+				&& str.charAt(2) =='b'&& str.charAt(4) =='e'&& str.charAt(5) =='c'
+					&& str.charAt(6) =='t'){
+				substitute(str.charAt(3), 'j');
+				break;
+			}
+		}
+	}
 
+	private void search_expect() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==6 && str.charAt(0) =='e'&& str.charAt(2) =='p'
+				&& str.charAt(3) =='e'&& str.charAt(4) =='c'&& str.charAt(5) =='t'){
+				substitute(str.charAt(1), 'x');
+				break;
+			}
+		}			
+	}
+
+	private void search_give() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(0) =='g'&& str.charAt(1) =='i'
+				&& str.charAt(3) =='e'){
+				substitute(str.charAt(2), 'v');
+				break;
+			}
+		}			
+	}
+	private void search_question() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==8 && str.charAt(1) =='u'&& str.charAt(2) =='e'
+				&& str.charAt(3) =='s'&& str.charAt(4) =='t'&& str.charAt(5) =='i'
+					&& str.charAt(6) =='o'&& str.charAt(7) =='n'){
+				substitute(str.charAt(0), 'q');
+				break;
+			}
+		}			
+	}
 	private void search_from() {
 		for (String str : this.getWordsFromFile()){
 			if (str.length()==4 && str.charAt(0) =='f'&& str.charAt(1) =='r'
