@@ -56,8 +56,8 @@ public class CipherTextAttack {
 		util.getWordsFromFile(this.getWordsFromFile(),cipherText);
 		calcFreq();
 		sortFreq();
-		calcZug();
-		sortZug();
+		//calcZug();
+		//sortZug();
 		
 		search_the();  //getting e,t,h
 		search_to();   //getting o
