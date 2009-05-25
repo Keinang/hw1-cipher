@@ -7,14 +7,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 public class Util {
-	//private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
-	//private Character[] sortedZugLettersFreq_ = new Character[62];
-	//private Dict dict = new Dict();
+	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
+	private Character[] sortedLettersFreq_ = new Character[62];
 	
 	private Vector<String> wordsFromFile_ = new Vector<String>();
 	public HashMap<String,Integer> freqAllWords = new HashMap<String,Integer>();
@@ -27,9 +30,59 @@ public class Util {
 	private String[] sortedfreqWordsSize3 = new String[62];
 	private String[] sortedfreqWordsSize4 = new String[62];
 	
+	public void initAllHashes(){
+		getFreqOfAllWords();
+		sortAllWords();
+	}
+	
+	private void sortAllWords() {
+		
+	}
+	private void inc(final int typeOfHash,final String word){
+		if (typeOfHash == 1){
+			Integer tmp = freqWordsSize1.get(word);
+			if (tmp == null){
+				freqWordsSize1.put(word, 1);
+			}else{
+				freqWordsSize1.put(word, tmp++);
+			}
+		}else if (typeOfHash == 2){
+			Integer tmp = freqWordsSize2.get(word);
+			if (tmp == null){
+				freqWordsSize2.put(word, 1);
+			}else{
+				freqWordsSize2.put(word, tmp++);
+			}
+		}else if (typeOfHash == 3){
+			Integer tmp = freqWordsSize3.get(word);
+			if (tmp == null){
+				freqWordsSize3.put(word, 1);
+			}else{
+				freqWordsSize3.put(word, tmp++);
+			}
+		}else if (typeOfHash == 4){
+			Integer tmp = freqWordsSize4.get(word);
+			if (tmp == null){
+				freqWordsSize4.put(word, 1);
+			}else{
+				freqWordsSize4.put(word, tmp++);
+			}
+		}
+	}
 	void getFreqOfAllWords(){
 		for (String str:this.getWordsFromFile_()){
-			
+			if (str.length() == 1){
+				inc(1,str);
+			}
+			else if (str.length() == 2){
+				inc(2,str);
+			}
+			else if (str.length() == 3){
+				inc(3,str);
+			}
+			else if (str.length() == 4){
+				inc(4,str);
+			}
 		}
 	}
 	/**
@@ -49,6 +102,65 @@ public class Util {
 			System.out.print(ch +"="+letters.get(ch)+" ");
 		}
 	}
+	void sortFreq(){
+		HashMap<Character, Integer> tmpLettersFreq_ = new HashMap<Character, Integer>();
+		copyHashMap(tmpLettersFreq_,lettersFreq_);
+		List<Character> mapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.lettersFreq_).keySet());
+		List<Integer> mapValues = new ArrayList<Integer>(((Map<Character, Integer>) this.lettersFreq_).values());
+		
+		Collections.sort(mapKeys);
+	    Collections.sort(mapValues);
+
+	    Iterator<Integer> valueIt = mapValues.iterator();
+	    int counter = 0;
+	    while (valueIt.hasNext()) {
+	        Integer val = valueIt.next();
+	        Iterator<Character> keyIt = mapKeys.iterator();
+	        
+	        while (keyIt.hasNext()) {
+	            Character key = keyIt.next();
+	            Integer comp1 =  this.lettersFreq_.get(key);
+	            
+	            if (comp1 == val ){
+	            	this.lettersFreq_.remove(key);
+	                mapKeys.remove(key);
+	                sortedLettersFreq_[counter]= key;
+	                counter++;
+	                break;
+	            }
+	        }
+	    }
+	    copyHashMap(lettersFreq_,tmpLettersFreq_);
+	}
+	
+    /**
+     * calculating Frequency
+     * @param str - a String from the file.
+     */
+	void calcFreq() {
+		int[] tmpFreq = new int[123];
+		for (String str : getWordsFromFile_()){
+			char[] charsInString = new char[str.length()];
+			str.getChars(0, str.length(), charsInString, 0);
+			for (Character ch:charsInString){
+				int tmpValue = Integer.valueOf(ch);
+				if (tmpValue>=48 && tmpValue <=57 ||tmpValue >=65 && tmpValue <=90 ||	
+						tmpValue >=97 && tmpValue <=122){
+					tmpFreq[tmpValue]++;
+				} 
+			}
+			for (char ch = 'a'; ch <= 'z' ; ch++){
+				lettersFreq_.put(ch, tmpFreq[ch]);
+			}
+			for (char ch = 'A'; ch <= 'Z' ; ch++){
+				lettersFreq_.put(ch, tmpFreq[ch]);
+			}
+			for (char ch = '0'; ch <= '9' ; ch++){
+				lettersFreq_.put(ch, tmpFreq[ch]);
+			}
+		}
+	}
+	
 	/**
 	 * Printing the words from the file :
 	 */
@@ -75,7 +187,7 @@ public class Util {
 		}
 		System.out.println();
 	}
-	void copyHashMap(final HashMap<Character, Integer> hashTo,
+	private void copyHashMap(final HashMap<Character, Integer> hashTo,
 			final HashMap<Character, Integer> hashFrom) {
 		Iterator<Character> from = hashFrom.keySet().iterator();
 		while(from.hasNext()){
@@ -88,7 +200,7 @@ public class Util {
 	 * //check for SSS-YYY Separation to 2 words 
 	 * @return true if there was a '-' hyphen
 	 */
-	public boolean hyphen(String str) {
+	boolean hyphen(String str) {
 		int tmpIndexOfchar = str.indexOf('-');
 		if (tmpIndexOfchar > 0){
 			this.getWordsFromFile_().add(str.substring(0,tmpIndexOfchar));
@@ -98,14 +210,14 @@ public class Util {
 		return false;
 	}
 
-	public String removeSignsFromEndOfWord(char ch, String str) {
+	String removeSignsFromEndOfWord(char ch, String str) {
 		int tmpIndexOfchar = str.indexOf(ch);
 		if (tmpIndexOfchar > -1){
 			return str.substring(0,tmpIndexOfchar);
 		}
 		return str;
 	}
-	public String removeSignsFromBeginingOfWord(char ch, String str) {
+	String removeSignsFromBeginingOfWord(char ch, String str) {
 		int tmpIndexOfchar = str.indexOf(ch);
 		if (tmpIndexOfchar > -1){
 			return str.substring(tmpIndexOfchar+1,str.length());
@@ -135,7 +247,7 @@ public class Util {
 		}
 	}
 			
-	void getWordsFromFile(String cipherText) {
+	public void getWordsFromFile(String cipherText) {
 		RandomAccessFile rac;
 		try {
 			rac = new RandomAccessFile(cipherText, "r");
@@ -154,6 +266,7 @@ public class Util {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * Removing ( ) , . from the word and Adding to Vector
 	 * @param tmpWord
@@ -270,6 +383,10 @@ public class Util {
 	}
 	public String[] getSortedfreqWordsSize4() {
 		return sortedfreqWordsSize4;
+	}
+
+	public Character[] getSortedLettersFreq_() {
+		return sortedLettersFreq_;
 	}
 
 
