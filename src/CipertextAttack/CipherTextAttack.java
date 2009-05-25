@@ -1,11 +1,5 @@
 package CipertextAttack;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 /**
  *  
@@ -14,13 +8,8 @@ import java.util.Vector;
  */
 public class CipherTextAttack {
 	private Util util = new Util();
-	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
-	private Character[] sortedLettersFreq_ = new Character[62];
-	
 	private Key key_ = new Key();
 	private Key keyOpposite_ = new Key();
-	
-	
 	
 	/**
 	 * @param args - cipher text
@@ -59,8 +48,8 @@ public class CipherTextAttack {
 		 */
 		
 		util.getWordsFromFile(cipherText);
-		calcFreq();
-		sortFreq();
+		util.calcFreq();
+		util.sortFreq();
 		
 		search_the();     //getting e,t,h
 		search_to();      //getting o
@@ -339,8 +328,8 @@ public class CipherTextAttack {
 		}
 	}
 	private void search_the() {
-		substitute(this.sortedLettersFreq_[61],'t');
-		substitute(this.sortedLettersFreq_[60],'e');
+		substitute(util.getSortedLettersFreq_()[61],'t');
+		substitute(util.getSortedLettersFreq_()[60],'e');
 		int[] appear = new int[123];
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==3 && str.charAt(0) =='t' && str.charAt(2) =='e'){
@@ -351,10 +340,10 @@ public class CipherTextAttack {
 		int maxChar = appear[maxIndex];
 		
 		int[] appear2 = new int[123];
-		substitute('e',this.sortedLettersFreq_[60]);
-		substitute('t',this.sortedLettersFreq_[61]);
-		substitute(this.sortedLettersFreq_[61],'e');
-		substitute(this.sortedLettersFreq_[60],'t');
+		substitute('e',util.getSortedLettersFreq_()[60]);
+		substitute('t',util.getSortedLettersFreq_()[61]);
+		substitute(util.getSortedLettersFreq_()[61],'e');
+		substitute(util.getSortedLettersFreq_()[60],'t');
 		
 		for (int i=0;i<util.getWordsFromFile_().size();i++){
 			String str =util.getWordsFromFile_().get(i);
@@ -365,10 +354,10 @@ public class CipherTextAttack {
 		int maxIndex2 = findMaxInArray(appear2);
 		int maxChar2 = appear2[maxIndex2];
 		if (maxChar > maxChar2){
-			substitute('t',this.sortedLettersFreq_[60]);
-			substitute('e',this.sortedLettersFreq_[61]);
-			substitute(this.sortedLettersFreq_[61],'t');
-			substitute(this.sortedLettersFreq_[60],'e');
+			substitute('t',util.getSortedLettersFreq_()[60]);
+			substitute('e',util.getSortedLettersFreq_()[61]);
+			substitute(util.getSortedLettersFreq_()[61],'t');
+			substitute(util.getSortedLettersFreq_()[60],'e');
 			substitute((char) maxIndex , 'h');
 		}
 		else{
@@ -417,63 +406,5 @@ public class CipherTextAttack {
 		this.keyOpposite_.getKey().put(pointToNewChar, pointFromOldChar);
 	}
 
-	private void sortFreq(){
-		HashMap<Character, Integer> tmpLettersFreq_ = new HashMap<Character, Integer>();
-		util.copyHashMap(tmpLettersFreq_,lettersFreq_);
-		List<Character> mapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.lettersFreq_).keySet());
-		List<Integer> mapValues = new ArrayList<Integer>(((Map<Character, Integer>) this.lettersFreq_).values());
-		
-		Collections.sort(mapKeys);
-	    Collections.sort(mapValues);
-
-	    Iterator<Integer> valueIt = mapValues.iterator();
-	    int counter = 0;
-	    while (valueIt.hasNext()) {
-	        Integer val = valueIt.next();
-	        Iterator<Character> keyIt = mapKeys.iterator();
-	        
-	        while (keyIt.hasNext()) {
-	            Character key = keyIt.next();
-	            Integer comp1 =  this.lettersFreq_.get(key);
-	            
-	            if (comp1 == val ){
-	            	this.lettersFreq_.remove(key);
-	                mapKeys.remove(key);
-	                sortedLettersFreq_[counter]= key;
-	                counter++;
-	                break;
-	            }
-	        }
-	    }
-	    util.copyHashMap(lettersFreq_,tmpLettersFreq_);
-	}
-	
-    /**
-     * calculating Frequency
-     * @param str - a String from the file.
-     */
-	private void calcFreq() {
-		int[] tmpFreq = new int[123];
-		for (String str : util.getWordsFromFile_()){
-			char[] charsInString = new char[str.length()];
-			str.getChars(0, str.length(), charsInString, 0);
-			for (Character ch:charsInString){
-				int tmpValue = Integer.valueOf(ch);
-				if (tmpValue>=48 && tmpValue <=57 ||tmpValue >=65 && tmpValue <=90 ||	
-						tmpValue >=97 && tmpValue <=122){
-					tmpFreq[tmpValue]++;
-				} 
-			}
-			for (char ch = 'a'; ch <= 'z' ; ch++){
-				lettersFreq_.put(ch, tmpFreq[ch]);
-			}
-			for (char ch = 'A'; ch <= 'Z' ; ch++){
-				lettersFreq_.put(ch, tmpFreq[ch]);
-			}
-			for (char ch = '0'; ch <= '9' ; ch++){
-				lettersFreq_.put(ch, tmpFreq[ch]);
-			}
-		}
-	}
 }
 
