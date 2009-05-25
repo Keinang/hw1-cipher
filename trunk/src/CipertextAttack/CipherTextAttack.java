@@ -16,13 +16,13 @@ public class CipherTextAttack {
 	Vector<Character> mostFreqLet  = new Vector<Character>();
 	private Util util = new Util();
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
-	private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
+	
 	private Character[] sortedLettersFreq_ = new Character[62];
-	private Character[] sortedZugLettersFreq_ = new Character[62];
+	
 	private Key key_ = new Key();
 	private Key keyOpposite_ = new Key();
 	private Vector<String> wordsFromFile_ = new Vector<String>();
-	private Dict dict = new Dict();
+	
 	
 	/**
 	 * @param args - cipher text
@@ -374,66 +374,6 @@ public class CipherTextAttack {
 				lettersFreq_.put(ch, tmpFreq[ch]);
 			}
 		}
-	}
-	/**
-	 * Calculate frequency of Zug Letters like 'LL' , 'OO'
-	 */
-	private void calcZug() {
-		int[] tmpFreq = new int[123];
-		for (String str : this.wordsFromFile_){
-			char[] charsInString = new char[str.length()];
-			str.getChars(0, str.length(), charsInString, 0);
-			
-			for (int i=0;i<charsInString.length-1;i++){
-				int tmpValue = Integer.valueOf(charsInString[i]);
-				if (tmpValue>=48 && tmpValue <=57 ||tmpValue >=65 && tmpValue <=90 ||	
-						tmpValue >=97 && tmpValue <=122){
-					int tmpValue2 = Integer.valueOf(charsInString[i+1]);
-					if (tmpValue == tmpValue2){
-						tmpFreq[tmpValue]++;
-					}
-				}
-			} 
-			for (char ch = 'a'; ch <= 'z' ; ch++){
-				zugLettersFreq_.put(ch, tmpFreq[ch]);
-			}
-			for (char ch = 'A'; ch <= 'Z' ; ch++){
-				zugLettersFreq_.put(ch, tmpFreq[ch]);
-			}
-			for (char ch = '0'; ch <= '9' ; ch++){
-				zugLettersFreq_.put(ch, tmpFreq[ch]);
-			}
-		}
-	}
-	private void sortZug(){
-		HashMap<Character, Integer> tmpZugLettersFreq_ = new HashMap<Character, Integer>();
-		util.copyHashMap(tmpZugLettersFreq_,zugLettersFreq_);
-		List<Character> mapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.zugLettersFreq_).keySet());
-		List<Integer> mapValues = new ArrayList<Integer>(((Map<Character, Integer>) this.zugLettersFreq_).values());
-		
-		Collections.sort(mapKeys);
-	    Collections.sort(mapValues);
-
-	    Iterator<Integer> valueIt = mapValues.iterator();
-	    int counter = 0;
-	    while (valueIt.hasNext()) {
-	        Integer val = valueIt.next();
-	        Iterator<Character> keyIt = mapKeys.iterator();
-	        
-	        while (keyIt.hasNext()) {
-	            Character key = keyIt.next();
-	            Integer comp1 =  this.zugLettersFreq_.get(key);
-	            
-	            if (comp1 == val ){
-	            	this.zugLettersFreq_.remove(key);
-	                mapKeys.remove(key);
-	                sortedZugLettersFreq_[counter]= key;
-	                counter++;
-	                break;
-	            }
-	        }
-	    }
-	    util.copyHashMap(zugLettersFreq_,tmpZugLettersFreq_);
 	}
 	public Vector<String> getWordsFromFile() {
 		return wordsFromFile_;
