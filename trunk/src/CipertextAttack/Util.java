@@ -20,23 +20,59 @@ public class Util {
 	private Character[] sortedLettersFreq_ = new Character[62];
 	
 	private Vector<String> wordsFromFile_ = new Vector<String>();
-	public HashMap<String,Integer> freqAllWords = new HashMap<String,Integer>();
-	public HashMap<String,Integer> freqWordsSize1 = new HashMap<String,Integer>();
-	public HashMap<String,Integer> freqWordsSize2 = new HashMap<String,Integer>();
-	public HashMap<String,Integer> freqWordsSize3 = new HashMap<String,Integer>();
-	public HashMap<String,Integer> freqWordsSize4 = new HashMap<String,Integer>();
+	private HashMap<String,Integer> freqAllWords = new HashMap<String,Integer>();
+	private HashMap<String,Integer> freqWordsSize1 = new HashMap<String,Integer>();
+	private HashMap<String,Integer> freqWordsSize2 = new HashMap<String,Integer>();
+	private HashMap<String,Integer> freqWordsSize3 = new HashMap<String,Integer>();
+	private HashMap<String,Integer> freqWordsSize4 = new HashMap<String,Integer>();
 	private String[] sortedfreqWordsSize1 = new String[62];
 	private String[] sortedfreqWordsSize2 = new String[62];
 	private String[] sortedfreqWordsSize3 = new String[62];
 	private String[] sortedfreqWordsSize4 = new String[62];
 	
+	private Vector<String> sortedVecSize1;
+	private Vector<String> sortedVecSize2;
+	private Vector<String> sortedVecSize3;
+	private Vector<String> sortedVecSize4;
+	
 	public void initAllHashes(){
 		getFreqOfAllWords();
-		sortAllWords();
+		sortAllWords(freqWordsSize1,sortedfreqWordsSize1);
+		sortAllWords(freqWordsSize2,sortedfreqWordsSize2);
+		sortAllWords(freqWordsSize3,sortedfreqWordsSize3);
+		sortAllWords(freqWordsSize4,sortedfreqWordsSize4);
+		
 	}
 	
-	private void sortAllWords() {
+	private void sortAllWords(HashMap<String,Integer> hash,String[] sorted) {
+		HashMap<String,Integer> tmpFreq = new HashMap<String,Integer>();
+		copyHashMapString(tmpFreq,hash);
+		List<String> mapKeys = new ArrayList<String>(((Map<String, Integer>) hash).keySet());
+		List<Integer> mapValues = new ArrayList<Integer>(((Map<String, Integer>) hash).values());
 		
+		Collections.sort(mapKeys);
+	    Collections.sort(mapValues);
+
+	    Iterator<Integer> valueIt = mapValues.iterator();
+	    int counter = 0;
+	    while (valueIt.hasNext()) {
+	        Integer val = valueIt.next();
+	        Iterator<String> keyIt = mapKeys.iterator();
+	        
+	        while (keyIt.hasNext()) {
+	        	String key = keyIt.next();
+	            Integer comp1 =  hash.get(key);
+	            
+	            if (comp1 == val ){
+	            	hash.remove(key);
+	                mapKeys.remove(key);
+	                sorted[counter]= key;
+	                counter++;
+	                break;
+	            }
+	        }
+	    }
+	    copyHashMapString(hash,tmpFreq);
 	}
 	private void inc(final int typeOfHash,final String word){
 		if (typeOfHash == 1){
@@ -104,7 +140,7 @@ public class Util {
 	}
 	void sortFreq(){
 		HashMap<Character, Integer> tmpLettersFreq_ = new HashMap<Character, Integer>();
-		copyHashMap(tmpLettersFreq_,lettersFreq_);
+		copyHashMapChar(tmpLettersFreq_,lettersFreq_);
 		List<Character> mapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.lettersFreq_).keySet());
 		List<Integer> mapValues = new ArrayList<Integer>(((Map<Character, Integer>) this.lettersFreq_).values());
 		
@@ -130,7 +166,7 @@ public class Util {
 	            }
 	        }
 	    }
-	    copyHashMap(lettersFreq_,tmpLettersFreq_);
+	    copyHashMapChar(lettersFreq_,tmpLettersFreq_);
 	}
 	
     /**
@@ -187,11 +223,20 @@ public class Util {
 		}
 		System.out.println();
 	}
-	private void copyHashMap(final HashMap<Character, Integer> hashTo,
+	private void copyHashMapChar(final HashMap<Character, Integer> hashTo,
 			final HashMap<Character, Integer> hashFrom) {
 		Iterator<Character> from = hashFrom.keySet().iterator();
 		while(from.hasNext()){
 			Character ch = (Character) from.next();
+			Integer value = hashFrom.get(ch);
+			hashTo.put(ch, value);
+		}
+	}
+	private void copyHashMapString(final HashMap<String, Integer> hashTo,
+			final HashMap<String, Integer> hashFrom) {
+		Iterator<String> from = hashFrom.keySet().iterator();
+		while(from.hasNext()){
+			String ch = (String) from.next();
 			Integer value = hashFrom.get(ch);
 			hashTo.put(ch, value);
 		}
@@ -387,6 +432,22 @@ public class Util {
 
 	public Character[] getSortedLettersFreq_() {
 		return sortedLettersFreq_;
+	}
+
+	public Vector<String> getSortedVecSize1() {
+		return sortedVecSize1;
+	}
+
+	public Vector<String> getSortedVecSize2() {
+		return sortedVecSize2;
+	}
+
+	public Vector<String> getSortedVecSize3() {
+		return sortedVecSize3;
+	}
+
+	public Vector<String> getSortedVecSize4() {
+		return sortedVecSize4;
 	}
 
 
