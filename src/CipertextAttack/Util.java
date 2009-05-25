@@ -101,9 +101,10 @@ public class Util {
 		char[] tmpChars = str.toCharArray();
 		int tmpLength = 0;
 		for (char cha:tmpChars){
-			if (Integer.valueOf(cha) >=48 && Integer.valueOf(cha) <=57 ||
-				Integer.valueOf(cha) >=65 && Integer.valueOf(cha) <=90 ||	
-				Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+			if ((Integer.valueOf(cha) >=48 && Integer.valueOf(cha) <=57) ||
+				(Integer.valueOf(cha) >=65 && Integer.valueOf(cha) <=90) ||	
+				(Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122)||
+				Integer.valueOf(cha) == 39){
 				sb.append(cha);
 				tmpLength++;
 			}
@@ -195,4 +196,61 @@ public class Util {
 		} catch (IOException e) {
 		}
 	}
+//	private void findNine() {
+//	Character[] mostFreq = {'n'}; 
+//	for (int i = 0; i < mostFreq.length; i++) {
+//		mostFreqLet.add(mostFreq[i]);
+//	}
+//	Vector<String> mostFreqLettersWords = wordsWithMostFreqLetters();
+//	double percent = 0.0;
+//	int numOfPerms = 0;
+//	
+//	for (int i=0;i<mostFreq.length;i++){
+//		substitute(sortedLettersFreq_[61-i],mostFreq[i]);
+//	}
+//	numOfPerms++;
+//	percent = checkCorrectWords(mostFreqLettersWords);
+//	System.out.println(percent);
+//	
+//	while (percent < 80){
+//		for (int i=0;i<mostFreq.length;i++){
+//			substitute(sortedLettersFreq_[61-i],mostFreq[i]);
+//		}
+//		numOfPerms++;
+//		percent = checkCorrectWords(mostFreqLettersWords);
+//		System.out.println(percent);
+//	}
+//	System.out.println("Found 9");
+//}
+
+
+private Vector<String> wordsWithMostFreqLetters(final Vector<String> words,final Vector<Character> mostFreqLet){
+	Vector<String> tmpVec = new Vector<String>();
+	boolean flag = true;
+	
+	for(String str:words){
+		flag = true;
+		char[] tmpCharArray = str.toCharArray();
+		for (Character ch:tmpCharArray){
+			if (!mostFreqLet.contains(ch)){
+				flag=false;
+				break;
+			}
+		}
+		if (flag){
+			tmpVec.add(str);
+		}
+	}
+	return tmpVec;
+}
+private double checkCorrectWords(Vector<String> correctWords,Dict dict) {
+	double totalCorrectWords = correctWords.size();
+	double counter = 0;
+	for (String str:correctWords){
+		if (dict.getSpecialWords().contains(str)){
+			counter++;
+		}
+	}
+	return (counter / totalCorrectWords ) * 100; 
+}
 }
