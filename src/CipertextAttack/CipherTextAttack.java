@@ -292,7 +292,8 @@ public class CipherTextAttack {
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(1) =='h'
 				&& this.util.getSortedVecSize4().contains(str)&& 
 				this.util.getSortedVecSize2() .contains(str.substring(2))){
-				substitute(str.charAt(0), 's');
+				substitute(str.charAt(3), 's');
+				substitute(str.charAt(2), 'i');
 				return true;
 			}
 		}
