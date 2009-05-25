@@ -55,8 +55,7 @@ public class CipherTextAttack {
 		
 		
 		search_that();    //getting a
-		boolean flag = !search_s();
-		if (flag){ //getting s 
+		if (!search_s()){ //getting s 
 			search_thisAndIs();
 		}
 		if (!search_re()){  //getting r
