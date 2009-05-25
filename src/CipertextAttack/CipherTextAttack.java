@@ -325,7 +325,7 @@ public class CipherTextAttack {
 	}
 	private void search_to() {
 		for (String str : util.getWordsFromFile_()){
-			if (str.length()==2 && str.charAt(0) =='t'){
+			if (str.length()==2 && str.charAt(0) =='t'&& this.util.getSortedVecSize2().contains(str)){
 				substitute(str.charAt(1), 'o');
 				break;
 			}
