@@ -62,7 +62,7 @@ public class CipherTextAttack {
 		search_the();  //getting e,t,h
 		search_to();   //getting o
 		search_that(); //getting a
-		search_s();    //getting s
+		search_s();    //getting s  //to add boolean if we found ,else try another s word
 		search_are();  //getting r
 		search_this(); //getting i
 		search_into(); //getting n ; try "one"
