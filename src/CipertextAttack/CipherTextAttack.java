@@ -52,11 +52,10 @@ public class CipherTextAttack {
 		util.initAllHashes();
 		
 		search_the();     //getting e,t,h
-		
-		
 		search_that();    //getting a
+		
 		if (!search_s()){ //getting s 
-			search_thisAndIs();
+			search_this_is();
 		}
 		if (!search_re()){  //getting r
 			search_are();	
@@ -65,7 +64,7 @@ public class CipherTextAttack {
 		
 		search_to();      //getting o
 		search_this();    //getting i
-		//search_on();		// getting n
+		//search_on();	  //getting n
 		search_into();    //getting n ; try "one"
 		search_anything();//getting y,g
 		search_use();     //getting u
@@ -286,7 +285,7 @@ public class CipherTextAttack {
 			}
 		}
 	}
-	private boolean search_thisAndIs() {
+	private boolean search_this_is() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(1) =='h'
 				&& this.util.getSortedVecSize4().contains(str)&& 
@@ -303,8 +302,7 @@ public class CipherTextAttack {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()> 1 && str.charAt(str.length()-2)== '\''){
 				substitute(str.charAt(str.length()-1), 's');
-				flag_s = true;
-				break;
+				return true;
 			}
 		}
 		return flag_s;
