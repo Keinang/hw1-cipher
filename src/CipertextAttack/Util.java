@@ -33,11 +33,14 @@ public class Util {
 	private int sort2Size = 0;
 	private int sort3Size = 0;
 	private int sort4Size = 0;
-	
 	private Vector<String> sortedVecSize1 = new Vector<String>();
 	private Vector<String> sortedVecSize2 = new Vector<String>();
 	private Vector<String> sortedVecSize3 = new Vector<String>();
 	private Vector<String> sortedVecSize4 = new Vector<String>();
+	private Vector<String> sortedAllVecSize1 = new Vector<String>();
+	private Vector<String> sortedAllVecSize2 = new Vector<String>();
+	private Vector<String> sortedAllVecSize3 = new Vector<String>();
+	private Vector<String> sortedAllVecSize4 = new Vector<String>();
 	
 	public void initAllHashes(){
 		getFreqOfAllWords();
@@ -46,20 +49,41 @@ public class Util {
 		sortAllWords(freqWordsSize3,sortedfreqWordsSize3);
 		sortAllWords(freqWordsSize4,sortedfreqWordsSize4);
 		copyArrayToVec();
+		copyOnly25();
 	}
 	
+	private void copyOnly25() {
+		int min1 = Math.min(sort1Size, 25);
+		int min2 = Math.min(sort2Size, 25);
+		int min3 = Math.min(sort3Size, 25);
+		int min4 = Math.min(sort4Size, 25);
+		
+		for (int i=0;i<min1;i++){
+			sortedAllVecSize1.add(sortedfreqWordsSize1[i]);
+		}
+		for (int i=0;i<min2;i++){
+			sortedAllVecSize2.add(sortedfreqWordsSize2[i]);
+		}
+		for (int i=0;i<min3;i++){
+			sortedAllVecSize3.add(sortedfreqWordsSize3[i]);
+		}
+		for (int i=0;i<min4;i++){
+			sortedAllVecSize4.add(sortedfreqWordsSize4[i]);
+		}
+	}
+
 	private void copyArrayToVec(){
 		for (int i=0;i<sort1Size;i++){
-			sortedVecSize1.add(sortedfreqWordsSize1[i]);
+			sortedAllVecSize1.add(sortedfreqWordsSize1[i]);
 		}
 		for (int i=0;i<sort2Size;i++){
-			sortedVecSize2.add(sortedfreqWordsSize2[i]);
+			sortedAllVecSize2.add(sortedfreqWordsSize2[i]);
 		}
 		for (int i=0;i<sort3Size;i++){
-			sortedVecSize3.add(sortedfreqWordsSize3[i]);
+			sortedAllVecSize3.add(sortedfreqWordsSize3[i]);
 		}
 		for (int i=0;i<sort4Size;i++){
-			sortedVecSize4.add(sortedfreqWordsSize4[i]);
+			sortedAllVecSize4.add(sortedfreqWordsSize4[i]);
 		}
 	}
 
