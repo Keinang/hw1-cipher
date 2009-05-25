@@ -12,6 +12,11 @@ import java.util.Iterator;
 import java.util.Vector;
 
 public class Util {
+	private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
+	private Character[] sortedZugLettersFreq_ = new Character[62];
+	//private Dict dict = new Dict();
+	
+	
 	/**
 	 * Printing the Frequently table to SYSO
 	 */
@@ -224,33 +229,94 @@ public class Util {
 //}
 
 
-private Vector<String> wordsWithMostFreqLetters(final Vector<String> words,final Vector<Character> mostFreqLet){
-	Vector<String> tmpVec = new Vector<String>();
-	boolean flag = true;
+//private Vector<String> wordsWithMostFreqLetters(final Vector<String> words,final Vector<Character> mostFreqLet){
+//	Vector<String> tmpVec = new Vector<String>();
+//	boolean flag = true;
+//	
+//	for(String str:words){
+//		flag = true;
+//		char[] tmpCharArray = str.toCharArray();
+//		for (Character ch:tmpCharArray){
+//			if (!mostFreqLet.contains(ch)){
+//				flag=false;
+//				break;
+//			}
+//		}
+//		if (flag){
+//			tmpVec.add(str);
+//		}
+//	}
+//	return tmpVec;
+//}
+//private double checkCorrectWords(Vector<String> correctWords,Dict dict) {
+//	double totalCorrectWords = correctWords.size();
+//	double counter = 0;
+//	for (String str:correctWords){
+//		if (dict.getSpecialWords().contains(str)){
+//			counter++;
+//		}
+//	}
+//	return (counter / totalCorrectWords ) * 100; 
+//}
+//	/**
+//	 * Calculate frequency of Zug Letters like 'LL' , 'OO'
+//	 */
+//	private void calcZug(Vector<String> words) {
+//		int[] tmpFreq = new int[123];
+//		for (String str : words){
+//			char[] charsInString = new char[str.length()];
+//			str.getChars(0, str.length(), charsInString, 0);
+//			
+//			for (int i=0;i<charsInString.length-1;i++){
+//				int tmpValue = Integer.valueOf(charsInString[i]);
+//				if (tmpValue>=48 && tmpValue <=57 ||tmpValue >=65 && tmpValue <=90 ||	
+//						tmpValue >=97 && tmpValue <=122){
+//					int tmpValue2 = Integer.valueOf(charsInString[i+1]);
+//					if (tmpValue == tmpValue2){
+//						tmpFreq[tmpValue]++;
+//					}
+//				}
+//			} 
+//			for (char ch = 'a'; ch <= 'z' ; ch++){
+//				zugLettersFreq_.put(ch, tmpFreq[ch]);
+//			}
+//			for (char ch = 'A'; ch <= 'Z' ; ch++){
+//				zugLettersFreq_.put(ch, tmpFreq[ch]);
+//			}
+//			for (char ch = '0'; ch <= '9' ; ch++){
+//				zugLettersFreq_.put(ch, tmpFreq[ch]);
+//			}
+//		}
+//	}
+//	private void sortZug(){
+//		HashMap<Character, Integer> tmpZugLettersFreq_ = new HashMap<Character, Integer>();
+//		copyHashMap(tmpZugLettersFreq_,zugLettersFreq_);
+//		List<Character> mapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.zugLettersFreq_).keySet());
+//		List<Integer> mapValues = new ArrayList<Integer>(((Map<Character, Integer>) this.zugLettersFreq_).values());
+//		
+//		Collections.sort(mapKeys);
+//	    Collections.sort(mapValues);
+//
+//	    Iterator<Integer> valueIt = mapValues.iterator();
+//	    int counter = 0;
+//	    while (valueIt.hasNext()) {
+//	        Integer val = valueIt.next();
+//	        Iterator<Character> keyIt = mapKeys.iterator();
+//	        
+//	        while (keyIt.hasNext()) {
+//	            Character key = keyIt.next();
+//	            Integer comp1 =  this.zugLettersFreq_.get(key);
+//	            
+//	            if (comp1 == val ){
+//	            	this.zugLettersFreq_.remove(key);
+//	                mapKeys.remove(key);
+//	                sortedZugLettersFreq_[counter]= key;
+//	                counter++;
+//	                break;
+//	            }
+//	        }
+//	    }
+//	    copyHashMap(zugLettersFreq_,tmpZugLettersFreq_);
+//	}
 	
-	for(String str:words){
-		flag = true;
-		char[] tmpCharArray = str.toCharArray();
-		for (Character ch:tmpCharArray){
-			if (!mostFreqLet.contains(ch)){
-				flag=false;
-				break;
-			}
-		}
-		if (flag){
-			tmpVec.add(str);
-		}
-	}
-	return tmpVec;
-}
-private double checkCorrectWords(Vector<String> correctWords,Dict dict) {
-	double totalCorrectWords = correctWords.size();
-	double counter = 0;
-	for (String str:correctWords){
-		if (dict.getSpecialWords().contains(str)){
-			counter++;
-		}
-	}
-	return (counter / totalCorrectWords ) * 100; 
-}
 }
