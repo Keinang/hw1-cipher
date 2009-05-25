@@ -22,9 +22,15 @@ public class Util {
 	public HashMap<String,Integer> freqWordsSize2 = new HashMap<String,Integer>();
 	public HashMap<String,Integer> freqWordsSize3 = new HashMap<String,Integer>();
 	public HashMap<String,Integer> freqWordsSize4 = new HashMap<String,Integer>();
+	private String[] sortedfreqWordsSize1 = new String[62];
+	private String[] sortedfreqWordsSize2 = new String[62];
+	private String[] sortedfreqWordsSize3 = new String[62];
+	private String[] sortedfreqWordsSize4 = new String[62];
 	
 	void getFreqOfAllWords(){
-		//for (String str:)
+		for (String str:this.getWordsFromFile_()){
+			
+		}
 	}
 	/**
 	 * Printing the Frequently table to SYSO
@@ -264,6 +270,36 @@ public class Util {
 	}
 	public void setFreqWordsSize4(HashMap<String, Integer> freqWordsSize4) {
 		this.freqWordsSize4 = freqWordsSize4;
+	}
+	public HashMap<String, Integer> getFreqAllWords() {
+		return freqAllWords;
+	}
+	public void setFreqAllWords(HashMap<String, Integer> freqAllWords) {
+		this.freqAllWords = freqAllWords;
+	}
+	public String[] getSortedfreqWordsSize1() {
+		return sortedfreqWordsSize1;
+	}
+	public void setSortedfreqWordsSize1(String[] sortedfreqWordsSize1) {
+		this.sortedfreqWordsSize1 = sortedfreqWordsSize1;
+	}
+	public String[] getSortedfreqWordsSize2() {
+		return sortedfreqWordsSize2;
+	}
+	public void setSortedfreqWordsSize2(String[] sortedfreqWordsSize2) {
+		this.sortedfreqWordsSize2 = sortedfreqWordsSize2;
+	}
+	public String[] getSortedfreqWordsSize3() {
+		return sortedfreqWordsSize3;
+	}
+	public void setSortedfreqWordsSize3(String[] sortedfreqWordsSize3) {
+		this.sortedfreqWordsSize3 = sortedfreqWordsSize3;
+	}
+	public String[] getSortedfreqWordsSize4() {
+		return sortedfreqWordsSize4;
+	}
+	public void setSortedfreqWordsSize4(String[] sortedfreqWordsSize4) {
+		this.sortedfreqWordsSize4 = sortedfreqWordsSize4;
 	}
 
 
