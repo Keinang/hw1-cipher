@@ -49,7 +49,6 @@ public class Util {
 		sortAllWords(freqWordsSize3,sortedfreqWordsSize3);
 		sortAllWords(freqWordsSize4,sortedfreqWordsSize4);
 		copyArrayToVec();
-
 		copyOnly25();
 
 	}
@@ -61,16 +60,16 @@ public class Util {
 		int min4 = Math.min(sort4Size, 25);
 		
 		for (int i=0;i<min1;i++){
-			sortedAllVecSize1.add(sortedfreqWordsSize1[i]);
+			sortedVecSize1.add(sortedfreqWordsSize1[i]);
 		}
 		for (int i=0;i<min2;i++){
-			sortedAllVecSize2.add(sortedfreqWordsSize2[i]);
+			sortedVecSize2.add(sortedfreqWordsSize2[i]);
 		}
 		for (int i=0;i<min3;i++){
-			sortedAllVecSize3.add(sortedfreqWordsSize3[i]);
+			sortedVecSize3.add(sortedfreqWordsSize3[i]);
 		}
 		for (int i=0;i<min4;i++){
-			sortedAllVecSize4.add(sortedfreqWordsSize4[i]);
+			sortedVecSize4.add(sortedfreqWordsSize4[i]);
 		}
 	}
 
