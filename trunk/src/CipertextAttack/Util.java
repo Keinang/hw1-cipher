@@ -12,8 +12,8 @@ import java.util.Iterator;
 import java.util.Vector;
 
 public class Util {
-	private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
-	private Character[] sortedZugLettersFreq_ = new Character[62];
+	//private HashMap<Character, Integer> zugLettersFreq_ = new HashMap<Character, Integer>();
+	//private Character[] sortedZugLettersFreq_ = new Character[62];
 	//private Dict dict = new Dict();
 	
 	
