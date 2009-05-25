@@ -28,6 +28,8 @@ public class CipherTextAttack {
 	 * @param args - cipher text
 	 */
 	public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+
 		//The cipher text:
 		String cipherText = args[0];
 		if (cipherText == null){
@@ -44,6 +46,8 @@ public class CipherTextAttack {
 		
 		CipherTextAttack ct = new CipherTextAttack();
 		ct.decrypt(cipherText);
+		System.out.println((System.currentTimeMillis()-startTime)/1000F + " Seconds");
+		
 	}
 	
 	/**
@@ -52,6 +56,9 @@ public class CipherTextAttack {
 	 * @return the destination key
 	 */
 	public void decrypt(String cipherText) {
+		/**
+		 * 1. Dates dd/mm/yyyy
+		 */
 		
 		util.getWordsFromFile(this.getWordsFromFile(),cipherText);
 		calcFreq();
@@ -60,8 +67,14 @@ public class CipherTextAttack {
 		search_the();     //getting e,t,h
 		search_to();      //getting o
 		search_that();    //getting a
-		search_s();       //getting s  //to add boolean if we found ,else try another s word
-		search_are();     //getting r
+		
+		if (!search_s()){ //getting s 
+			search_such();
+		}
+		if (!search_re()){  //getting r
+			search_are();	
+		}
+		
 		search_this();    //getting i
 		search_into();    //getting n ; try "one"
 		search_for();     //getting f
@@ -80,12 +93,31 @@ public class CipherTextAttack {
 		search_subject(); //getting j
 		search_dozen();   //getting z ; try realize,organize;
 		
+		search_I();		  //getting I
+		
 		//print for testing
 		util.printTempDecryptFile(this.key_,"encryptedTxt.txt");
 		
 		//printing the Result key to the output file :
     	util.printResult(this.key_,cipherText);
 	}
+
+	private boolean search_re() {
+		boolean flag = false;
+		for (String str : this.getWordsFromFile()){
+			if (str.length() > 2 && str.charAt(str.length()-1) =='e'&& str.charAt(str.length()-3) =='\''){
+				substitute(str.charAt(str.length()-2), 'r');
+				flag = true;
+				break;
+			}
+		}
+		return flag;
+	}
+
+	private void search_I() {
+		
+	}
+
 	private void search_dozen() {
 		for (String str : this.getWordsFromFile()){
 			if (str.length()==5 && str.charAt(0) =='d'&& str.charAt(1) =='o'
@@ -262,13 +294,25 @@ public class CipherTextAttack {
 			}
 		}
 	}
-	private void search_s() {
+	private void search_such() {
 		for (String str : this.getWordsFromFile()){
-			if (str.length()> 1 && str.charAt(str.length()-2)== '\''){
-				substitute(str.charAt(str.length()-1), 's');
+			if (str.length()==4 && str.charAt(1) =='u'&& str.charAt(2) =='c'
+				&& str.charAt(3) =='h'){
+				substitute(str.charAt(0), 's');
 				break;
 			}
 		}
+	}
+	private boolean search_s() {
+		boolean flag_s = false;
+		for (String str : this.getWordsFromFile()){
+			if (str.length()> 1 && str.charAt(str.length()-2)== '\''){
+				substitute(str.charAt(str.length()-1), 's');
+				flag_s = true;
+				break;
+			}
+		}
+		return flag_s;
 	}
 	private void search_that() {
 		for (String str : this.getWordsFromFile()){
