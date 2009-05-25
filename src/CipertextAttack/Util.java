@@ -16,12 +16,16 @@ public class Util {
 	//private Character[] sortedZugLettersFreq_ = new Character[62];
 	//private Dict dict = new Dict();
 	
+	private Vector<String> wordsFromFile_ = new Vector<String>();
 	public HashMap<String,Integer> freqAllWords = new HashMap<String,Integer>();
 	public HashMap<String,Integer> freqWordsSize1 = new HashMap<String,Integer>();
 	public HashMap<String,Integer> freqWordsSize2 = new HashMap<String,Integer>();
 	public HashMap<String,Integer> freqWordsSize3 = new HashMap<String,Integer>();
+	public HashMap<String,Integer> freqWordsSize4 = new HashMap<String,Integer>();
 	
-	
+	void getFreqOfAllWords(){
+		//for (String str:)
+	}
 	/**
 	 * Printing the Frequently table to SYSO
 	 */
@@ -231,6 +235,36 @@ public class Util {
 //	}
 //	System.out.println("Found 9");
 //}
+	public Vector<String> getWordsFromFile_() {
+		return wordsFromFile_;
+	}
+	public void setWordsFromFile_(Vector<String> wordsFromFile_) {
+		this.wordsFromFile_ = wordsFromFile_;
+	}
+	public HashMap<String, Integer> getFreqWordsSize1() {
+		return freqWordsSize1;
+	}
+	public void setFreqWordsSize1(HashMap<String, Integer> freqWordsSize1) {
+		this.freqWordsSize1 = freqWordsSize1;
+	}
+	public HashMap<String, Integer> getFreqWordsSize2() {
+		return freqWordsSize2;
+	}
+	public void setFreqWordsSize2(HashMap<String, Integer> freqWordsSize2) {
+		this.freqWordsSize2 = freqWordsSize2;
+	}
+	public HashMap<String, Integer> getFreqWordsSize3() {
+		return freqWordsSize3;
+	}
+	public void setFreqWordsSize3(HashMap<String, Integer> freqWordsSize3) {
+		this.freqWordsSize3 = freqWordsSize3;
+	}
+	public HashMap<String, Integer> getFreqWordsSize4() {
+		return freqWordsSize4;
+	}
+	public void setFreqWordsSize4(HashMap<String, Integer> freqWordsSize4) {
+		this.freqWordsSize4 = freqWordsSize4;
+	}
 
 
 //private Vector<String> wordsWithMostFreqLetters(final Vector<String> words,final Vector<Character> mostFreqLet){
