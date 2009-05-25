@@ -16,6 +16,11 @@ public class Util {
 	//private Character[] sortedZugLettersFreq_ = new Character[62];
 	//private Dict dict = new Dict();
 	
+	public HashMap<String,Integer> freqAllWords = new HashMap<String,Integer>();
+	public HashMap<String,Integer> freqWordsSize1 = new HashMap<String,Integer>();
+	public HashMap<String,Integer> freqWordsSize2 = new HashMap<String,Integer>();
+	public HashMap<String,Integer> freqWordsSize3 = new HashMap<String,Integer>();
+	
 	
 	/**
 	 * Printing the Frequently table to SYSO
@@ -201,7 +206,6 @@ public class Util {
 		} catch (IOException e) {
 		}
 	}
-//	private void findNine() {
 //	Character[] mostFreq = {'n'}; 
 //	for (int i = 0; i < mostFreq.length; i++) {
 //		mostFreqLet.add(mostFreq[i]);
