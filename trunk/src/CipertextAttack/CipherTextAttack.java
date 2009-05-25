@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 /**
- *  If there is a word with XXXX'z ==> z = S 
  *  
  * @author GK
  *
@@ -60,12 +59,25 @@ public class CipherTextAttack {
 		calcZug();
 		sortZug();
 		
-		search_the();
-		search_to();
-		search_that();
-		search_s();
-		//Start of Checking permutation
-		//findNine();
+		search_the();  //getting e,t,h
+		search_to();   //getting o
+		search_that(); //getting a
+		search_s();    //getting s
+		search_are();  //getting r
+		search_this(); //getting i
+		search_into(); //getting n ; try "one"
+		search_for();  //getting f
+		search_anything();//getting y,g
+		search_use();  //getting u
+		search_about();//getting b
+		search_each(); //getting c ;try which
+		search_said();  //getting d
+		search_with(); //getting w
+		search_people(); //getting p,l; try part
+		search_look();//getting k ; try like
+		search_from();//getting m
+		
+		//left : j,q,z,x,v
 		
 		//print for testing
 		util.printTempDecryptFile(this.key_,"encryptedTxt.txt");
@@ -73,66 +85,137 @@ public class CipherTextAttack {
 		//printing the Result key to the output file :
     	util.printResult(this.key_,cipherText);
 	}
-	
-	private void findNine() {
-		Character[] mostFreq = {'a','o','n','i','s','r'}; 
-		for (int i = 0; i < mostFreq.length; i++) {
-			mostFreqLet.add(mostFreq[i]);
-		}
-		Vector<String> mostFreqLettersWords = wordsWithMostFreqLetters();
-		double percent = 0.0;
-		int numOfPerms = 0;
-		
-		for (int i=0;i<mostFreq.length;i++){
-			substitute(sortedLettersFreq_[61-i],mostFreq[i]);
-		}
-		numOfPerms++;
-		percent = checkCorrectWords(mostFreqLettersWords);
-		System.out.println(percent);
-		
-		while (percent < 80){
-			for (int i=0;i<mostFreq.length;i++){
-				substitute(sortedLettersFreq_[61-i],mostFreq[i]);
+
+
+	private void search_from() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(0) =='f'&& str.charAt(1) =='r'
+				&& str.charAt(2) =='o'){
+				substitute(str.charAt(3), 'm');
+				break;
 			}
-			numOfPerms++;
-			percent = checkCorrectWords(mostFreqLettersWords);
-			System.out.println(percent);
-		}
-		System.out.println("Found 9");
+		}			
 	}
 
-	private Vector<String> wordsWithMostFreqLetters(){
-		Vector<String> tmpVec = new Vector<String>();
-		boolean flag = true;
-		
-		for(String str:this.getWordsFromFile()){
-			flag = true;
-			char[] tmpCharArray = str.toCharArray();
-			for (Character ch:tmpCharArray){
-				if (!mostFreqLet.contains(ch)){
-					flag=false;
-					break;
-				}
+	private void search_look() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(0) =='l'&& str.charAt(1) =='o'
+				&& str.charAt(2) =='o'){
+				substitute(str.charAt(3), 'k');
+				break;
 			}
-			if (flag){
-				tmpVec.add(str);
-			}
-		}
-		return tmpVec;
+		}			
 	}
-	private double checkCorrectWords(Vector<String> correctWords) {
-		double totalCorrectWords = correctWords.size();
-		double counter = 0;
-		for (String str:correctWords){
-			if (dict.getSpecialWords().contains(str)){
-				counter++;
+
+	private void search_people() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==6 && str.charAt(1) =='e'&& str.charAt(2) =='o'
+				&& str.charAt(5) =='e'&& str.charAt(0) == str.charAt(3)){
+				substitute(str.charAt(0), 'p');
+				substitute(str.charAt(4), 'l');
+				break;
+			}
+		}	
+	}
+
+	private void search_with() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(1) =='i'&& str.charAt(2) =='t'
+				&& str.charAt(3) =='h'){
+				substitute(str.charAt(0), 'w');
+				break;
+			}
+		}			
+	}
+
+	private void search_each() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(0) =='e'&& str.charAt(1) =='a'
+				&& str.charAt(3) =='h'){
+				substitute(str.charAt(2), 'c');
+				break;
+			}
+		}			
+	}
+
+	private void search_use() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==3 && str.charAt(1) =='s'&& str.charAt(2) =='e'){
+				substitute(str.charAt(0), 'u');
+				break;
+			}
+		}	
+	}
+
+	private void search_anything() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==8 && str.charAt(0) =='a'&& str.charAt(1) =='n'
+				&& str.charAt(3) =='t'&& str.charAt(4) =='h'&& str.charAt(5) =='i'
+					&& str.charAt(6) =='n'){
+				substitute(str.charAt(2), 'y');
+				substitute(str.charAt(7), 'g');
+				break;
+			}
+		}			
+	}
+
+	private void search_for() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==3 && str.charAt(1) =='o'&& str.charAt(2) =='r'){
+				substitute(str.charAt(0), 'f');
+				break;
+			}
+		}	
+	}
+	private void search_said() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(0) =='s'&& str.charAt(1) =='a'
+				&& str.charAt(2) =='i'){
+				substitute(str.charAt(3), 'd');
+				break;
+			}
+		}	
+	}
+
+	private void search_about() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==5 && str.charAt(0) =='a'&& str.charAt(2) =='o'
+				&& str.charAt(3) =='u'&& str.charAt(4) =='t'){
+				substitute(str.charAt(1), 'b');
+				break;
+			}
+		}			
+	}
+
+	private void search_into() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(0) =='i'&& str.charAt(2) =='t'
+				&& str.charAt(3) =='o'){
+				substitute(str.charAt(1), 'n');
+				break;
+			}
+		}		
+	}
+	private void search_this() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(1) =='h'
+				&& str.charAt(3) =='s'){
+				substitute(str.charAt(2), 'i');
+				break;
 			}
 		}
-		return (counter / totalCorrectWords ) * 100; 
+	}
+	private void search_are() {
+		for (String str : this.getWordsFromFile()){
+			if (str.length()==3 && str.charAt(0) =='a'&& str.charAt(2) =='e'){
+				substitute(str.charAt(1), 'r');
+				break;
+			}
+		}
 	}
 	private void search_s() {
 		for (String str : this.getWordsFromFile()){
-			if (str.length()> 1 && str.charAt(str.length()-2) == '\'' ){
+			if (str.length()> 1 && str.charAt(str.length()-2)== '\''){
 				substitute(str.charAt(str.length()-1), 's');
 				break;
 			}
