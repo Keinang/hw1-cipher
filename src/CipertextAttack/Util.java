@@ -46,8 +46,8 @@ public class Util {
 	/**
 	 * Printing the words from the file :
 	 */
-	 void printWordsFromFile(final Vector<String> words) {
-		for (String tmpString : words){
+	 void printWordsFromFile() {
+		for (String tmpString : this.getWordsFromFile_()){
 			System.out.println(tmpString);
 		}
 	}
@@ -82,11 +82,11 @@ public class Util {
 	 * //check for SSS-YYY Separation to 2 words 
 	 * @return true if there was a '-' hyphen
 	 */
-	public boolean hyphen(Vector<String> words , String str) {
+	public boolean hyphen(String str) {
 		int tmpIndexOfchar = str.indexOf('-');
 		if (tmpIndexOfchar > 0){
-			words.add(str.substring(0,tmpIndexOfchar));
-			words.add(str.substring(tmpIndexOfchar+1,str.length()));
+			this.getWordsFromFile_().add(str.substring(0,tmpIndexOfchar));
+			this.getWordsFromFile_().add(str.substring(tmpIndexOfchar+1,str.length()));
 			return true;
 		}
 		return false;
@@ -110,7 +110,7 @@ public class Util {
 	 * 
 	 * @param str - a String from a file to insert the HashMap<String,Integer>
 	 */
-	private void addStrToVector(Vector<String> words,String str) {
+	private void addStrToVector(String str) {
 		StringBuilder sb = new StringBuilder(30);
 		char[] tmpChars = str.toCharArray();
 		int tmpLength = 0;
@@ -125,11 +125,11 @@ public class Util {
 		}
 		if (tmpLength > 0){
 			sb.setLength(tmpLength);
-			addWord(words,sb.toString());
+			addWord(sb.toString());
 		}
 	}
 			
-	void getWordsFromFile(Vector<String> words,String cipherText) {
+	void getWordsFromFile(String cipherText) {
 		RandomAccessFile rac;
 		try {
 			rac = new RandomAccessFile(cipherText, "r");
@@ -140,7 +140,7 @@ public class Util {
 			rac.close();
 			String[] allWords = str.split(" ");
 			for (String tmpStr :allWords){
-				addStrToVector(words, tmpStr.trim());
+				addStrToVector(tmpStr.trim());
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -152,7 +152,7 @@ public class Util {
 	 * Removing ( ) , . from the word and Adding to Vector
 	 * @param tmpWord
 	 */
-	private void addWord(Vector<String> words ,String str) {
+	private void addWord(String str) {
 		str = removeSignsFromEndOfWord('.',str);
 		str = removeSignsFromEndOfWord(')',str);
 		str = removeSignsFromEndOfWord(':',str);
@@ -163,10 +163,10 @@ public class Util {
 		str = removeSignsFromBeginingOfWord('(',str);
 		str = removeSignsFromBeginingOfWord('"',str);
 		str = removeSignsFromEndOfWord(',',str);
-		if (hyphen(words,str)){ 
+		if (hyphen(str)){ 
 			return;
 		}
-		words.add(str);
+		this.getWordsFromFile_().add(str);
 	}
 
 	public void printTempDecryptFile(Key key_, String file) {
