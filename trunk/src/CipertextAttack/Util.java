@@ -54,22 +54,22 @@ public class Util {
 	}
 	
 	private void copyOnly25() {
-		int min1 = Math.min(sort1Size, 25);
-		int min2 = Math.min(sort2Size, 25);
-		int min3 = Math.min(sort3Size, 25);
-		int min4 = Math.min(sort4Size, 25);
+		int min1 = Math.min(sort1Size, 50);
+		int min2 = Math.min(sort2Size, 50);
+		int min3 = Math.min(sort3Size, 50);
+		int min4 = Math.min(sort4Size, 50);
 		
 		for (int i=0;i<min1;i++){
-			sortedVecSize1.add(sortedfreqWordsSize1[i]);
+			sortedVecSize1.add(sortedfreqWordsSize1[min1-i]);
 		}
 		for (int i=0;i<min2;i++){
-			sortedVecSize2.add(sortedfreqWordsSize2[i]);
+			sortedVecSize2.add(sortedfreqWordsSize2[min2-i]);
 		}
 		for (int i=0;i<min3;i++){
-			sortedVecSize3.add(sortedfreqWordsSize3[i]);
+			sortedVecSize3.add(sortedfreqWordsSize3[min3-i]);
 		}
 		for (int i=0;i<min4;i++){
-			sortedVecSize4.add(sortedfreqWordsSize4[i]);
+			sortedVecSize4.add(sortedfreqWordsSize4[min4-i]);
 		}
 	}
 
