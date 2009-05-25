@@ -63,6 +63,7 @@ public class CipherTextAttack {
 		search_for();     //getting f
 		
 		search_to();      //getting o
+		
 		search_this();    //getting i
 		//search_on();	  //getting n
 		search_into();    //getting n ; try "one"
@@ -312,7 +313,6 @@ public class CipherTextAttack {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(3) =='t' 
 				&& str.charAt(1) == 'h' ){
-				System.out.println(str);
 				substitute(str.charAt(2), 'a');
 				return true;
 			}
