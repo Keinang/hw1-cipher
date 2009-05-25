@@ -56,15 +56,16 @@ public class CipherTextAttack {
 		search_to();      //getting o
 		
 		search_that();    //getting a
-		
-		if (!search_thisAndIs()){ //getting s 
-			search_s();
+		boolean flag = !search_s();
+		System.out.println(flag);
+		if (flag){ //getting s 
+			search_thisAndIs();
 		}
 		if (!search_re()){  //getting r
 			search_are();	
 		}
 		
-		//search_this();    //getting i
+		search_this();    //getting i
 		//search_on();		// getting n
 		search_into();    //getting n ; try "one"
 		search_for();     //getting f
@@ -311,14 +312,11 @@ public class CipherTextAttack {
 		return flag_s;
 	}
 	private boolean search_that() {
-		Vector<String > fourLettersWords = new Vector<String> ();
-		String[] allFourLettersWords = this.util.getSortedfreqWordsSize4();
-		for(int i =0 ; i<=10 ;i++){
-			fourLettersWords.add (allFourLettersWords[i]);
-		}
+		//&& this.util.getSortedVecSize4().contains(str)
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(3) =='t' 
-				&& str.charAt(1) == 'h' && fourLettersWords.contains(str)  ){
+				&& str.charAt(1) == 'h'  ){
+				System.out.println(str);
 				substitute(str.charAt(2), 'a');
 				return true;
 			}else{
@@ -406,6 +404,7 @@ public class CipherTextAttack {
 					chars[j] = pointFromOldChar;
 				}
 			}
+			//System.out.println(String.valueOf(chars));
 			util.getWordsFromFile_().set(i,String.valueOf(chars) );
 		}
 		this.key_.getKey().put(newChar, oldChar);
