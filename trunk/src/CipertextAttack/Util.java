@@ -426,31 +426,6 @@ public class Util {
 		} catch (IOException e) {
 		}
 	}
-//	Character[] mostFreq = {'n'}; 
-//	for (int i = 0; i < mostFreq.length; i++) {
-//		mostFreqLet.add(mostFreq[i]);
-//	}
-//	Vector<String> mostFreqLettersWords = wordsWithMostFreqLetters();
-//	double percent = 0.0;
-//	int numOfPerms = 0;
-//	
-//	for (int i=0;i<mostFreq.length;i++){
-//		substitute(sortedLettersFreq_[61-i],mostFreq[i]);
-//	}
-//	numOfPerms++;
-//	percent = checkCorrectWords(mostFreqLettersWords);
-//	System.out.println(percent);
-//	
-//	while (percent < 80){
-//		for (int i=0;i<mostFreq.length;i++){
-//			substitute(sortedLettersFreq_[61-i],mostFreq[i]);
-//		}
-//		numOfPerms++;
-//		percent = checkCorrectWords(mostFreqLettersWords);
-//		System.out.println(percent);
-//	}
-//	System.out.println("Found 9");
-//}
 	public Vector<String> getWordsFromFile_() {
 		return wordsFromFile_;
 	}
