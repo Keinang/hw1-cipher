@@ -41,9 +41,24 @@ public class Util {
 		sortAllWords(freqWordsSize2,sortedfreqWordsSize2);
 		sortAllWords(freqWordsSize3,sortedfreqWordsSize3);
 		sortAllWords(freqWordsSize4,sortedfreqWordsSize4);
-		
+		copyArrayToVec();
 	}
 	
+	private void copyArrayToVec(){
+		for (int i=0;i<sortedfreqWordsSize1.length;i++){
+			sortedVecSize1.add(sortedfreqWordsSize1[i]);
+		}
+		for (int i=0;i<sortedfreqWordsSize2.length;i++){
+			sortedVecSize2.add(sortedfreqWordsSize2[i]);
+		}
+		for (int i=0;i<sortedfreqWordsSize3.length;i++){
+			sortedVecSize3.add(sortedfreqWordsSize3[i]);
+		}
+		for (int i=0;i<sortedfreqWordsSize4.length;i++){
+			sortedVecSize4.add(sortedfreqWordsSize4[i]);
+		}
+	}
+
 	private void sortAllWords(HashMap<String,Integer> hash,String[] sorted) {
 		HashMap<String,Integer> tmpFreq = new HashMap<String,Integer>();
 		copyHashMapString(tmpFreq,hash);
@@ -105,6 +120,7 @@ public class Util {
 			}
 		}
 	}
+	
 	void getFreqOfAllWords(){
 		for (String str:this.getWordsFromFile_()){
 			if (str.length() == 1){
