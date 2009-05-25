@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 /**
  *  
  * @author GK
@@ -312,14 +313,22 @@ public class CipherTextAttack {
 		}
 		return flag_s;
 	}
-	private void search_that() {
+	private boolean search_that() {
+		Vector<String > fourLettersWords = new Vector<String> ();
+		String[] allFourLettersWords = this.util.getSortedfreqWordsSize4();
+		for(int i =0 ; i<=10 ;i++){
+			fourLettersWords.add (allFourLettersWords[i]);
+		}
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(3) =='t' 
-				&& str.charAt(1) == 'h'  ){
+				&& str.charAt(1) == 'h' && fourLettersWords.contains(str)  ){
 				substitute(str.charAt(2), 'a');
-				break;
+				return true;
+			}else{
+				return false;
 			}
 		}
+		return false;
 	}
 	private void search_to() {
 		for (String str : util.getWordsFromFile_()){
