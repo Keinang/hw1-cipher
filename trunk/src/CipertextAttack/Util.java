@@ -49,7 +49,9 @@ public class Util {
 		sortAllWords(freqWordsSize3,sortedfreqWordsSize3);
 		sortAllWords(freqWordsSize4,sortedfreqWordsSize4);
 		copyArrayToVec();
+
 		copyOnly25();
+
 	}
 	
 	private void copyOnly25() {
