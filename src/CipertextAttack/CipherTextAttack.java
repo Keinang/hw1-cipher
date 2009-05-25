@@ -63,7 +63,10 @@ public class CipherTextAttack {
 		search_for();     //getting f
 		
 		search_to();      //getting o
-		
+
+		for (String str:this.util.getSortedVecSize2()){
+			System.out.println(str);
+		}
 		search_this();    //getting i
 		//search_on();	  //getting n
 		search_into();    //getting n ; try "one"
@@ -301,7 +304,8 @@ public class CipherTextAttack {
 	private boolean search_s() {
 		boolean flag_s = false;
 		for (String str : util.getWordsFromFile_()){
-			if (str.length()> 1 && str.charAt(str.length()-2)== '\''){
+			if (str.length()> 2 && str.charAt(str.length()-2)== '\'' 
+				&& util.getSortedVecSize1().contains(str.charAt(str.length()-1))){
 				substitute(str.charAt(str.length()-1), 's');
 				return true;
 			}
