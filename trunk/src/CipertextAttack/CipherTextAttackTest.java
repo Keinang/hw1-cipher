@@ -16,9 +16,9 @@ public class CipherTextAttackTest extends TestCase {
 	}
 
 	public void testHyphen() {
-		assertTrue(util.hyphen(ct.getWordsFromFile(),"abc-def"));
-		assertEquals(ct.getWordsFromFile().get(0), "abc");
-		assertEquals(ct.getWordsFromFile().get(1), "def");
+		assertTrue(util.hyphen("abc-def"));
+		assertEquals(util.getWordsFromFile_().get(0), "abc");
+		assertEquals(util.getWordsFromFile_().get(1), "def");
 	}
 
 	public void testRemoveSignsFromEndOfWord() {

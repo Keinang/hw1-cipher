@@ -6,22 +6,19 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 /**
  *  
  * @author GK
  *
  */
 public class CipherTextAttack {
-	Vector<Character> mostFreqLet  = new Vector<Character>();
 	private Util util = new Util();
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
-	
 	private Character[] sortedLettersFreq_ = new Character[62];
 	
 	private Key key_ = new Key();
 	private Key keyOpposite_ = new Key();
-	private Vector<String> wordsFromFile_ = new Vector<String>();
+	
 	
 	
 	/**
@@ -60,12 +57,13 @@ public class CipherTextAttack {
 		 * 1. Dates dd/mm/yyyy
 		 */
 		
-		util.getWordsFromFile(this.getWordsFromFile(),cipherText);
+		util.getWordsFromFile(cipherText);
 		calcFreq();
 		sortFreq();
 		
 		search_the();     //getting e,t,h
 		search_to();      //getting o
+		
 		search_that();    //getting a
 		
 		if (!search_s()){ //getting s 
@@ -104,7 +102,7 @@ public class CipherTextAttack {
 
 	private boolean search_re() {
 		boolean flag = false;
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length() > 2 && str.charAt(str.length()-1) =='e'&& str.charAt(str.length()-3) =='\''){
 				substitute(str.charAt(str.length()-2), 'r');
 				flag = true;
@@ -119,7 +117,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_dozen() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==5 && str.charAt(0) =='d'&& str.charAt(1) =='o'
 				&& str.charAt(3) =='e'&& str.charAt(4) =='n'){
 				substitute(str.charAt(2), 'z');
@@ -129,7 +127,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_subject() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==7 && str.charAt(0) =='s'&& str.charAt(1) =='u'
 				&& str.charAt(2) =='b'&& str.charAt(4) =='e'&& str.charAt(5) =='c'
 					&& str.charAt(6) =='t'){
@@ -140,7 +138,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_expect() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==6 && str.charAt(0) =='e'&& str.charAt(2) =='p'
 				&& str.charAt(3) =='e'&& str.charAt(4) =='c'&& str.charAt(5) =='t'){
 				substitute(str.charAt(1), 'x');
@@ -150,7 +148,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_give() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='g'&& str.charAt(1) =='i'
 				&& str.charAt(3) =='e'){
 				substitute(str.charAt(2), 'v');
@@ -159,7 +157,7 @@ public class CipherTextAttack {
 		}			
 	}
 	private void search_question() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==8 && str.charAt(1) =='u'&& str.charAt(2) =='e'
 				&& str.charAt(3) =='s'&& str.charAt(4) =='t'&& str.charAt(5) =='i'
 					&& str.charAt(6) =='o'&& str.charAt(7) =='n'){
@@ -169,7 +167,7 @@ public class CipherTextAttack {
 		}			
 	}
 	private void search_from() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='f'&& str.charAt(1) =='r'
 				&& str.charAt(2) =='o'){
 				substitute(str.charAt(3), 'm');
@@ -179,7 +177,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_look() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='l'&& str.charAt(1) =='o'
 				&& str.charAt(2) =='o'){
 				substitute(str.charAt(3), 'k');
@@ -189,7 +187,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_people() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==6 && str.charAt(1) =='e'&& str.charAt(2) =='o'
 				&& str.charAt(5) =='e'&& str.charAt(0) == str.charAt(3)){
 				substitute(str.charAt(0), 'p');
@@ -200,7 +198,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_with() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(1) =='i'&& str.charAt(2) =='t'
 				&& str.charAt(3) =='h'){
 				substitute(str.charAt(0), 'w');
@@ -210,7 +208,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_each() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='e'&& str.charAt(1) =='a'
 				&& str.charAt(3) =='h'){
 				substitute(str.charAt(2), 'c');
@@ -220,7 +218,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_use() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==3 && str.charAt(1) =='s'&& str.charAt(2) =='e'){
 				substitute(str.charAt(0), 'u');
 				break;
@@ -229,7 +227,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_anything() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==8 && str.charAt(0) =='a'&& str.charAt(1) =='n'
 				&& str.charAt(3) =='t'&& str.charAt(4) =='h'&& str.charAt(5) =='i'
 					&& str.charAt(6) =='n'){
@@ -241,7 +239,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_for() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==3 && str.charAt(1) =='o'&& str.charAt(2) =='r'){
 				substitute(str.charAt(0), 'f');
 				break;
@@ -249,7 +247,7 @@ public class CipherTextAttack {
 		}	
 	}
 	private void search_said() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='s'&& str.charAt(1) =='a'
 				&& str.charAt(2) =='i'){
 				substitute(str.charAt(3), 'd');
@@ -259,7 +257,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_about() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==5 && str.charAt(0) =='a'&& str.charAt(2) =='o'
 				&& str.charAt(3) =='u'&& str.charAt(4) =='t'){
 				substitute(str.charAt(1), 'b');
@@ -269,7 +267,7 @@ public class CipherTextAttack {
 	}
 
 	private void search_into() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='i'&& str.charAt(2) =='t'
 				&& str.charAt(3) =='o'){
 				substitute(str.charAt(1), 'n');
@@ -278,7 +276,7 @@ public class CipherTextAttack {
 		}		
 	}
 	private void search_this() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(1) =='h'
 				&& str.charAt(3) =='s'){
 				substitute(str.charAt(2), 'i');
@@ -287,7 +285,7 @@ public class CipherTextAttack {
 		}
 	}
 	private void search_are() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==3 && str.charAt(0) =='a'&& str.charAt(2) =='e'){
 				substitute(str.charAt(1), 'r');
 				break;
@@ -295,7 +293,7 @@ public class CipherTextAttack {
 		}
 	}
 	private void search_such() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(1) =='u'&& str.charAt(2) =='c'
 				&& str.charAt(3) =='h'){
 				substitute(str.charAt(0), 's');
@@ -305,7 +303,7 @@ public class CipherTextAttack {
 	}
 	private boolean search_s() {
 		boolean flag_s = false;
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()> 1 && str.charAt(str.length()-2)== '\''){
 				substitute(str.charAt(str.length()-1), 's');
 				flag_s = true;
@@ -315,7 +313,7 @@ public class CipherTextAttack {
 		return flag_s;
 	}
 	private void search_that() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(3) =='t' 
 				&& str.charAt(1) == 'h'  ){
 				substitute(str.charAt(2), 'a');
@@ -324,7 +322,7 @@ public class CipherTextAttack {
 		}
 	}
 	private void search_to() {
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==2 && str.charAt(0) =='t'){
 				substitute(str.charAt(1), 'o');
 				break;
@@ -335,7 +333,7 @@ public class CipherTextAttack {
 		substitute(this.sortedLettersFreq_[61],'t');
 		substitute(this.sortedLettersFreq_[60],'e');
 		int[] appear = new int[123];
-		for (String str : this.getWordsFromFile()){
+		for (String str : util.getWordsFromFile_()){
 			if (str.length()==3 && str.charAt(0) =='t' && str.charAt(2) =='e'){
 				appear[str.charAt(1)]++;
 			}
@@ -349,8 +347,8 @@ public class CipherTextAttack {
 		substitute(this.sortedLettersFreq_[61],'e');
 		substitute(this.sortedLettersFreq_[60],'t');
 		
-		for (int i=0;i<this.getWordsFromFile().size();i++){
-			String str =this.getWordsFromFile().get(i);
+		for (int i=0;i<util.getWordsFromFile_().size();i++){
+			String str =util.getWordsFromFile_().get(i);
 			if (str.length() == 3 && str.charAt(0) =='t' && str.charAt(2) =='e'){
 				appear2[str.charAt(1)]++;
 			}
@@ -391,8 +389,8 @@ public class CipherTextAttack {
 		Character pointToNewChar = this.keyOpposite_.getKey().get(newChar);
 		Character pointFromOldChar = this.key_.getKey().get(oldChar);
 
-		for (int i=0;i<this.getWordsFromFile().size();i++){
-			String str = this.getWordsFromFile().elementAt(i);
+		for (int i=0;i<util.getWordsFromFile_().size();i++){
+			String str = util.getWordsFromFile_().elementAt(i);
 			char[] chars = str.toCharArray();
 			for(int j=0;j<chars.length;j++){
 				if (chars[j] == oldChar){
@@ -402,7 +400,7 @@ public class CipherTextAttack {
 					chars[j] = pointFromOldChar;
 				}
 			}
-			this.getWordsFromFile().set(i,String.valueOf(chars) );
+			util.getWordsFromFile_().set(i,String.valueOf(chars) );
 		}
 		this.key_.getKey().put(newChar, oldChar);
 		this.keyOpposite_.getKey().put(oldChar, newChar);
@@ -447,7 +445,7 @@ public class CipherTextAttack {
      */
 	private void calcFreq() {
 		int[] tmpFreq = new int[123];
-		for (String str : this.wordsFromFile_){
+		for (String str : util.getWordsFromFile_()){
 			char[] charsInString = new char[str.length()];
 			str.getChars(0, str.length(), charsInString, 0);
 			for (Character ch:charsInString){
@@ -467,9 +465,6 @@ public class CipherTextAttack {
 				lettersFreq_.put(ch, tmpFreq[ch]);
 			}
 		}
-	}
-	public Vector<String> getWordsFromFile() {
-		return wordsFromFile_;
 	}
 }
 
