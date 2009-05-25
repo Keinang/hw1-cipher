@@ -50,20 +50,22 @@ public class CipherTextAttack {
 		util.getWordsFromFile(cipherText);
 		util.calcFreq();
 		util.sortFreq();
+		util.initAllHashes();
 		
 		search_the();     //getting e,t,h
 		search_to();      //getting o
 		
 		search_that();    //getting a
 		
-		if (!search_s()){ //getting s 
-			search_such();
+		if (!search_thisAndIs()){ //getting s 
+			search_s();
 		}
 		if (!search_re()){  //getting r
 			search_are();	
 		}
 		
-		search_this();    //getting i
+		//search_this();    //getting i
+		//search_on();		// getting n
 		search_into();    //getting n ; try "one"
 		search_for();     //getting f
 		search_anything();//getting y,g
@@ -89,6 +91,8 @@ public class CipherTextAttack {
 		//printing the Result key to the output file :
     	util.printResult(this.key_,cipherText);
 	}
+
+	
 
 	private boolean search_re() {
 		boolean flag = false;
@@ -256,14 +260,15 @@ public class CipherTextAttack {
 		}			
 	}
 
-	private void search_into() {
+	private boolean search_into() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='i'&& str.charAt(2) =='t'
 				&& str.charAt(3) =='o'){
 				substitute(str.charAt(1), 'n');
-				break;
+				return true;
 			}
-		}		
+		}	
+		return false;
 	}
 	private void search_this() {
 		for (String str : util.getWordsFromFile_()){
@@ -282,14 +287,16 @@ public class CipherTextAttack {
 			}
 		}
 	}
-	private void search_such() {
+	private boolean search_thisAndIs() {
 		for (String str : util.getWordsFromFile_()){
-			if (str.length()==4 && str.charAt(1) =='u'&& str.charAt(2) =='c'
-				&& str.charAt(3) =='h'){
+			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(1) =='h'
+				&& this.util.getSortedVecSize4().contains(str)&& 
+				this.util.getSortedVecSize2() .contains(str.substring(2))){
 				substitute(str.charAt(0), 's');
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 	private boolean search_s() {
 		boolean flag_s = false;
