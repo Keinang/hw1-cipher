@@ -1,6 +1,5 @@
 package CipertextAttack;
 
-import java.util.Vector;
 /**
  *  
  * @author GK
@@ -53,22 +52,22 @@ public class CipherTextAttack {
 		util.initAllHashes();
 		
 		search_the();     //getting e,t,h
-		search_to();      //getting o
+		
 		
 		search_that();    //getting a
 		boolean flag = !search_s();
-		System.out.println(flag);
 		if (flag){ //getting s 
 			search_thisAndIs();
 		}
 		if (!search_re()){  //getting r
 			search_are();	
 		}
+		search_for();     //getting f
 		
+		search_to();      //getting o
 		search_this();    //getting i
 		//search_on();		// getting n
 		search_into();    //getting n ; try "one"
-		search_for();     //getting f
 		search_anything();//getting y,g
 		search_use();     //getting u
 		search_about();	  //getting b
