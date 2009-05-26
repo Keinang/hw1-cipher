@@ -16,7 +16,7 @@ public class Encrypt {
 	
 	private Key randomKey_ ;
 	private Random rand_ = new Random();
-	
+	private Util util = new Util();
 	public Encrypt() {
 		this.randomKey_ = new Key();
 	}
@@ -68,7 +68,7 @@ public class Encrypt {
 	
 	public void encryptWithKey(String input, String output) {
 		randomizeKey();
-		this.randomKey_.tostring("randomKey.txt");
+		util.tostring(this.randomKey_.getKey(),"randomKey.txt");
 		BufferedReader in;
 		BufferedWriter out;
 		try {
