@@ -9,7 +9,7 @@ public class CipherTextAttack {
 	private Util util = new Util();
 	private Key key_ = new Key();
 	private Key keyOpposite_ = new Key();
-	
+	//private Vector<Character> changedLetters = new Vector<Character>();
 	/**
 	 * @param args - cipher text
 	 */
@@ -24,7 +24,7 @@ public class CipherTextAttack {
 		}
 		
 		//~~~~~~~~~~~~~~~~~~~~~ Encrypt File (Only for test) ~~~~~~~~~~~~~~~
-		//make encrypt file to work with
+//		make encrypt file to work with
 		Encrypt encrypt = new Encrypt();
 		encrypt.encryptWithKey(cipherText, "encryptedTxt.txt");
 		cipherText = "encryptedTxt.txt";
@@ -51,6 +51,12 @@ public class CipherTextAttack {
 		util.sortFreq();
 		util.initAllHashes();
 		
+//		//The sorting is the problem !!!
+//		//test the vector :
+		for (String str :util.getSortedVecSize1()){
+			System.out.println(str);
+		}
+		
 		search_the();     //getting e,t,h
 		search_that();    //getting a
 		
@@ -60,13 +66,8 @@ public class CipherTextAttack {
 		if (!search_re()){  //getting r
 			search_are();	
 		}
+		search_too();      //getting o ;to
 		search_for();     //getting f
-		
-		search_to();      //getting o
-
-		for (String str:this.util.getSortedVecSize2()){
-			System.out.println(str);
-		}
 		search_this();    //getting i
 		//search_on();	  //getting n
 		search_into();    //getting n ; try "one"
@@ -74,9 +75,9 @@ public class CipherTextAttack {
 		search_use();     //getting u
 		search_about();	  //getting b
 		search_each();    //getting c ;try which
+		search_people();  //getting p,l; try part
 		search_said();    //getting d
 		search_with();    //getting w
-		search_people();  //getting p,l; try part
 		search_look();    //getting k ; try like
 		search_from();    //getting m
 		search_question();//getting q //try quite
@@ -85,7 +86,10 @@ public class CipherTextAttack {
 		search_subject(); //getting j
 		search_dozen();   //getting z ; try realize,organize;
 		
-		search_I();		  //getting I
+//		search_S();		  //getting S
+		search_You();	  //getting Y
+		
+		//search_DAYS_MONTH();
 		
 		//print for testing
 		util.printTempDecryptFile(this.key_,"encryptedTxt.txt");
@@ -96,20 +100,115 @@ public class CipherTextAttack {
 
 	
 
-	private boolean search_re() {
-		boolean flag = false;
+	private void search_DAYS_MONTH() {
 		for (String str : util.getWordsFromFile_()){
-			if (str.length() > 2 && str.charAt(str.length()-1) =='e'&& str.charAt(str.length()-3) =='\''){
-				substitute(str.charAt(str.length()-2), 'r');
-				flag = true;
+			char cha = str.charAt(0);
+			if (Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				continue;
+			}
+			if (str.length() == 7 && str.endsWith("anuary") && str.charAt(0) != 'J'){
+				substitute(str.charAt(0), 'J');
+				continue;
+			}
+			else if (str.length() == 8 && str.endsWith("ebruary")&& str.charAt(0) != 'F'){
+				substitute(str.charAt(0), 'F');
+				continue;
+			}
+//			else if (str.length() == 5 && str.endsWith("March")){
+//				substitute(str.charAt(0), 'M');
+//			}
+			else if (str.length() == 5 && str.endsWith("pril")&& str.charAt(0) != 'A'){
+				substitute(str.charAt(0), 'A');
+				continue;
+			}
+			else if (str.length() == 4 && str.endsWith("une") && str.charAt(0)!='d'
+				&& str.charAt(0) != 'J'){
+				substitute(str.charAt(0), 'J');
+				continue;
+			}
+			else if (str.length() == 4 && str.endsWith("uly")&& str.charAt(0) != 'J'){
+				substitute(str.charAt(0), 'J');
+				continue;
+			}
+			else if (str.length() == 6 && str.endsWith("ugust")&& str.charAt(0) != 'A'){
+				substitute(str.charAt(0), 'A');
+				continue;
+			}
+			else if (str.length() == 9 && str.endsWith("eptember")&& str.charAt(0) != 'S'){
+				substitute(str.charAt(0), 'S');
+				continue;
+			}
+			else if (str.length() == 7 && str.endsWith("ctober")&& str.charAt(0) != 'O'){
+				substitute(str.charAt(0), 'O');
+				continue;
+			}
+			else if (str.length() == 8 && str.endsWith("ovember")&& str.charAt(0) != 'N'){
+				substitute(str.charAt(0), 'N');
+				continue;
+			}
+			else if (str.length() == 8 && str.endsWith("ecember")&& str.charAt(0) != 'D'){
+				substitute(str.charAt(0), 'D');
+				continue;
+			}
+			//Sunday Monday Tuesday Wednesday Thursday Friday Saturday
+			else if (str.length() == 6 && str.endsWith("unday")&& str.charAt(0) != 'S'){
+				substitute(str.charAt(0), 'S');
+				continue;
+			}
+			else if (str.length() == 6 && str.endsWith("onday")&& str.charAt(0) != 'M'){
+				substitute(str.charAt(0), 'M');
+				continue;
+			}
+			else if (str.length() == 7 && str.endsWith("uesday")&& str.charAt(0) != 'T'){
+				substitute(str.charAt(0), 'T');
+				continue;
+			}
+			else if (str.length() == 9 && str.endsWith("ednesday")&& str.charAt(0) != 'W'){
+				substitute(str.charAt(0), 'W');
+				continue;
+			}
+			else if (str.length() == 8 && str.endsWith("hursday")&& str.charAt(0) != 'T'){
+				substitute(str.charAt(0), 'T');
+				continue;
+			}
+			else if (str.length() == 6 && str.endsWith("riday")&& str.charAt(0) != 'F'){
+				substitute(str.charAt(0), 'F');
+				continue;
+			}
+			else if (str.length() == 8 && str.endsWith("aturday")&& str.charAt(0) != 'S'){
+				substitute(str.charAt(0), 'S');
+				continue;
+			}
+			else if (str.length() == 6 && str.endsWith("uthor")&& str.charAt(0) != 'A'){
+				substitute(str.charAt(0), 'A');
+				continue;
+			}
+			else if (str.length() == 7 && str.endsWith("hapter")&& str.charAt(0) != 'C'){
+				substitute(str.charAt(0), 'C');
+				continue;
+			}
+		}
+	}
+
+	private void search_You() {
+		for (String str : util.getWordsFromFile_()){
+			if (str.length() ==  3 && str.charAt(1) =='o'&&str.charAt(2) =='u'){
+				substitute(str.charAt(0), 'Y');
 				break;
 			}
 		}
-		return flag;
 	}
 
-	private void search_I() {
-		
+	private boolean search_re() {
+		boolean flag = false;
+		for (String str : util.getWordsFromFile_()){
+			if (str.length() > 4 && str.charAt(str.length() - 1) == 'e'
+				&& str.charAt(str.length() - 3) == '\''){
+				substitute(str.charAt(str.length()- 2), 'r');
+				return true;
+			}
+		}
+		return flag;
 	}
 
 	private void search_dozen() {
@@ -245,7 +344,7 @@ public class CipherTextAttack {
 	private void search_said() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='s'&& str.charAt(1) =='a'
-				&& str.charAt(2) =='i'){
+				&& str.charAt(2) =='i'&& str.charAt(3) !='l'){
 				substitute(str.charAt(3), 'd');
 				break;
 			}
@@ -293,7 +392,7 @@ public class CipherTextAttack {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && str.charAt(0) =='t'&& str.charAt(1) =='h'
 				&& this.util.getSortedVecSize4().contains(str)&& 
-				this.util.getSortedVecSize2() .contains(str.substring(2))){
+				this.util.getSortedVecSize2().contains(str.substring(2))){
 				substitute(str.charAt(3), 's');
 				substitute(str.charAt(2), 'i');
 				return true;
@@ -302,15 +401,29 @@ public class CipherTextAttack {
 		return false;
 	}
 	private boolean search_s() {
-		boolean flag_s = false;
+		int[] charsRep = new int[123];
 		for (String str : util.getWordsFromFile_()){
-			if (str.length()> 2 && str.charAt(str.length()-2)== '\'' 
-				&& util.getSortedVecSize1().contains(str.charAt(str.length()-1))){
-				substitute(str.charAt(str.length()-1), 's');
-				return true;
+			if (str.length()>= 2 && str.charAt(str.length()-2)== '\'' 
+				&&str.charAt(str.length()-1)!= 't'){
+				charsRep[str.charAt(str.length()-1)]+=1;
+				if(charsRep[str.charAt(str.length()-1)]> 20){
+					substitute(str.charAt(str.length()-1), 's');
+					return true;
+				}
 			}
 		}
-		return flag_s;
+		return false;
+	}
+	private boolean search_S() {
+		for (String str : util.getWordsFromFile_()){
+			if (str.length()>= 2 && str.charAt(str.length()-2)== '\'' 
+				&&str.charAt(str.length()-1)!= 't'
+				&&str.charAt(str.length()-1)!= 's'){
+					substitute(str.charAt(str.length()-1), 'S');
+					return true;
+				}
+		}
+		return false;
 	}
 	private boolean search_that() {
 		//&& this.util.getSortedVecSize4().contains(str)
@@ -323,9 +436,10 @@ public class CipherTextAttack {
 		}
 		return false;
 	}
-	private void search_to() {
+	private void search_too() {
 		for (String str : util.getWordsFromFile_()){
-			if (str.length()==2 && str.charAt(0) =='t'&& this.util.getSortedVecSize2().contains(str)){
+			if (str.length() == 3 && str.charAt(0) =='t' 
+				&&str.charAt(1)==str.charAt(2)){
 				substitute(str.charAt(1), 'o');
 				break;
 			}
@@ -387,7 +501,7 @@ public class CipherTextAttack {
 	 * @param newChar - The origin char
 	 */
 	private void substitute(Character oldChar,Character newChar){
-		//System.out.println("sub :"+oldChar +" with = "+newChar);
+		System.out.println("sub :"+oldChar +" with = "+newChar);
 		Character pointToNewChar = this.keyOpposite_.getKey().get(newChar);
 		Character pointFromOldChar = this.key_.getKey().get(oldChar);
 

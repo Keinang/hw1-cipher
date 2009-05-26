@@ -25,10 +25,6 @@ public class Util {
 	private HashMap<String,Integer> freqWordsSize2 = new HashMap<String,Integer>();
 	private HashMap<String,Integer> freqWordsSize3 = new HashMap<String,Integer>();
 	private HashMap<String,Integer> freqWordsSize4 = new HashMap<String,Integer>();
-	private String[] sortedfreqWordsSize1 = new String[2000];
-	private String[] sortedfreqWordsSize2 = new String[2000];
-	private String[] sortedfreqWordsSize3 = new String[2000];
-	private String[] sortedfreqWordsSize4 = new String[2000];
 	private int sort1Size = 0;
 	private int sort2Size = 0;
 	private int sort3Size = 0;
@@ -44,86 +40,62 @@ public class Util {
 	
 	public void initAllHashes(){
 		getFreqOfAllWords();
-		sortAllWords(freqWordsSize1,sortedfreqWordsSize1);
-		sortAllWords(freqWordsSize2,sortedfreqWordsSize2);
-		sortAllWords(freqWordsSize3,sortedfreqWordsSize3);
-		sortAllWords(freqWordsSize4,sortedfreqWordsSize4);
-		copyArrayToVec();
-		copyOnly25();
-
+		byValueComparator bvc =  new byValueComparator(freqWordsSize1);
+		List<String> keys1 = new ArrayList<String>(freqWordsSize1.keySet());
+		Collections.sort(keys1, bvc);
+		
+		for (int i=0;i<keys1.size();i++){
+			sortedAllVecSize1.add((String) keys1.get(i));
+		}
+		byValueComparator bvc2 =  new byValueComparator(freqWordsSize2);
+		List<String> keys2 = new ArrayList<String>(freqWordsSize2.keySet());
+		Collections.sort(keys2, bvc2);
+		
+		for (int i=0;i<keys2.size();i++){
+			sortedAllVecSize2.add((String) keys2.get(i));
+		}
+		byValueComparator bvc3 =  new byValueComparator(freqWordsSize3);
+		List<String> keys3 = new ArrayList<String>(freqWordsSize3.keySet());
+		Collections.sort(keys3, bvc3);
+		
+		for (int i=0;i<keys3.size();i++){
+			sortedAllVecSize3.add((String) keys3.get(i));
+		}
+		byValueComparator bvc4 =  new byValueComparator(freqWordsSize4);
+		List<String> keys4 = new ArrayList<String>(freqWordsSize4.keySet());
+		Collections.sort(keys4, bvc4);
+		
+		for (int i=0;i<keys4.size();i++){
+			sortedAllVecSize4.add((String) keys4.get(i));
+		}
+		copy25();
 	}
 	
-	private void copyOnly25() {
-		int min1 = Math.min(sort1Size, 50);
-		int min2 = Math.min(sort2Size, 50);
-		int min3 = Math.min(sort3Size, 50);
-		int min4 = Math.min(sort4Size, 50);
-		
+	private void copy25() {
+		int min1 = Math.min(this.sort1Size, 25);
 		for (int i=0;i<min1;i++){
-			sortedVecSize1.add(sortedfreqWordsSize1[min1-i]);
+			this.sortedVecSize1.add(this.sortedAllVecSize1.get(i));
 		}
+		int min2 = Math.min(this.sort2Size, 25);
 		for (int i=0;i<min2;i++){
-			sortedVecSize2.add(sortedfreqWordsSize2[min2-i]);
+			this.sortedVecSize2.add(this.sortedAllVecSize2.get(i));
 		}
+		int min3 = Math.min(this.sort3Size, 25);
 		for (int i=0;i<min3;i++){
-			sortedVecSize3.add(sortedfreqWordsSize3[min3-i]);
+			this.sortedVecSize3.add(this.sortedAllVecSize3.get(i));
 		}
+		int min4 = Math.min(this.sort4Size, 25);
 		for (int i=0;i<min4;i++){
-			sortedVecSize4.add(sortedfreqWordsSize4[min4-i]);
+			this.sortedVecSize4.add(this.sortedAllVecSize4.get(i));
 		}
 	}
 
-	private void copyArrayToVec(){
-		for (int i=0;i<sort1Size;i++){
-			sortedAllVecSize1.add(sortedfreqWordsSize1[i]);
-		}
-		for (int i=0;i<sort2Size;i++){
-			sortedAllVecSize2.add(sortedfreqWordsSize2[i]);
-		}
-		for (int i=0;i<sort3Size;i++){
-			sortedAllVecSize3.add(sortedfreqWordsSize3[i]);
-		}
-		for (int i=0;i<sort4Size;i++){
-			sortedAllVecSize4.add(sortedfreqWordsSize4[i]);
-		}
-	}
-
-	private void sortAllWords(HashMap<String,Integer> hash,String[] sorted) {
-		HashMap<String,Integer> tmpFreq = new HashMap<String,Integer>();
-		copyHashMapString(tmpFreq,hash);
-		List<String> mapKeys = new ArrayList<String>(((Map<String, Integer>) hash).keySet());
-		List<Integer> mapValues = new ArrayList<Integer>(((Map<String, Integer>) hash).values());
-		
-		Collections.sort(mapKeys);
-	    Collections.sort(mapValues);
-
-	    Iterator<Integer> valueIt = mapValues.iterator();
-	    int counter = 0;
-	    while (valueIt.hasNext()) {
-	        Integer val = valueIt.next();
-	        Iterator<String> keyIt = mapKeys.iterator();
-	        
-	        while (keyIt.hasNext()) {
-	        	String key = keyIt.next();
-	            Integer comp1 =  hash.get(key);
-	            
-	            if (comp1 == val ){
-	            	hash.remove(key);
-	                mapKeys.remove(key);
-	                sorted[counter]= key;
-	                counter++;
-	                break;
-	            }
-	        }
-	    }
-	    copyHashMapString(hash,tmpFreq);
-	}
 	private void inc(final int typeOfHash,final String word){
 		if (typeOfHash == 1){
 			Integer tmp = freqWordsSize1.get(word);
 			if (tmp == null){
 				freqWordsSize1.put(word, 1);
-				sort1Size=1;
+				sort1Size++;
 			}else{
 				freqWordsSize1.put(word, tmp++);
 				sort1Size++;
@@ -132,7 +104,7 @@ public class Util {
 			Integer tmp = freqWordsSize2.get(word);
 			if (tmp == null){
 				freqWordsSize2.put(word, 1);
-				sort2Size=1;
+				sort2Size++;
 			}else{
 				freqWordsSize2.put(word, tmp++);
 				sort2Size++;
@@ -141,7 +113,7 @@ public class Util {
 			Integer tmp = freqWordsSize3.get(word);
 			if (tmp == null){
 				freqWordsSize3.put(word, 1);
-				sort3Size = 1;
+				sort3Size++;
 			}else{
 				freqWordsSize3.put(word, tmp++);
 				sort3Size++;
@@ -150,7 +122,7 @@ public class Util {
 			Integer tmp = freqWordsSize4.get(word);
 			if (tmp == null){
 				freqWordsSize4.put(word, 1);
-				sort4Size = 1;
+				sort4Size++;
 			}else{
 				freqWordsSize4.put(word, tmp++);
 				sort4Size++;
@@ -285,15 +257,6 @@ public class Util {
 			hashTo.put(ch, value);
 		}
 	}
-	private void copyHashMapString(final HashMap<String, Integer> hashTo,
-			final HashMap<String, Integer> hashFrom) {
-		Iterator<String> from = hashFrom.keySet().iterator();
-		while(from.hasNext()){
-			String ch = (String) from.next();
-			Integer value = hashFrom.get(ch);
-			hashTo.put(ch, value);
-		}
-	}
 	/**
 	 * //check for SSS-YYY Separation to 2 words 
 	 * @return true if there was a '-' hyphen
@@ -335,14 +298,18 @@ public class Util {
 				(Integer.valueOf(cha) >=65 && Integer.valueOf(cha) <=90) ||	
 				(Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122)||
 				Integer.valueOf(cha) == 39){
+				
 				sb.append(cha);
 				tmpLength++;
 			}
+			else if (tmpLength > 0){
+				sb.setLength(tmpLength);
+				addWord(sb.toString());
+				sb = new StringBuilder(30);
+				tmpLength=0;
+			}
 		}
-		if (tmpLength > 0){
-			sb.setLength(tmpLength);
-			addWord(sb.toString());
-		}
+
 	}
 			
 	public void getWordsFromFile(String cipherText) {
@@ -354,10 +321,7 @@ public class Util {
 			rac.read(data, 0, length);
 			String str = new String(data);
 			rac.close();
-			String[] allWords = str.split(" ");
-			for (String tmpStr :allWords){
-				addStrToVector(tmpStr.trim());
-			}
+			addStrToVector(str);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -445,19 +409,6 @@ public class Util {
 	public HashMap<String, Integer> getFreqAllWords() {
 		return freqAllWords;
 	}
-	public String[] getSortedfreqWordsSize1() {
-		return sortedfreqWordsSize1;
-	}
-	public String[] getSortedfreqWordsSize2() {
-		return sortedfreqWordsSize2;
-	}
-	public String[] getSortedfreqWordsSize3() {
-		return sortedfreqWordsSize3;
-	}
-	public String[] getSortedfreqWordsSize4() {
-		return sortedfreqWordsSize4;
-	}
-
 	public Character[] getSortedLettersFreq_() {
 		return sortedLettersFreq_;
 	}
