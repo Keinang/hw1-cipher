@@ -249,11 +249,33 @@ public class Util {
 	/**
 	 * writing to file the Result key :
 	 */
-	void printResult(final Key key , final String cipherText) {
+	void printResult(HashMap<Character,Character> key , final String cipherText) {
 		int tmpIndex = cipherText.indexOf('.');
 		String tmpFilename = cipherText.substring(0,tmpIndex);
-		key.tostring(tmpFilename+"_key.txt");
+		tostring(key,tmpFilename+"_key.txt");
 	}
+	
+	public void tostring(HashMap<Character,Character> key,String outputFile){
+		 BufferedWriter out;
+		try {
+			out = new BufferedWriter(new FileWriter(outputFile));
+			for (char ch = 'a'; ch <= 'z' ; ch++){
+				out.write(ch +"="+key.get(ch)+" ");
+			}
+			out.write('\n');
+			for (char ch = 'A'; ch <= 'Z' ; ch++){
+				out.write(ch +"="+key.get(ch)+" ");
+			}
+			out.write('\n');
+			for (char ch = '0'; ch <= '9' ; ch++){
+				out.write(ch +"="+key.get(ch)+" ");
+			}
+	        out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Printing the sorted Frequency Letters :
 	 */
@@ -365,12 +387,12 @@ public class Util {
 		this.getWordsFromFile_().add(str);
 	}
 
-	public void printTempDecryptFile(Key key_, String file) {
+	public void printTempDecryptFile(HashMap<Character,Character> key_, String file) {
 		BufferedReader in;
 		BufferedWriter out;
 		try {
 			in = new BufferedReader(new FileReader(file));
-			out = new BufferedWriter(new FileWriter("de"+file));
+			out = new BufferedWriter(new FileWriter("RESULT"));
 			String str;
 			boolean found = false;
 			//Getting String and substitute it with the key
@@ -380,13 +402,13 @@ public class Util {
 				
 				for (Character cha:charsInString){
 					found = false;
-					Iterator<Character> it = key_.getKey().keySet().iterator();
+					Iterator<Character> it = key_.keySet().iterator();
 					while (it.hasNext()){
 						Character chKey = (Character) it.next();
-						Character chValue = key_.getKey().get(chKey);
+						Character chValue = key_.get(chKey);
 						if (chValue != '?'){
-							if (chValue == cha){
-								out.write(chKey);
+							if (chKey == cha){
+								out.write(chValue);
 								found = true;
 								break;
 							}
