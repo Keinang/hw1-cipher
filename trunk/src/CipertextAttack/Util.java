@@ -25,27 +25,28 @@ public class Util {
 	private HashMap<String,Integer> freqWordsSize2 = new HashMap<String,Integer>();
 	private HashMap<String,Integer> freqWordsSize3 = new HashMap<String,Integer>();
 	private HashMap<String,Integer> freqWordsSize4 = new HashMap<String,Integer>();
-	private int sort1Size = 0;
+	private int sort1Size = 0;//vectors size
 	private int sort2Size = 0;
 	private int sort3Size = 0;
 	private int sort4Size = 0;
-	private Vector<String> sortedVecSize1 = new Vector<String>();
+	private Vector<String> sortedVecSize1 = new Vector<String>(); //only top 25
 	private Vector<String> sortedVecSize2 = new Vector<String>();
 	private Vector<String> sortedVecSize3 = new Vector<String>();
 	private Vector<String> sortedVecSize4 = new Vector<String>();
-	private Vector<String> sortedAllVecSize1 = new Vector<String>();
+	private Vector<String> sortedAllVecSize1 = new Vector<String>();//all words
 	private Vector<String> sortedAllVecSize2 = new Vector<String>();
 	private Vector<String> sortedAllVecSize3 = new Vector<String>();
 	private Vector<String> sortedAllVecSize4 = new Vector<String>();
 	
 	public void initAllHashes(){
 		getFreqOfAllWords();
-		byValueComparator bvc =  new byValueComparator(freqWordsSize1);
+		
+		byValueComparator bvc1 = new byValueComparator(freqWordsSize1);
 		List<String> keys1 = new ArrayList<String>(freqWordsSize1.keySet());
-		Collections.sort(keys1, bvc);
+		Collections.sort(keys1, bvc1);
 		
 		for (int i=0;i<keys1.size();i++){
-			sortedAllVecSize1.add((String) keys1.get(i));
+			sortedAllVecSize1.add((String)keys1.get(i));
 		}
 		byValueComparator bvc2 =  new byValueComparator(freqWordsSize2);
 		List<String> keys2 = new ArrayList<String>(freqWordsSize2.keySet());
@@ -94,37 +95,43 @@ public class Util {
 		if (typeOfHash == 1){
 			Integer tmp = freqWordsSize1.get(word);
 			if (tmp == null){
-				freqWordsSize1.put(word, 1);
+				Integer i = new Integer(1);
+				freqWordsSize1.put(word, i);
 				sort1Size++;
 			}else{
-				freqWordsSize1.put(word, tmp++);
+				freqWordsSize1.put(word, ++tmp);
 				sort1Size++;
 			}
 		}else if (typeOfHash == 2){
 			Integer tmp = freqWordsSize2.get(word);
 			if (tmp == null){
-				freqWordsSize2.put(word, 1);
+				Integer i = new Integer(1);
+				freqWordsSize2.put(word, i);
 				sort2Size++;
 			}else{
-				freqWordsSize2.put(word, tmp++);
+				freqWordsSize2.put(word, ++tmp);
 				sort2Size++;
 			}
 		}else if (typeOfHash == 3){
 			Integer tmp = freqWordsSize3.get(word);
 			if (tmp == null){
-				freqWordsSize3.put(word, 1);
+				Integer i = new Integer(1);
+				freqWordsSize3.put(word, i);
 				sort3Size++;
 			}else{
-				freqWordsSize3.put(word, tmp++);
+				//int tmp2=tmp++;
+				//System.out.println(word +","+tmp2);
+				freqWordsSize3.put(word, ++tmp);
 				sort3Size++;
 			}
 		}else if (typeOfHash == 4){
 			Integer tmp = freqWordsSize4.get(word);
 			if (tmp == null){
-				freqWordsSize4.put(word, 1);
+				Integer i = new Integer(1);
+				freqWordsSize4.put(word, i);
 				sort4Size++;
 			}else{
-				freqWordsSize4.put(word, tmp++);
+				freqWordsSize4.put(word, ++tmp);
 				sort4Size++;
 			}
 		}
@@ -133,10 +140,18 @@ public class Util {
 	void getFreqOfAllWords(){
 		for (String str:this.getWordsFromFile_()){
 			if (str.length() == 1){
-				inc(1,str);
+				if(str.equals("'")){
+					continue;
+				}else{
+					inc(1,str);	
+				}
 			}
 			else if (str.length() == 2){
-				inc(2,str);
+				if(str.charAt(0) == '\''){
+					continue;
+				}else{
+					inc(2,str);	
+				}
 			}
 			else if (str.length() == 3){
 				inc(3,str);
