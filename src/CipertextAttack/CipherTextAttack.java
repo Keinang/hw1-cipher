@@ -51,12 +51,6 @@ public class CipherTextAttack {
 		util.sortFreq();
 		util.initAllHashes();
 		
-//		//The sorting is the problem !!!
-//		//test the vector :
-		for (String str :util.getSortedVecSize1()){
-			System.out.println(str);
-		}
-		
 		search_the();     //getting e,t,h
 		search_that();    //getting a
 		
