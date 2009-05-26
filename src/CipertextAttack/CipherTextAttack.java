@@ -80,6 +80,13 @@ public class CipherTextAttack {
 		
 		search_S();		  //getting S
 		search_You();	  //getting Y
+		Search_A();
+		Search_B();
+		Search_C();
+		Search_D();
+		Search_E();
+		Search_F();
+		Search_J();
 		
 		//print for testing
 		util.printTempDecryptFile(this.key,"encryptedTxt.txt");
@@ -97,7 +104,6 @@ public class CipherTextAttack {
 			}
 		}
 	}
-
 	private boolean search_re() {
 		boolean flag = false;
 		for (String str : util.getWordsFromFile_()){
@@ -109,7 +115,6 @@ public class CipherTextAttack {
 		}
 		return flag;
 	}
-
 	private void search_dozen() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==5 && checkKey(str.charAt(0),'d')&& checkKey(str.charAt(1),'o')
@@ -119,7 +124,6 @@ public class CipherTextAttack {
 			}
 		}
 	}
-
 	private void search_subject() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==7 && checkKey(str.charAt(0),'s')&& checkKey(str.charAt(1),'u')
@@ -130,7 +134,6 @@ public class CipherTextAttack {
 			}
 		}
 	}
-
 	private void search_expect() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==6 && checkKey(str.charAt(0),'e')&& checkKey(str.charAt(2),'p')
@@ -140,7 +143,6 @@ public class CipherTextAttack {
 			}
 		}			
 	}
-
 	private void search_give() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && checkKey(str.charAt(0),'g')&& checkKey(str.charAt(1),'i')
@@ -169,7 +171,6 @@ public class CipherTextAttack {
 			}
 		}			
 	}
-
 	private void search_look() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && checkKey(str.charAt(0),'l')&& checkKey(str.charAt(1),'o')
@@ -179,7 +180,6 @@ public class CipherTextAttack {
 			}
 		}			
 	}
-
 	private void search_people() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==6 && checkKey(str.charAt(1),'e')&& checkKey(str.charAt(2),'o')
@@ -190,7 +190,6 @@ public class CipherTextAttack {
 			}
 		}	
 	}
-
 	private void search_with() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && checkKey(str.charAt(1),'i')&& checkKey(str.charAt(2),'t')
@@ -200,7 +199,6 @@ public class CipherTextAttack {
 			}
 		}			
 	}
-
 	private void search_each() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && checkKey(str.charAt(0),'e')&& checkKey(str.charAt(1),'a')
@@ -210,7 +208,6 @@ public class CipherTextAttack {
 			}
 		}			
 	}
-
 	private void search_use() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==3 && checkKey(str.charAt(1),'s')&& checkKey(str.charAt(2),'e')){
@@ -219,7 +216,6 @@ public class CipherTextAttack {
 			}
 		}	
 	}
-
 	private void search_anything() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==8 && checkKey(str.charAt(0),'a')&& checkKey(str.charAt(1),'n')
@@ -231,7 +227,6 @@ public class CipherTextAttack {
 			}
 		}			
 	}
-
 	private void search_for() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==3 && checkKey(str.charAt(1),'o')&& checkKey(str.charAt(2),'r')){
@@ -249,7 +244,6 @@ public class CipherTextAttack {
 			}
 		}	
 	}
-
 	private void search_about() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==5 && checkKey(str.charAt(0),'a')&& checkKey(str.charAt(2),'o')
@@ -259,7 +253,6 @@ public class CipherTextAttack {
 			}
 		}			
 	}
-
 	private boolean search_into() {
 		for (String str : util.getWordsFromFile_()){
 			if (str.length()==4 && checkKey(str.charAt(0),'i')&& checkKey(str.charAt(2),'t')
@@ -380,6 +373,207 @@ public class CipherTextAttack {
 		}
 	}
 
+	private void Search_A(){
+		for (String str : util.getWordsFromFile_()){
+			char cha = str.charAt(0);
+			if (Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				continue;
+			}else {
+				if (str.length() == 5 && str.endsWith("pril")&& ! checkKey(str.charAt(0), 'A')){
+					substitute(str.charAt(0), 'A');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("ugust")&& ! checkKey(str.charAt(0), 'A')){
+					substitute(str.charAt(0), 'A');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("uthor")&& ! checkKey(str.charAt(0), 'A')){
+					substitute(str.charAt(0), 'A');
+					continue;
+				}
+				if (str.length() ==  8 && str.endsWith("nderson")&& ! checkKey(str.charAt(0), 'A')){
+					substitute(str.charAt(0), 'A');
+					continue;
+				}
+				
+			}
+		}
+	}
+	private void Search_B(){
+		for (String str : util.getWordsFromFile_()){
+			char cha = str.charAt(0);
+			if (Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				continue;
+			}else {
+				if (str.length() == 5 && str.endsWith("rown")&& ! checkKey(str.charAt(0), 'B')){
+					substitute(str.charAt(0), 'B');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("arbara")&& ! checkKey(str.charAt(0), 'B')){
+					substitute(str.charAt(0), 'B');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("rian")&& ! checkKey(str.charAt(0), 'B')){
+					substitute(str.charAt(0), 'B');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("razil")&& ! checkKey(str.charAt(0), 'B')){
+					substitute(str.charAt(0), 'B');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("ritain ")&&! checkKey(str.charAt(0), 'B')){
+					substitute(str.charAt(0), 'B');
+					continue;
+				}
+				
+			}
+		}
+	}
+	private void Search_C(){
+		for (String str : util.getWordsFromFile_()){
+			char cha = str.charAt(0);
+			if (Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				continue;
+			}else {
+				if (str.length() == 7 && str.endsWith("hapter")&& ! checkKey(str.charAt(0), 'C')){
+					substitute(str.charAt(0), 'C');
+					continue;
+				}
+				if (str.length() == 7 && str.endsWith("harles")&& ! checkKey(str.charAt(0), 'C')){
+					substitute(str.charAt(0), 'C');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("anada")&& ! checkKey(str.charAt(0), 'C')){
+					substitute(str.charAt(0), 'C');
+					continue;
+				}
+				if (str.length() == 5 && str.endsWith("airo")&& ! checkKey(str.charAt(0), 'C')){
+					substitute(str.charAt(0), 'C');
+					continue;
+				}
+				
+			}
+		}
+	}
+	private void Search_D(){
+		for (String str : util.getWordsFromFile_()){
+			char cha = str.charAt(0);
+			if (Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				continue;
+			}else {	
+				if (str.length() == 8 && str.endsWith("ecember")&&! checkKey(str.charAt(0), 'D')){
+					substitute(str.charAt(0), 'D');
+					continue;
+				}
+				if (str.length() == 5 && str.endsWith("avid")&&! checkKey(str.charAt(0), 'D')){
+					substitute(str.charAt(0), 'D');
+					continue;
+				}
+				if (str.length() == 5 && str.endsWith("avis")&&! checkKey(str.charAt(0), 'D')){
+					substitute(str.charAt(0), 'D');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("aniel")&&! checkKey(str.charAt(0), 'D')){
+					substitute(str.charAt(0), 'D');
+					continue;
+				}
+				if (str.length() == 7 && str.endsWith("orothy")&&! checkKey(str.charAt(0), 'D')){
+					substitute(str.charAt(0), 'D');
+					continue;
+				}
+				
+			}
+		}
+		System.out.println("didnt found D");
+	}
+	private void Search_E(){
+		for (String str : util.getWordsFromFile_()){
+			char cha = str.charAt(0);
+			if (Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				continue;
+			}else {
+				if (str.length() == 6 && str.endsWith("dward")&& ! checkKey(str.charAt(0), 'E')){
+					substitute(str.charAt(0), 'E');
+					continue;
+				}
+				if (str.length() == 9 && str.endsWith("lizabeth")&& ! checkKey(str.charAt(0), 'E')){
+					substitute(str.charAt(0), 'E');
+					continue;
+				}
+				if (str.length() == 7 && str.endsWith("ngland")&& ! checkKey(str.charAt(0), 'E')){
+					substitute(str.charAt(0), 'E');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("urope")&& ! checkKey(str.charAt(0), 'E')){
+					substitute(str.charAt(0), 'E');
+					continue;
+				}
+			}
+		}
+	}
+	private void Search_J(){
+		for (String str : util.getWordsFromFile_()){
+			char cha = str.charAt(0);
+			if (Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				continue;
+			}else {
+				if (str.length() == 7 && str.endsWith("anuary") && !checkKey(str.charAt(0),'J')){
+					substitute(str.charAt(0), 'J');
+					return;
+			}
+				if (str.length() == 4 && str.endsWith("une") && !checkKey(str.charAt(0),'d')
+					&& !checkKey(str.charAt(0), 'J')){
+					substitute(str.charAt(0), 'J');
+					return;
+				}
+				if (str.length() == 4 && str.endsWith("uly")&& !checkKey(str.charAt(0),'J')){
+					substitute(str.charAt(0), 'J');
+					return;
+				}
+				if (str.length() == 4 && str.endsWith("ennifer")&& !checkKey(str.charAt(0),'J')){
+					substitute(str.charAt(0), 'J');
+					return;
+				}
+				if (str.length() == 4 && str.endsWith("oseph")&& !checkKey(str.charAt(0),'J')){
+					substitute(str.charAt(0), 'J');
+					return;
+				}
+				if (str.length() == 4 && str.endsWith("ames")&& !checkKey(str.charAt(0),'J')){
+					substitute(str.charAt(0), 'J');
+					return;
+				}
+				if (str.length() == 4 && str.endsWith("ohnson")&& !checkKey(str.charAt(0),'J')){
+					substitute(str.charAt(0), 'J');
+					return;
+				}
+			}
+			System.out.println("couldnt find J");
+		}
+	}
+	private void Search_F(){
+		for (String str : util.getWordsFromFile_()){
+			char cha = str.charAt(0);
+			if (Integer.valueOf(cha) >=97 && Integer.valueOf(cha) <=122){
+				continue;
+			}else {
+				if (str.length() == 8 && str.endsWith("ebruary")&& !checkKey(str.charAt(0),'F')){
+					substitute(str.charAt(0), 'F');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("riday")&& !checkKey(str.charAt(0),'F')){
+					substitute(str.charAt(0), 'F');
+					continue;
+				}
+				if (str.length() == 6 && str.endsWith("rank")&& !checkKey(str.charAt(0),'F')){
+					substitute(str.charAt(0), 'F');
+					continue;
+				}
+				
+			}
+		}
+		System.out.println("couldnt find F");
+	}
+	
 	private boolean checkKey(char charAt, char ch) {
 		Character tmp =this.key.get(charAt);
 		if (tmp == null){
@@ -389,7 +583,6 @@ public class CipherTextAttack {
 			return (tmp == ch);
 		}
 	}
-
 	private int findMaxInArray(int[] appear) {
 		int max = 0;
 		int maxIndex=0;

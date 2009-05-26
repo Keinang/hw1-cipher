@@ -392,7 +392,7 @@ public class Util {
 		BufferedWriter out;
 		try {
 			in = new BufferedReader(new FileReader(file));
-			out = new BufferedWriter(new FileWriter("RESULT"));
+			out = new BufferedWriter(new FileWriter("RESULT.txt"));
 			String str;
 			boolean found = false;
 			//Getting String and substitute it with the key
