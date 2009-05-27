@@ -100,7 +100,6 @@ public class Util {
 				sort1Size++;
 			}else{
 				freqWordsSize1.put(word, ++tmp);
-				sort1Size++;
 			}
 		}else if (typeOfHash == 2){
 			Integer tmp = freqWordsSize2.get(word);
@@ -110,7 +109,6 @@ public class Util {
 				sort2Size++;
 			}else{
 				freqWordsSize2.put(word, ++tmp);
-				sort2Size++;
 			}
 		}else if (typeOfHash == 3){
 			Integer tmp = freqWordsSize3.get(word);
@@ -119,10 +117,7 @@ public class Util {
 				freqWordsSize3.put(word, i);
 				sort3Size++;
 			}else{
-				//int tmp2=tmp++;
-				//System.out.println(word +","+tmp2);
 				freqWordsSize3.put(word, ++tmp);
-				sort3Size++;
 			}
 		}else if (typeOfHash == 4){
 			Integer tmp = freqWordsSize4.get(word);
@@ -132,7 +127,6 @@ public class Util {
 				sort4Size++;
 			}else{
 				freqWordsSize4.put(word, ++tmp);
-				sort4Size++;
 			}
 		}
 	}
@@ -260,15 +254,38 @@ public class Util {
 		try {
 			out = new BufferedWriter(new FileWriter(outputFile));
 			for (char ch = 'a'; ch <= 'z' ; ch++){
-				out.write(ch +"="+key.get(ch)+" ");
+				out.write(ch);
 			}
-			out.write('\n');
 			for (char ch = 'A'; ch <= 'Z' ; ch++){
-				out.write(ch +"="+key.get(ch)+" ");
+				out.write(ch);
 			}
-			out.write('\n');
 			for (char ch = '0'; ch <= '9' ; ch++){
-				out.write(ch +"="+key.get(ch)+" ");
+				out.write(ch);
+			}
+			out.write("\n");
+			for (char ch = 'a'; ch <= 'z' ; ch++){
+				if (key.get(ch) == null){
+					out.write('?');
+				}
+				else{
+					out.write(key.get(ch));
+				}
+			}
+			for (char ch = 'A'; ch <= 'Z' ; ch++){
+				if (key.get(ch) == null){
+					out.write('?');
+				}
+				else{
+					out.write(key.get(ch));
+				}
+			}
+			for (char ch = '0'; ch <= '9' ; ch++){
+				if (key.get(ch) == null){
+					out.write('#');
+				}
+				else{
+					out.write(key.get(ch));
+				}
 			}
 	        out.close();
 		} catch (IOException e) {
@@ -464,6 +481,22 @@ public class Util {
 
 	public Vector<String> getSortedVecSize4() {
 		return sortedVecSize4;
+	}
+
+	public Vector<String> getSortedAllVecSize1() {
+		return sortedAllVecSize1;
+	}
+
+	public Vector<String> getSortedAllVecSize2() {
+		return sortedAllVecSize2;
+	}
+
+	public Vector<String> getSortedAllVecSize3() {
+		return sortedAllVecSize3;
+	}
+
+	public Vector<String> getSortedAllVecSize4() {
+		return sortedAllVecSize4;
 	}
 
 
