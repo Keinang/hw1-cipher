@@ -1,4 +1,4 @@
-package CipertextAttack;
+package Util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
 
 public class Util {
 	private HashMap<Character, Integer> lettersFreq_ = new HashMap<Character, Integer>();
@@ -172,7 +173,7 @@ public class Util {
 			System.out.print(ch +"="+letters.get(ch)+" ");
 		}
 	}
-	void sortFreq(){
+	public void sortFreq(){
 		HashMap<Character, Integer> tmpLettersFreq_ = new HashMap<Character, Integer>();
 		copyHashMapChar(tmpLettersFreq_,lettersFreq_);
 		List<Character> mapKeys = new ArrayList<Character>(((Map<Character, Integer>) this.lettersFreq_).keySet());
@@ -207,7 +208,7 @@ public class Util {
      * calculating Frequency
      * @param str - a String from the file.
      */
-	void calcFreq() {
+	public void calcFreq() {
 		int[] tmpFreq = new int[123];
 		for (String str : getWordsFromFile_()){
 			char[] charsInString = new char[str.length()];
@@ -243,7 +244,7 @@ public class Util {
 	/**
 	 * writing to file the Result key :
 	 */
-	void printResult(HashMap<Character,Character> key , final String cipherText) {
+	public void printResult(HashMap<Character,Character> key , final String cipherText) {
 		int tmpIndex = cipherText.indexOf('.');
 		String tmpFilename = cipherText.substring(0,tmpIndex);
 		tostring(key,tmpFilename+"_key.txt");

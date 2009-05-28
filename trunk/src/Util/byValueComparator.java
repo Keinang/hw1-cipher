@@ -1,4 +1,4 @@
-package CipertextAttack;
+package Util;
 
 import java.util.*;
 

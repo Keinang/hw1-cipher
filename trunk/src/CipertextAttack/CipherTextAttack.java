@@ -2,6 +2,8 @@ package CipertextAttack;
 
 import java.util.HashMap;
 
+import Util.Key;
+
 /**
  *  
  * @author GK
@@ -16,9 +18,6 @@ public class CipherTextAttack {
 		key = keyBuilder.getKey();
 		reverseKey = new HashMap<Character,Character>();
 	}
-	public CipherTextAttack(HashMap<Character,Character> partKey){
-		key = partKey;
-	}
 	
 	/**
 	 * @param args - cipher text
@@ -32,16 +31,9 @@ public class CipherTextAttack {
 			return;
 		}
 		
-		//~~~~~~~~~~~~~~~~~~~~~ Encrypt File (Only for test) ~~~~~~~~~~~~~~~
-//		make encrypt file to work with
-//		Encrypt encrypt = new Encrypt();
-//		encrypt.encryptWithKey(cipherText, "encryptedTxt.txt");
-//		cipherText = "encryptedTxt.txt";
-		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		
 		CipherTextAttack ct = new CipherTextAttack();
-		Decrypt dec = new Decrypt();
-		dec.decrypt(ct.getKey(),ct.getReverseKey(),cipherText);
+		Decrypt dec = new Decrypt(ct.getKey(),ct.getReverseKey(),cipherText);
+		dec.decrypt();
 		System.out.println((System.currentTimeMillis()-startTime)/1000F + " Seconds");
 		
 	}
@@ -51,7 +43,5 @@ public class CipherTextAttack {
 	public HashMap<Character, Character> getReverseKey() {
 		return reverseKey;
 	}
-	
-	
 }
 
