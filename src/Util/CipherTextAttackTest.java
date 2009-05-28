@@ -1,5 +1,6 @@
-package CipertextAttack;
+package Util;
 
+import CipertextAttack.CipherTextAttack;
 import junit.framework.TestCase;
 
 public class CipherTextAttackTest extends TestCase {

@@ -1,3 +1,0 @@
-a=N b=C c=V d=K e=P f=I g=A h=O i=S j=B k=Y l=H m=W n=F o=D p=E q=1 r=0 s=8 t=4 u=9 v=2 w=7 x=5 y=6 z=3 
-A=d B=m C=o D=p E=b F=v G=e H=w I=i J=t K=y L=n M=a N=h O=x P=s Q=J R=Z S=G T=L U=Q V=X W=T X=U Y=R Z=M 
-0=c 1=f 2=k 3=z 4=j 5=u 6=g 7=r 8=q 9=l 

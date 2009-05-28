@@ -1,4 +1,4 @@
-package CipertextAttack;
+package Util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Random;
+
 /**
  * Only to Encrypt a simple Plain Text.
  * @author GK
@@ -104,3 +105,9 @@ public class Encrypt {
 		}
 	}
 }
+//~~~~~~~~~~~~~~~~~~~~~ Encrypt File (Only for test) ~~~~~~~~~~~~~~~
+//make encrypt file to work with
+//Encrypt encrypt = new Encrypt();
+//encrypt.encryptWithKey(cipherText, "encryptedTxt.txt");
+//cipherText = "encryptedTxt.txt";
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
